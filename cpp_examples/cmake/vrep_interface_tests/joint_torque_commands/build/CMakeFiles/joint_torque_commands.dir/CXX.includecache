@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_torque_commands/joint_torque_commands.cpp
+dqrobotics/DQ.h
+-
+dqrobotics/interfaces/vrep/DQ_VrepInterface.h
+-
+dqrobotics/robots/FrankaEmikaPandaRobot.h
+-
+dqrobotics/robot_control/DQ_PseudoinverseController.h
+-
+thread
+-
+fstream
+-
+

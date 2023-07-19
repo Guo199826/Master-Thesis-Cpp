@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/build",
+  "command": "/usr/bin/g++   -I/usr/include/eigen3  -g   -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -std=gnu++11 -o CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o -c /home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/src/joint_velocity_commands.cpp",
+  "file": "/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/src/joint_velocity_commands.cpp"
+},
+{
+  "directory": "/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/build",
+  "command": "/usr/bin/g++   -I/usr/include/eigen3  -g   -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -std=gnu++11 -o CMakeFiles/joint_velocity_commands.dir/src/jacobianest.cpp.o -c /home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/src/jacobianest.cpp",
+  "file": "/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/src/jacobianest.cpp"
+},
+{
+  "directory": "/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/build",
+  "command": "/usr/bin/g++   -I/usr/include/eigen3  -g   -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -std=gnu++11 -o CMakeFiles/joint_velocity_commands.dir/src/geom_jacobian.cpp.o -c /home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/src/geom_jacobian.cpp",
+  "file": "/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/src/geom_jacobian.cpp"
+}
+]

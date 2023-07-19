@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_torque_commands/build",
+  "command": "/usr/bin/g++   -I/usr/include/eigen3  -g   -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -std=gnu++11 -o CMakeFiles/joint_torque_commands.dir/joint_torque_commands.cpp.o -c /home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_torque_commands/joint_torque_commands.cpp",
+  "file": "/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_torque_commands/joint_torque_commands.cpp"
+}
+]
