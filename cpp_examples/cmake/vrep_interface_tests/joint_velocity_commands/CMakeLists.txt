@@ -8,9 +8,8 @@ project(joint_velocity_commands)
 
 add_executable(joint_velocity_commands
     src/joint_velocity_commands.cpp
-    src/jacobianest.cpp
-    src/geom_jacobian.cpp
-    include/geom_jacobian.h
+    src/jacobianEst.cpp
+    src/geomJac.cpp
     )
 
 

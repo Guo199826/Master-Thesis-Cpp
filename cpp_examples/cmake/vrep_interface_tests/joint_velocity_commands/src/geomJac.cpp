@@ -1,6 +1,5 @@
-#include "geom_jacobian.h"
+#include "../include/geomJac.h"
 
-using namespace Eigen;
 
 MatrixXd geomJac(const DQ_SerialManipulator &robot, const MatrixXd &poseJacobian, const VectorXd &q, const int n){
             Matrix<double, 8, 1> v;
