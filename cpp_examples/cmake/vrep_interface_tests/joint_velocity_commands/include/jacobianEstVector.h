@@ -1,3 +1,5 @@
+#ifndef JACOBIANESTVECTOR_H
+#define JACOBIANESTVECTOR_H
 #include <iostream>
 #include <eigen3/Eigen/Dense>
 #include <dqrobotics/DQ.h>
@@ -9,4 +11,7 @@ using namespace DQ_robotics;
 
 MatrixXd jacobianEstVector(std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
     const VectorXd&, const int)> fct_geomJac, const VectorXd& q, 
-    std::function<MatrixXd(const VectorXd&)> fct_J);
+    std::function<MatrixXd(const VectorXd&)> fct_J,const int n,
+    const DQ_SerialManipulator &robot);
+
+#endif

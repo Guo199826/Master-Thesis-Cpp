@@ -63,7 +63,6 @@ int main(void)
     controller.set_control_objective(DQ_robotics::Translation);
     controller.set_stability_threshold(0.00001);
 
-
     DQ xdesired = 1 + E_*0.5*DQ(0, 0.2, 0.3, 0.3);
     vi.set_object_pose("DesiredFrame", xdesired);
 
@@ -72,6 +71,9 @@ int main(void)
     {
         VectorXd q = vi.get_joint_positions(jointnames);
         vi.set_object_pose("ReferenceFrame", robot->fkm(q));
+        // DQ Jacobian
+        MatrixXd J = robot->pose_jacobian(q);
+
         VectorXd u = controller.compute_setpoint_control_signal(q, vec4(xdesired.translation()));
         std::cout << "task error: " <<controller.get_last_error_signal().norm()
                   <<" Iteration: "<<i<<std::endl;

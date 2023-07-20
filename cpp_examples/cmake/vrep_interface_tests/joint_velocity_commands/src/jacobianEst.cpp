@@ -1,6 +1,6 @@
 #include "../include/jacobianEst.h"
 
-MatrixXd jacobianEst(std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
+Tensor<double> jacobianEst(std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
     const VectorXd&, const int)> fct_geomJac, const VectorXd& q, 
     std::function<MatrixXd(const VectorXd&)> fct_J,
     const int n) 

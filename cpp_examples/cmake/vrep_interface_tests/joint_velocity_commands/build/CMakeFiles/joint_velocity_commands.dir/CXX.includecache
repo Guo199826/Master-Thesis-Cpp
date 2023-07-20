@@ -6,19 +6,29 @@
 
 #IncludeRegexTransform: 
 
-/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/src/geom_jacobian.cpp
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/geomJac.h
 iostream
 -
 eigen3/Eigen/Dense
 -
 dqrobotics/DQ.h
 -
-
-/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/src/jacobianest.cpp
-eigen3/Eigen/Dense
+dqrobotics/robot_modeling/DQ_SerialManipulator.h
 -
 
-/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/src/joint_velocity_commands.cpp
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/jacobianEstVector.h
+iostream
+-
+eigen3/Eigen/Dense
+-
+dqrobotics/DQ.h
+-
+dqrobotics/robot_modeling/DQ_SerialManipulator.h
+-
+functional
+-
+
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/joint_velocity_commands.cpp
 dqrobotics/DQ.h
 -
 dqrobotics/interfaces/vrep/DQ_VrepInterface.h
@@ -28,5 +38,21 @@ dqrobotics/robots/FrankaEmikaPandaRobot.h
 dqrobotics/robot_control/DQ_PseudoinverseController.h
 -
 thread
+-
+
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/test.cpp
+iostream
+-
+../include/jacobianEstVector.h
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/jacobianEstVector.h
+../include/geomJac.h
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/geomJac.h
+dqrobotics/DQ.h
+-
+dqrobotics/robots/FrankaEmikaPandaRobot.h
+-
+dqrobotics/robot_modeling/DQ_SerialManipulator.h
+-
+memory
 -
 

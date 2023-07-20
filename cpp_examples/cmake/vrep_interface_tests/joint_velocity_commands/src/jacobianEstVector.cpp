@@ -1,10 +1,11 @@
 #include "../include/jacobianEstVector.h"
+// For derivative of singular value of Jacobian (eigenvalue of M)
 
 MatrixXd jacobianEstVector(std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
     const VectorXd&, const int)> fct_geomJac, const VectorXd& q, 
     std::function<MatrixXd(const VectorXd&)> fct_J,
     const int n,
-    const DQ_SerialManipulator &robot,
+    const DQ_SerialManipulator &robot
     ) 
 {
     double q_delta = 0.001;
@@ -18,8 +19,9 @@ MatrixXd jacobianEstVector(std::function<MatrixXd(const DQ_SerialManipulator&, c
     Matrix<double, 6, 7> J_geom_ii;
     Matrix<double, 6, 7> J_geom_i;
 
-    EigenSolver<MatrixXd> eigensolver;
-    VectorXd ev;
+    BDCSVD<MatrixXd> singularsolver;
+    Matrix<double, 6, 1> eigenvalue_i;
+    Matrix<double, 6, 1> eigenvalue_ii;
 
     Matrix<double, 6, 7> JEV;
 
@@ -31,8 +33,8 @@ MatrixXd jacobianEstVector(std::function<MatrixXd(const DQ_SerialManipulator&, c
         J_i = fct_J(q_i);
         J_geom_ii = fct_geomJac(robot,J_ii,q_ii,n);
         J_geom_i = fct_geomJac(robot,J_i,q_i,n);
-        auto eigenvalue_ii = eigensolver.compute(J_geom_ii,false);
-        auto eigenvalue_i = eigensolver.compute(J_geom_i,false);
+        eigenvalue_ii = singularsolver.compute(J_geom_ii).singularValues();
+        eigenvalue_i = singularsolver.compute(J_geom_i).singularValues();
 
         JEV.col(i) = (eigenvalue_ii - eigenvalue_i)/(2*q_delta);
         q_add(i) = 0;

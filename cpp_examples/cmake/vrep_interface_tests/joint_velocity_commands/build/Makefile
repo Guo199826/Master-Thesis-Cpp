@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands
+CMAKE_SOURCE_DIR = /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/build
+CMAKE_BINARY_DIR = /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles /home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -123,59 +123,86 @@ joint_velocity_commands/fast:
 	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/build
 .PHONY : joint_velocity_commands/fast
 
-src/geom_jacobian.o: src/geom_jacobian.cpp.o
+src/geomJac.o: src/geomJac.cpp.o
 
-.PHONY : src/geom_jacobian.o
-
-# target to build an object file
-src/geom_jacobian.cpp.o:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/geom_jacobian.cpp.o
-.PHONY : src/geom_jacobian.cpp.o
-
-src/geom_jacobian.i: src/geom_jacobian.cpp.i
-
-.PHONY : src/geom_jacobian.i
-
-# target to preprocess a source file
-src/geom_jacobian.cpp.i:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/geom_jacobian.cpp.i
-.PHONY : src/geom_jacobian.cpp.i
-
-src/geom_jacobian.s: src/geom_jacobian.cpp.s
-
-.PHONY : src/geom_jacobian.s
-
-# target to generate assembly for a file
-src/geom_jacobian.cpp.s:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/geom_jacobian.cpp.s
-.PHONY : src/geom_jacobian.cpp.s
-
-src/jacobianest.o: src/jacobianest.cpp.o
-
-.PHONY : src/jacobianest.o
+.PHONY : src/geomJac.o
 
 # target to build an object file
-src/jacobianest.cpp.o:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianest.cpp.o
-.PHONY : src/jacobianest.cpp.o
+src/geomJac.cpp.o:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/geomJac.cpp.o
+.PHONY : src/geomJac.cpp.o
 
-src/jacobianest.i: src/jacobianest.cpp.i
+src/geomJac.i: src/geomJac.cpp.i
 
-.PHONY : src/jacobianest.i
+.PHONY : src/geomJac.i
 
 # target to preprocess a source file
-src/jacobianest.cpp.i:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianest.cpp.i
-.PHONY : src/jacobianest.cpp.i
+src/geomJac.cpp.i:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/geomJac.cpp.i
+.PHONY : src/geomJac.cpp.i
 
-src/jacobianest.s: src/jacobianest.cpp.s
+src/geomJac.s: src/geomJac.cpp.s
 
-.PHONY : src/jacobianest.s
+.PHONY : src/geomJac.s
 
 # target to generate assembly for a file
-src/jacobianest.cpp.s:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianest.cpp.s
-.PHONY : src/jacobianest.cpp.s
+src/geomJac.cpp.s:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/geomJac.cpp.s
+.PHONY : src/geomJac.cpp.s
+
+src/jacobianEst.o: src/jacobianEst.cpp.o
+
+.PHONY : src/jacobianEst.o
+
+# target to build an object file
+src/jacobianEst.cpp.o:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianEst.cpp.o
+.PHONY : src/jacobianEst.cpp.o
+
+src/jacobianEst.i: src/jacobianEst.cpp.i
+
+.PHONY : src/jacobianEst.i
+
+# target to preprocess a source file
+src/jacobianEst.cpp.i:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianEst.cpp.i
+.PHONY : src/jacobianEst.cpp.i
+
+src/jacobianEst.s: src/jacobianEst.cpp.s
+
+.PHONY : src/jacobianEst.s
+
+# target to generate assembly for a file
+src/jacobianEst.cpp.s:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianEst.cpp.s
+.PHONY : src/jacobianEst.cpp.s
+
+src/jacobianEstVector.o: src/jacobianEstVector.cpp.o
+
+.PHONY : src/jacobianEstVector.o
+
+# target to build an object file
+src/jacobianEstVector.cpp.o:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.o
+.PHONY : src/jacobianEstVector.cpp.o
+
+src/jacobianEstVector.i: src/jacobianEstVector.cpp.i
+
+.PHONY : src/jacobianEstVector.i
+
+# target to preprocess a source file
+src/jacobianEstVector.cpp.i:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.i
+.PHONY : src/jacobianEstVector.cpp.i
+
+src/jacobianEstVector.s: src/jacobianEstVector.cpp.s
+
+.PHONY : src/jacobianEstVector.s
+
+# target to generate assembly for a file
+src/jacobianEstVector.cpp.s:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.s
+.PHONY : src/jacobianEstVector.cpp.s
 
 src/joint_velocity_commands.o: src/joint_velocity_commands.cpp.o
 
@@ -204,6 +231,33 @@ src/joint_velocity_commands.cpp.s:
 	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.s
 .PHONY : src/joint_velocity_commands.cpp.s
 
+src/test.o: src/test.cpp.o
+
+.PHONY : src/test.o
+
+# target to build an object file
+src/test.cpp.o:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o
+.PHONY : src/test.cpp.o
+
+src/test.i: src/test.cpp.i
+
+.PHONY : src/test.i
+
+# target to preprocess a source file
+src/test.cpp.i:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/test.cpp.i
+.PHONY : src/test.cpp.i
+
+src/test.s: src/test.cpp.s
+
+.PHONY : src/test.s
+
+# target to generate assembly for a file
+src/test.cpp.s:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/test.cpp.s
+.PHONY : src/test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -213,15 +267,21 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... joint_velocity_commands"
-	@echo "... src/geom_jacobian.o"
-	@echo "... src/geom_jacobian.i"
-	@echo "... src/geom_jacobian.s"
-	@echo "... src/jacobianest.o"
-	@echo "... src/jacobianest.i"
-	@echo "... src/jacobianest.s"
+	@echo "... src/geomJac.o"
+	@echo "... src/geomJac.i"
+	@echo "... src/geomJac.s"
+	@echo "... src/jacobianEst.o"
+	@echo "... src/jacobianEst.i"
+	@echo "... src/jacobianEst.s"
+	@echo "... src/jacobianEstVector.o"
+	@echo "... src/jacobianEstVector.i"
+	@echo "... src/jacobianEstVector.s"
 	@echo "... src/joint_velocity_commands.o"
 	@echo "... src/joint_velocity_commands.i"
 	@echo "... src/joint_velocity_commands.s"
+	@echo "... src/test.o"
+	@echo "... src/test.i"
+	@echo "... src/test.s"
 .PHONY : help
 
 
