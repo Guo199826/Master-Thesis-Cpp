@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../include/jacobianEstVector.h"
+#include "../include/jacobianEst.h"
 #include "../include/geomJac.h"
 #include <dqrobotics/DQ.h>
 #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
@@ -22,7 +23,9 @@ int main(){
     VectorXd q_ (7);
     q_ << 1.1519, 0.14, 0.2618, 0.0, 0.0, 1.39, 0.0 ; //  validate with q_test in Matlab
 
-    MatrixXd J_sing = jacobianEstVector(geomJac, q_, n, robot);
-    std::cout<<"JacobianEst for singular value: "<<std::endl<< J_sing <<std::endl;
+    // MatrixXd J_sing = jacobianEstVector(geomJac, q_, n, robot);
+    // std::cout<<"JacobianEst for singular value: "<<std::endl<< J_sing <<std::endl;
+
+    Tensor<double, 3> J_jacobian = jacobianEst(geomJac, q_, n, robot);
     return 0;
 }

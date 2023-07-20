@@ -11,6 +11,7 @@ CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.o: ../include/j
 CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.o: ../src/jacobianEstVector.cpp
 
 CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o: ../include/geomJac.h
+CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o: ../include/jacobianEst.h
 CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o: ../include/jacobianEstVector.h
 CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o: ../src/test.cpp
 
