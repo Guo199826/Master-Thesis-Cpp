@@ -11,7 +11,6 @@ using namespace DQ_robotics;
 
 MatrixXd jacobianEstVector(std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
     const VectorXd&, const int)> fct_geomJac, const VectorXd& q, 
-    std::function<MatrixXd(const VectorXd&)> fct_J,const int n,
-    const DQ_SerialManipulator &robot);
+    const int n, const DQ_SerialManipulator &robot);
 
 #endif

@@ -3,27 +3,26 @@
 #include "../include/geomJac.h"
 #include <dqrobotics/DQ.h>
 #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
-#include <dqrobotics/robot_modeling/DQ_SerialManipulator.h>
 #include <memory>
 
 using namespace DQ_robotics;
 
-MatrixXd DQ_SerialManipulator::pose_jacobian(const VectorXd &q_vec);
-
 int main(){
     // robot definition
-    auto robot = std::make_shared<DQ_SerialManipulatorMDH>
+    auto robot_ptr = std::make_shared<DQ_SerialManipulatorMDH>
             (FrankaEmikaPandaRobot::kinematics());
+    DQ_SerialManipulatorMDH robot = DQ_SerialManipulatorMDH(FrankaEmikaPandaRobot::kinematics());
 
     // Define function handle for geomJac and pose_jacobian
     std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
     const VectorXd&, const int)> fct_geomJac_ = geomJac;
-    std::function<MatrixXd(const VectorXd&)> fct_J_ = robot->pose_jacobian;
-    // Set joint angle
-    VectorXd q (7);
-    q << 0.0,0.0,0.0,0.0,0.0,0.0,0.0 ;
-    // DQ Jacobian
-        MatrixXd J = robot->pose_jacobian(q);
+    
+    // Set link number and joint angle
+    int n = 7;
+    VectorXd q_ (7);
+    q_ << 1.1519, 0.14, 0.2618, 0.0, 0.0, 1.39, 0.0 ; //  validate with q_test in Matlab
 
+    MatrixXd J_sing = jacobianEstVector(geomJac, q_, n, robot);
+    std::cout<<"JacobianEst for singular value: "<<std::endl<< J_sing <<std::endl;
     return 0;
 }

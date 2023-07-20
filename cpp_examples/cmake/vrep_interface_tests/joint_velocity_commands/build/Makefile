@@ -204,33 +204,6 @@ src/jacobianEstVector.cpp.s:
 	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.s
 .PHONY : src/jacobianEstVector.cpp.s
 
-src/joint_velocity_commands.o: src/joint_velocity_commands.cpp.o
-
-.PHONY : src/joint_velocity_commands.o
-
-# target to build an object file
-src/joint_velocity_commands.cpp.o:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o
-.PHONY : src/joint_velocity_commands.cpp.o
-
-src/joint_velocity_commands.i: src/joint_velocity_commands.cpp.i
-
-.PHONY : src/joint_velocity_commands.i
-
-# target to preprocess a source file
-src/joint_velocity_commands.cpp.i:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.i
-.PHONY : src/joint_velocity_commands.cpp.i
-
-src/joint_velocity_commands.s: src/joint_velocity_commands.cpp.s
-
-.PHONY : src/joint_velocity_commands.s
-
-# target to generate assembly for a file
-src/joint_velocity_commands.cpp.s:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.s
-.PHONY : src/joint_velocity_commands.cpp.s
-
 src/test.o: src/test.cpp.o
 
 .PHONY : src/test.o
@@ -276,9 +249,6 @@ help:
 	@echo "... src/jacobianEstVector.o"
 	@echo "... src/jacobianEstVector.i"
 	@echo "... src/jacobianEstVector.s"
-	@echo "... src/joint_velocity_commands.o"
-	@echo "... src/joint_velocity_commands.i"
-	@echo "... src/joint_velocity_commands.s"
 	@echo "... src/test.o"
 	@echo "... src/test.i"
 	@echo "... src/test.s"

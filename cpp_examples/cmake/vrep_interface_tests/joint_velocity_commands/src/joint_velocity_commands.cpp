@@ -71,8 +71,6 @@ int main(void)
     {
         VectorXd q = vi.get_joint_positions(jointnames);
         vi.set_object_pose("ReferenceFrame", robot->fkm(q));
-        // DQ Jacobian
-        MatrixXd J = robot->pose_jacobian(q);
 
         VectorXd u = controller.compute_setpoint_control_signal(q, vec4(xdesired.translation()));
         std::cout << "task error: " <<controller.get_last_error_signal().norm()

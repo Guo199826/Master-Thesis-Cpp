@@ -2,7 +2,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/joint_velocity_commands.dir/src/geomJac.cpp.o"
   "CMakeFiles/joint_velocity_commands.dir/src/jacobianEst.cpp.o"
   "CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.o"
-  "CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o"
   "CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o"
   "joint_velocity_commands"
   "joint_velocity_commands.pdb"
