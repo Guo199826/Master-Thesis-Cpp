@@ -2,6 +2,8 @@
 #include "../include/jacobianEstVector.h"
 #include "../include/jacobianEst.h"
 #include "../include/geomJac.h"
+// #include "../include/symm2vec.h"
+#include "../include/spd2vec.h"
 #include <dqrobotics/DQ.h>
 #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
 #include <memory>
@@ -20,12 +22,22 @@ int main(){
     
     // Set link number and joint angle
     int n = 7;
-    VectorXd q_ (7);
+    VectorXd q_ (n);
     q_ << 1.1519, 0.14, 0.2618, 0.0, 0.0, 1.39, 0.0 ; //  validate with q_test in Matlab
 
     // MatrixXd J_sing = jacobianEstVector(geomJac, q_, n, robot);
     // std::cout<<"JacobianEst for singular value: "<<std::endl<< J_sing <<std::endl;
 
-    Tensor<double, 3> J_jacobian = jacobianEst(geomJac, q_, n, robot);
+    // Tensor<double, 3> J_jacobian = jacobianEst(geomJac, q_, n, robot);
+
+    //test symm2vec
+    MatrixXd M_test(3,3);
+    M_test<< 3, 4, 7,
+             4, 1, 2,
+             7, 2, 5;
+
+    // VectorXd vec_test = symm2vec(M_test);
+    // std::cout<<"vec_test: "<<std::endl<<vec_test<<std::endl;
+
     return 0;
 }

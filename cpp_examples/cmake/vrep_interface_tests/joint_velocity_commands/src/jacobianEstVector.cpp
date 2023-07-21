@@ -30,7 +30,7 @@ MatrixXd jacobianEstVector(std::function<MatrixXd(const DQ_SerialManipulator&, c
     J_geom = fct_geomJac(robot,J,q,n);
     Matrix<double, 6, 1> eigenvalue;
     eigenvalue = singularsolver.compute(J_geom).singularValues();
-    std::cout<<"Singular value at q: "<<std::endl<<eigenvalue<<std::endl;
+    std::cout<<"Singular value of J_geom at q: "<<std::endl<<eigenvalue<<std::endl;
 
     for (int i=0; i<n; i++){
         q_add(i) = q_delta;

@@ -16,9 +16,6 @@ Tensor<double, 3> jacobianEst(std::function<MatrixXd(const DQ_SerialManipulator&
     Matrix<double, 6, 7> J_geom_ii;
     Matrix<double, 6, 7> J_geom_i;
 
-    BDCSVD<MatrixXd> singularsolver;
-    Matrix<double, 6, 1> eigenvalue_i;
-    Matrix<double, 6, 1> eigenvalue_ii;
     Tensor<double, 3> JE(6, 7, 7);
 
     //test:

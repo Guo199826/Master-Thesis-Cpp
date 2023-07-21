@@ -2,6 +2,6 @@
 // input arguments are Matrix instead of Tensor
 #include "../include/logmap.h"
 
-MatrixXd logmap(){
+// MatrixXd logmap(){
 
-}
+// }

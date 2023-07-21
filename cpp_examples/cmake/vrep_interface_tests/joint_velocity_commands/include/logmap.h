@@ -1,5 +1,5 @@
-#ifndef JACOBIANESTVECTOR_H
-#define JACOBIANESTVECTOR_H
+#ifndef LOGMAP_H
+#define LOGMAP_H
 #include <iostream>
 #include <eigen3/Eigen/Dense>
 #include <dqrobotics/DQ.h>
