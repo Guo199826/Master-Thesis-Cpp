@@ -258,33 +258,6 @@ src/test.cpp.s:
 	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/test.cpp.s
 .PHONY : src/test.cpp.s
 
-src/tmprod.o: src/tmprod.cpp.o
-
-.PHONY : src/tmprod.o
-
-# target to build an object file
-src/tmprod.cpp.o:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o
-.PHONY : src/tmprod.cpp.o
-
-src/tmprod.i: src/tmprod.cpp.i
-
-.PHONY : src/tmprod.i
-
-# target to preprocess a source file
-src/tmprod.cpp.i:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.i
-.PHONY : src/tmprod.cpp.i
-
-src/tmprod.s: src/tmprod.cpp.s
-
-.PHONY : src/tmprod.s
-
-# target to generate assembly for a file
-src/tmprod.cpp.s:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.s
-.PHONY : src/tmprod.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -309,9 +282,6 @@ help:
 	@echo "... src/test.o"
 	@echo "... src/test.i"
 	@echo "... src/test.s"
-	@echo "... src/tmprod.o"
-	@echo "... src/tmprod.i"
-	@echo "... src/tmprod.s"
 .PHONY : help
 
 

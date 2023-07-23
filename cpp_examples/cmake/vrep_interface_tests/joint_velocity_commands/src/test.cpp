@@ -2,12 +2,13 @@
 #include "../include/jacobianEstVector.h"
 #include "../include/jacobianEst.h"
 #include "../include/geomJac.h"
+// #include "../include/tmprod.h"
 // #include "../include/symm2vec.h"
 // #include "../include/spd2vec.h"
 #include <dqrobotics/DQ.h>
 #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
 #include <memory>
-#include <chrono>
+#include <array>
 
 using namespace DQ_robotics;
 
@@ -103,5 +104,82 @@ int main(){
 //     duration<double, std::milli> ms_double = t2 - t1;
 //     std::cout << ms_double.count() << "ms\n";
 //     std::cout<<"Result of tensor symm2vec: "<<std::endl<<M_res<<std::endl;
+    
+    // Tensor<double,3> T(3,3,4);
+    // T=T.random();
+    // std::cout<<"Tensor original: "<<std::endl<<T<<std::endl;
+    // // PermutationBase<Tensor<double,3>> perm;
+    // // perm.indices() = {2,1,0};
+    // // Tensor<double,3> T_temp = perm*T(:,:,1);
+    // // std::array<Index, 3> indices {4, 3, 3};
+    // // T.resize(indices,);
+    // array<int, 3> shuffling({1,2,0});
+    // Tensor<double,3> T_temp = T.shuffle(shuffling);
+    // std::cout<<"Tensor permuted : "<<std::endl<<T_temp<<std::endl;
+    // auto T_ = T.reshape(indices,);
+    // std::cout<<"Tensor resized: "<<std::endl<<T_<<std::endl;
+
+    // test tmprod/////////////////////////////////////////////////////////////////////
+    // Eigen::Tensor<double, 3> tensor(2, 3, 4);
+    // tensor.setRandom();
+    
+    // Eigen::MatrixXd matrix(3, 2);
+    // matrix.setRandom();
+    
+    // int mode = 1; // Choose the mode for the n-mode product (0, 1, or 2)
+    
+    // Eigen::Tensor<double, 3> result = tmprod(tensor, matrix, mode);
+
+
+    // Example usage
+    Tensor<double, 3> T(3, 3, 3);
+    Tensor<double, 3> result;
+    Tensor<double, 3> T_temp;
+    T.setConstant(1.0);
+    int mode =2;
+    MatrixXd matrix(3, 3);
+    matrix << 1, 2, 3,
+              4, 5, 6,
+              7, 8, 9;
+
+    array<long, 3> size_tens;
+    int rank = T.rank(); //=3
+    for (int i = 0; i<rank; i++){
+        int temp = T.dimension(i);
+        size_tens[i] = temp;
+    }
+    array<long, 3> perm;
+    switch (mode) {
+    case 1:
+        perm = {0,1,2};
+        break;
+
+    case 2:
+        perm = {1,0,2};
+        break;
+
+    case 3:
+        perm = {2,0,1};
+        break;
+    }
+    size_tens={size_tens[perm[0]], size_tens[perm[1]], size_tens[perm[2]]};
+    T_temp = T;
+    if (mode != 1){
+        result =T_temp.shuffle(perm);
+        
+    }
+    std::cout<<"result: "<<result<<std::endl;
+    // nmode product:
+    size_tens[0] = matrix.rows();
+    int col = result.size()/result.dimension(0);
+    MatrixXd M_temp = Map<MatrixXd> (result.data(), result.dimension(0),col);
+    MatrixXd M_temp2 = matrix* M_temp;
+    std::cout<<"M_temp2: "<<M_temp2<<std::endl;
+    auto T_temp2 = TensorMap<Tensor<double,3,RowMajor>>(M_temp2.data(), size_tens[0],size_tens[1],size_tens[2]);
+    // // // result = T_temp.reshape(size_tens);
+    std::cout << "Result of n-mode product:" << std::endl<<T_temp2<< std::endl;
+    std::cout << "Result of n-mode product at:" << std::endl<<T_temp2(2,1,3)<< std::endl;
+
+
     return 0;
 }
