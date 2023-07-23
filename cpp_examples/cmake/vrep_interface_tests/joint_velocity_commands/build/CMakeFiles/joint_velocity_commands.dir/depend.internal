@@ -10,8 +10,14 @@ CMakeFiles/joint_velocity_commands.dir/src/jacobianEst.cpp.o
 CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.o
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/jacobianEstVector.h
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/jacobianEstVector.cpp
+CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.o
+ /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/spdToVec.h
+ /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/spdToVec.cpp
 CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/geomJac.h
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/jacobianEst.h
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/jacobianEstVector.h
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/test.cpp
+CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o
+ /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/tmprod.h
+ /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/tmprod.cpp

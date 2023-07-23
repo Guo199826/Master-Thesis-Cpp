@@ -7,6 +7,7 @@
 #include <dqrobotics/DQ.h>
 #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
 #include <memory>
+#include <chrono>
 
 using namespace DQ_robotics;
 
@@ -43,49 +44,64 @@ int main(){
     // MatrixXd vec_add;
     // vec = M_test.diagonal();
     // std::cout<<"vec: "<<vec<<std::endl;
-    
     // for (Index i =1; i<n_1; i++){
     //     vec_add = sqrt(2)*M_test.diagonal(i);
     //     int to_append = vec_add.size();
     //     std::cout<<"vec_add size: "<<to_append<<std::endl;
     //     vec.conservativeResize(vec.size() + vec_add.size(),1);
     //     vec.bottomRows(to_append)= vec_add;
-        
     //     // std::cout<<"vec_before append: "<<vec<<std::endl;
     //     std::cout<<"vec_size: "<<vec.size()<<std::endl;
     //     // vec.bottomRows(to_append) = vec_add;
     //     // vec << vec, vec_add;
     // }
-    // test spd2vec with tensor as input
-    Tensor<double,3> T(3,3,4);
-    T.setConstant(1);
-    std::cout<<"T: "<<std::endl<<T<<std::endl;
-    int d = T.dimension(0);
-    int n = T.dimension(2);
-    std::cout<<"T_dimension 0: "<<d<<std::endl;
-    std::cout<<"T_dimension 2: "<<n<<std::endl;
-    VectorXd vec;
-    VectorXd vec_add;
-    array<DenseIndex, 3> offset; 
-    array<DenseIndex, 3> extent;
-    std::array<long,2> shape2 = {3,3};
-    
-    for (int i =0; i<n; i++){
-        
-        offset = {0, 0, i};
-        extent = {3, 4, 1};
-        T = T.slice(offset, extent);
-        // here!!!
-        MatrixXd M = Map<MatrixXd> (T.data(), d, n);
-        std::cout<<"M: "<<std::endl<<M<<std::endl;
-        vec = M.diagonal();
-        for (int j = 0; j<d-1; j++){
-            vec_add = sqrt(2) * vec.diagonal(-1);
-            VectorXd vec_jointed(vec.size() + vec_add.size());
-            vec << vec ,
-                vec_add;
-        }
-    }
 
+    // test spd2vec with tensor as input with clock//////////////////////////////////
+//     using std::chrono::high_resolution_clock;
+//     using std::chrono::duration_cast;
+//     using std::chrono::duration;
+//     using std::chrono::milliseconds;
+//     auto t1 = high_resolution_clock::now(); ////////////////
+//     Tensor<double,3> T(3,3,4);
+//     Tensor<double,3> T_temp;
+//     T.setConstant(1);
+//     // std::cout<<"T: "<<std::endl<<T<<std::endl;
+//     int d = T.dimension(0);
+//     int n = T.dimension(2);
+//     std::cout<<"T_dimension 0: "<<d<<std::endl;
+//     std::cout<<"T_dimension 2: "<<n<<std::endl;
+//     VectorXd vec;
+//     VectorXd vec_add;
+//     MatrixXd M;
+//     MatrixXd M_res;
+//     array<DenseIndex, 3> offset; 
+//     array<DenseIndex, 3> extent;
+//     for (int i = 0; i<n; i++){
+//         offset = {0, 0, i};
+//         extent = {d, d, 1};
+//         T_temp = T.slice(offset, extent);
+//         std::cout<<"T: "<<std::endl<<T_temp<<std::endl;
+//         M = Map<MatrixXd> (T_temp.data(), d, d);
+//         std::cout<<"M: "<<std::endl<<M<<std::endl;
+//         vec = M.diagonal();
+//         for (int j = 1; j<d; j++){
+//             vec_add = sqrt(2) * M.diagonal(j);
+//             int to_append = vec_add.size();
+//             std::cout<<"vec_add size: "<<to_append<<std::endl;
+//             std::cout<<"vec_add: "<<std::endl<<vec_add<<std::endl;
+//             vec.conservativeResize(vec.size() + vec_add.size(),1);
+//             vec.bottomRows(to_append)= vec_add;
+//             std::cout<<"vec_size: "<<vec.size()<<std::endl;
+//             std::cout<<"vec: "<<std::endl<<vec<<std::endl;
+//         }
+//         std::cout<<"M size: "<<M_res.size()<<std::endl;
+//         M_res.conservativeResize(vec.rows(), i+1);
+//         M_res.col(i) = vec;
+//     }
+//     auto t2 = high_resolution_clock::now(); /////////////////////////
+//     /* Getting number of milliseconds as a double. */
+//     duration<double, std::milli> ms_double = t2 - t1;
+//     std::cout << ms_double.count() << "ms\n";
+//     std::cout<<"Result of tensor symm2vec: "<<std::endl<<M_res<<std::endl;
     return 0;
 }

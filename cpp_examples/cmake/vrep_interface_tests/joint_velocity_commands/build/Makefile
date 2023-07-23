@@ -204,6 +204,33 @@ src/jacobianEstVector.cpp.s:
 	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.s
 .PHONY : src/jacobianEstVector.cpp.s
 
+src/spdToVec.o: src/spdToVec.cpp.o
+
+.PHONY : src/spdToVec.o
+
+# target to build an object file
+src/spdToVec.cpp.o:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.o
+.PHONY : src/spdToVec.cpp.o
+
+src/spdToVec.i: src/spdToVec.cpp.i
+
+.PHONY : src/spdToVec.i
+
+# target to preprocess a source file
+src/spdToVec.cpp.i:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.i
+.PHONY : src/spdToVec.cpp.i
+
+src/spdToVec.s: src/spdToVec.cpp.s
+
+.PHONY : src/spdToVec.s
+
+# target to generate assembly for a file
+src/spdToVec.cpp.s:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.s
+.PHONY : src/spdToVec.cpp.s
+
 src/test.o: src/test.cpp.o
 
 .PHONY : src/test.o
@@ -231,6 +258,33 @@ src/test.cpp.s:
 	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/test.cpp.s
 .PHONY : src/test.cpp.s
 
+src/tmprod.o: src/tmprod.cpp.o
+
+.PHONY : src/tmprod.o
+
+# target to build an object file
+src/tmprod.cpp.o:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o
+.PHONY : src/tmprod.cpp.o
+
+src/tmprod.i: src/tmprod.cpp.i
+
+.PHONY : src/tmprod.i
+
+# target to preprocess a source file
+src/tmprod.cpp.i:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.i
+.PHONY : src/tmprod.cpp.i
+
+src/tmprod.s: src/tmprod.cpp.s
+
+.PHONY : src/tmprod.s
+
+# target to generate assembly for a file
+src/tmprod.cpp.s:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.s
+.PHONY : src/tmprod.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -249,9 +303,15 @@ help:
 	@echo "... src/jacobianEstVector.o"
 	@echo "... src/jacobianEstVector.i"
 	@echo "... src/jacobianEstVector.s"
+	@echo "... src/spdToVec.o"
+	@echo "... src/spdToVec.i"
+	@echo "... src/spdToVec.s"
 	@echo "... src/test.o"
 	@echo "... src/test.i"
 	@echo "... src/test.s"
+	@echo "... src/tmprod.o"
+	@echo "... src/tmprod.i"
+	@echo "... src/tmprod.s"
 .PHONY : help
 
 

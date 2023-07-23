@@ -7,6 +7,20 @@
 			"command": "configure",
 			"problemMatcher": [],
 			"detail": "CMake template configure task"
+		},
+		{
+			"type": "cmake",
+			"label": "CMake: build",
+			"command": "build",
+			"targets": [
+				"all"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+			"detail": "CMake template build task"
 		}
 	]
 }

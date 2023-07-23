@@ -12,11 +12,12 @@ add_executable(joint_velocity_commands
     src/jacobianEstVector.cpp
     src/geomJac.cpp
     src/test.cpp
+    src/spdToVec.cpp
     # src/manipulabilityJacobian.cpp
-    # src/tmprod.cpp
+    src/tmprod.cpp
     # src/logmap.cpp
     # src/symm2vec.cpp
-    # src/spd2vec.cpp
+    
     )
 
 
