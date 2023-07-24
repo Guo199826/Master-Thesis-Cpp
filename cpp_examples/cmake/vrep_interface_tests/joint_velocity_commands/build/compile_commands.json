@@ -23,5 +23,10 @@
   "directory": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build",
   "command": "/usr/bin/g++   -I/usr/include/eigen3  -g   -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -std=gnu++11 -o CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.o -c /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/spdToVec.cpp",
   "file": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/spdToVec.cpp"
+},
+{
+  "directory": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build",
+  "command": "/usr/bin/g++   -I/usr/include/eigen3  -g   -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -std=gnu++11 -o CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o -c /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/tmprod.cpp",
+  "file": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/tmprod.cpp"
 }
 ]

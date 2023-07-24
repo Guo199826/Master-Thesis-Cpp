@@ -6,6 +6,7 @@
 
 using namespace Eigen;
 
-// VectorXd spd2vec (const MatrixXd &mat);
+VectorXd spd2vec_vec (const MatrixXd &M);
+MatrixXd spd2vec_mat (const Tensor<double,3> &T);
 
 #endif

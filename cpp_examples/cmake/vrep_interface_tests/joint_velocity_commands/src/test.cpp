@@ -120,65 +120,37 @@ int main(){
     // std::cout<<"Tensor resized: "<<std::endl<<T_<<std::endl;
 
     // test tmprod/////////////////////////////////////////////////////////////////////
-    // Eigen::Tensor<double, 3> tensor(2, 3, 4);
-    // tensor.setRandom();
-    
-    // Eigen::MatrixXd matrix(3, 2);
-    // matrix.setRandom();
-    
-    // int mode = 1; // Choose the mode for the n-mode product (0, 1, or 2)
-    
-    // Eigen::Tensor<double, 3> result = tmprod(tensor, matrix, mode);
-
-
-    // Example usage
-    Tensor<double, 3> T(3, 3, 3);
-    Tensor<double, 3> result;
-    Tensor<double, 3> T_temp;
-    T.setConstant(1.0);
-    int mode =2;
+    // Tensor<double, 3> T(3,3,3);
+    // T.setConstant(1.0);
     MatrixXd matrix(3, 3);
     matrix << 1, 2, 3,
               4, 5, 6,
               7, 8, 9;
+    // int mode = 1; // Choose the mode for the n-mode product (0, 1, or 2)
+    // Tensor<double, 3> result = tmprod(T, matrix, 2);
+    // std::cout << "Result of n-mode product:" << std::endl<<T_temp2<< std::endl;
+    // std::cout << "Result of n-mode product test; :" << std::endl<<T_temp2(2,1,3)<< std::endl;
 
-    array<long, 3> size_tens;
-    int rank = T.rank(); //=3
-    for (int i = 0; i<rank; i++){
-        int temp = T.dimension(i);
-        size_tens[i] = temp;
-    }
-    array<long, 3> perm;
-    switch (mode) {
-    case 1:
-        perm = {0,1,2};
-        break;
+    // test logmap
+    MatrixXd M_1 <<    2.1628,   -0.1748,    0.0359,   -0.2370,   -0.7552,   -0.0315,
+                      -0.1748,    2.8573,    0.3590,    0.8642,    0.1461,    0.0609,
+                       0.0359,    0.3590,    1.9799,   -0.0817,   -0.2148,    0.0909,
+                      -0.2370,    0.8642,   -0.0817,    0.4238,    0.1317,    0.0448,
+                      -0.7552,    0.1461,   -0.2148,    0.1317,    0.4455,   -0.0576,
+                      -0.0315,    0.0609,    0.0909,    0.0448,   -0.0576,    0.0644;
 
-    case 2:
-        perm = {1,0,2};
-        break;
+    MatrixXd M_2 <<     2.7930    0.1532   -0.1684    0.1195   -0.0701    0.7743
+                        0.1532    2.3853   -0.1840    0.1339   -0.0114   -0.2043
+                        -0.1684   -0.1840    1.8217   -0.2919   -0.0225   -0.1081
+                        0.1195    0.1339   -0.2919    0.2293   -0.0415    0.0601
+                        -0.0701   -0.0114   -0.0225   -0.0415    0.0164   -0.0309
+                        0.7743   -0.2043   -0.1081    0.0601   -0.0309    0.3876
+    int size = M_1.rows();
 
-    case 3:
-        perm = {2,0,1};
-        break;
-    }
-    size_tens={size_tens[perm[0]], size_tens[perm[1]], size_tens[perm[2]]};
-    T_temp = T;
-    if (mode != 1){
-        result =T_temp.shuffle(perm);
-        
-    }
-    std::cout<<"result: "<<result<<std::endl;
-    // nmode product:
-    size_tens[0] = matrix.rows();
-    int col = result.size()/result.dimension(0);
-    MatrixXd M_temp = Map<MatrixXd> (result.data(), result.dimension(0),col);
-    MatrixXd M_temp2 = matrix* M_temp;
-    std::cout<<"M_temp2: "<<M_temp2<<std::endl;
-    auto T_temp2 = TensorMap<Tensor<double,3,RowMajor>>(M_temp2.data(), size_tens[0],size_tens[1],size_tens[2]);
-    // // // result = T_temp.reshape(size_tens);
-    std::cout << "Result of n-mode product:" << std::endl<<T_temp2<< std::endl;
-    std::cout << "Result of n-mode product at:" << std::endl<<T_temp2(2,1,3)<< std::endl;
+    MatrixXd div =
+    EigenSolver<MatrixXd> eigensolver(M_1/M_2);
+    MatrixXd EV = eigensolver.eigenvalues().asDiagonal();
+    MatrixXd EVec = eigensolver.eigenvectors();
 
 
     return 0;

@@ -13,8 +13,6 @@ VectorXd spd2vec_vec (const MatrixXd &M){
         std::cout<<"vec_add size: "<<to_append<<std::endl;
         vec.conservativeResize(vec.size() + vec_add.size());
         vec.bottomRows(to_append)= vec_add;
-        
-        // std::cout<<"vec_before append: "<<vec<<std::endl;
         std::cout<<"vec_size: "<<vec.size()<<std::endl;
         // vec.bottomRows(to_append) = vec_add;
         // vec << vec, vec_add;
