@@ -9,6 +9,6 @@
 using namespace Eigen;
 using namespace DQ_robotics;
 
-
+MatrixXd logmap(const MatrixXd &M_1, const MatrixXd &M_2);
 
 #endif

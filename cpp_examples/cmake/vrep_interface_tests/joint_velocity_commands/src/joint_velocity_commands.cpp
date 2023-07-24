@@ -31,6 +31,9 @@ Prerequisites:
 #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
 #include <dqrobotics/robot_control/DQ_PseudoinverseController.h>
 #include <thread>
+#include "../include/jacobianEst.h"
+#include "../include/geomJac.h"
+
 
 using namespace Eigen;
 
@@ -48,14 +51,40 @@ int main(void)
                                            "Franka_joint5", "Franka_joint6",
                                            "Franka_joint7"};
 
-    // robot definition
+    // robot definition 
     auto robot = std::make_shared<DQ_SerialManipulatorMDH>
             (FrankaEmikaPandaRobot::kinematics());
-
     //Update the base of the robot from CoppeliaSim
     DQ new_base_robot = (robot->get_base_frame())*vi.get_object_pose("Franka")*(1+0.5*E_*(-0.07*k_));
     robot->set_reference_frame(new_base_robot);
 
+    // robot no ptr
+    DQ_SerialManipulatorMDH robot_ = DQ_SerialManipulatorMDH(FrankaEmikaPandaRobot::kinematics());
+    // //Update the base of the robot from CoppeliaSim
+    // DQ new_base_robot_ = (robot_.get_base_frame())*vi.get_object_pose("Franka")*(1+0.5*E_*(-0.07*k_));
+    // robot_.set_reference_frame(new_base_robot_);
+
+    // Define function handle for geomJac and pose_jacobian
+    std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
+    const VectorXd&, const int)> fct_geomJac_ = geomJac;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    // Set link number and joint angle
+    int n = 7;
+    VectorXd q_ (7);
+    q_ << 1.1519, 0.14, 0.2618, 0.0, 0.0, 1.39, 0.0 ; //  validate with q_test in Matlab
+    // test geomJ
+    MatrixXd J = robot_.pose_jacobian(q_);
+    std::cout<<"J: "<<std::endl<<J<<std::endl;
+    MatrixXd J_geom = geomJac(robot_, J, q_, n);
+    std::cout<<"J_geom: "<<std::endl<<J_geom<<std::endl;
+
+    // test jacobianEstVector
+    // ev_diff: eigenvalue of Manipulability
+    // MatrixXd J_sing = jacobianEstVector(geomJac, q_, n, robot); 
+    // std::cout<<"JacobianEst for singular value: "<<std::endl<< J_sing <<std::endl;
+    // test jacobianEst
+    // Tensor<double, 3> J_jacobian = jacobianEst(geomJac, q_, n, robot_);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     DQ_PseudoinverseController controller(robot);
     controller.set_gain(0.5);

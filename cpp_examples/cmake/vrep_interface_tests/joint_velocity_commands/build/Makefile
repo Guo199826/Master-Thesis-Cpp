@@ -204,6 +204,60 @@ src/jacobianEstVector.cpp.s:
 	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.s
 .PHONY : src/jacobianEstVector.cpp.s
 
+src/joint_velocity_commands.o: src/joint_velocity_commands.cpp.o
+
+.PHONY : src/joint_velocity_commands.o
+
+# target to build an object file
+src/joint_velocity_commands.cpp.o:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o
+.PHONY : src/joint_velocity_commands.cpp.o
+
+src/joint_velocity_commands.i: src/joint_velocity_commands.cpp.i
+
+.PHONY : src/joint_velocity_commands.i
+
+# target to preprocess a source file
+src/joint_velocity_commands.cpp.i:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.i
+.PHONY : src/joint_velocity_commands.cpp.i
+
+src/joint_velocity_commands.s: src/joint_velocity_commands.cpp.s
+
+.PHONY : src/joint_velocity_commands.s
+
+# target to generate assembly for a file
+src/joint_velocity_commands.cpp.s:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.s
+.PHONY : src/joint_velocity_commands.cpp.s
+
+src/logmap.o: src/logmap.cpp.o
+
+.PHONY : src/logmap.o
+
+# target to build an object file
+src/logmap.cpp.o:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o
+.PHONY : src/logmap.cpp.o
+
+src/logmap.i: src/logmap.cpp.i
+
+.PHONY : src/logmap.i
+
+# target to preprocess a source file
+src/logmap.cpp.i:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.i
+.PHONY : src/logmap.cpp.i
+
+src/logmap.s: src/logmap.cpp.s
+
+.PHONY : src/logmap.s
+
+# target to generate assembly for a file
+src/logmap.cpp.s:
+	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.s
+.PHONY : src/logmap.cpp.s
+
 src/spdToVec.o: src/spdToVec.cpp.o
 
 .PHONY : src/spdToVec.o
@@ -231,60 +285,6 @@ src/spdToVec.cpp.s:
 	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.s
 .PHONY : src/spdToVec.cpp.s
 
-src/test.o: src/test.cpp.o
-
-.PHONY : src/test.o
-
-# target to build an object file
-src/test.cpp.o:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o
-.PHONY : src/test.cpp.o
-
-src/test.i: src/test.cpp.i
-
-.PHONY : src/test.i
-
-# target to preprocess a source file
-src/test.cpp.i:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/test.cpp.i
-.PHONY : src/test.cpp.i
-
-src/test.s: src/test.cpp.s
-
-.PHONY : src/test.s
-
-# target to generate assembly for a file
-src/test.cpp.s:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/test.cpp.s
-.PHONY : src/test.cpp.s
-
-src/tmprod.o: src/tmprod.cpp.o
-
-.PHONY : src/tmprod.o
-
-# target to build an object file
-src/tmprod.cpp.o:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o
-.PHONY : src/tmprod.cpp.o
-
-src/tmprod.i: src/tmprod.cpp.i
-
-.PHONY : src/tmprod.i
-
-# target to preprocess a source file
-src/tmprod.cpp.i:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.i
-.PHONY : src/tmprod.cpp.i
-
-src/tmprod.s: src/tmprod.cpp.s
-
-.PHONY : src/tmprod.s
-
-# target to generate assembly for a file
-src/tmprod.cpp.s:
-	$(MAKE) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.s
-.PHONY : src/tmprod.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -303,15 +303,15 @@ help:
 	@echo "... src/jacobianEstVector.o"
 	@echo "... src/jacobianEstVector.i"
 	@echo "... src/jacobianEstVector.s"
+	@echo "... src/joint_velocity_commands.o"
+	@echo "... src/joint_velocity_commands.i"
+	@echo "... src/joint_velocity_commands.s"
+	@echo "... src/logmap.o"
+	@echo "... src/logmap.i"
+	@echo "... src/logmap.s"
 	@echo "... src/spdToVec.o"
 	@echo "... src/spdToVec.i"
 	@echo "... src/spdToVec.s"
-	@echo "... src/test.o"
-	@echo "... src/test.i"
-	@echo "... src/test.s"
-	@echo "... src/tmprod.o"
-	@echo "... src/tmprod.i"
-	@echo "... src/tmprod.s"
 .PHONY : help
 
 

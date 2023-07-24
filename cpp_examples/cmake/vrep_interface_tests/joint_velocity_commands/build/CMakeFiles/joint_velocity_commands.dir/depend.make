@@ -10,14 +10,13 @@ CMakeFiles/joint_velocity_commands.dir/src/jacobianEst.cpp.o: ../src/jacobianEst
 CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.o: ../include/jacobianEstVector.h
 CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.o: ../src/jacobianEstVector.cpp
 
+CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: ../include/geomJac.h
+CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: ../include/jacobianEst.h
+CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: ../src/joint_velocity_commands.cpp
+
+CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o: ../include/logmap.h
+CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o: ../src/logmap.cpp
+
 CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.o: ../include/spdToVec.h
 CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.o: ../src/spdToVec.cpp
-
-CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o: ../include/geomJac.h
-CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o: ../include/jacobianEst.h
-CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o: ../include/jacobianEstVector.h
-CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o: ../src/test.cpp
-
-CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: ../include/tmprod.h
-CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: ../src/tmprod.cpp
 
