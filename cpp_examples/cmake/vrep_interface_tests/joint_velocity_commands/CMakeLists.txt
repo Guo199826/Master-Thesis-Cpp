@@ -16,10 +16,11 @@ add_executable(joint_velocity_commands
     src/geomJac.cpp
     src/test.cpp
     src/spdToVec.cpp
-    # src/manipulabilityJacobian.cpp
+    include/manipulabilityJacobian.h
     src/logmap.cpp
+    src/tmprod.cpp
     # src/symm2vec.cpp
-    
+    include/franka_analytical_ik-main/franka_ik_He.hpp
     )
 
 

@@ -2,6 +2,7 @@
 #include "../include/jacobianEstVector.h"
 #include "../include/jacobianEst.h"
 #include "../include/geomJac.h"
+#include "../include/manipulabilityJacobian.h"
 // #include "../include/tmprod.h"
 // #include "../include/symm2vec.h"
 // #include "../include/spd2vec.h"
@@ -146,7 +147,11 @@ int main(){
     //                 -0.0701,   -0.0114,   -0.0225,   -0.0415,    0.0164,   -0.0309,
     //                 0.7743,   -0.2043,   -0.1081,    0.0601,   -0.0309,    0.3876;
     
-    // test OSQP solver
+    // test redManiJac
+    //tbc
+
+
+    /* // test OSQP solver
     constexpr double tolerance = 1e-4;
     Eigen::Matrix<c_float, 2, 2> H;
     Eigen::SparseMatrix<c_float> H_s;
@@ -199,6 +204,7 @@ int main(){
 
     bool converge = solver.getSolution().isApprox(expectedSolution, tolerance);
     std::cout<<"Converged to desired solution: "<<converge<<std::endl;
+    */ 
 
     return 0;
 }

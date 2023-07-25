@@ -12,6 +12,8 @@ using namespace Eigen;
 using namespace DQ_robotics;
 
 Tensor<double, 3> manipulabilityJacobian(const MatrixXd & geomJ, const Tensor<double, 3> &J_grad);
-MatrixXd redManipulabilityJacobian(const MatrixXd & geomJ, const Tensor<double, 3> &J_grad);
+
+MatrixXd redManipulabilityJacobian(const MatrixXd & geomJ_, const Tensor<double, 3> &J_grad_);
+
 
 #endif

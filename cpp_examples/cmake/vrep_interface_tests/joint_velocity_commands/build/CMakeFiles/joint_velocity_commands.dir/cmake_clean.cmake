@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.o.d"
   "CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o"
   "CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o.d"
+  "CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o"
+  "CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o.d"
   "joint_velocity_commands"
   "joint_velocity_commands.pdb"
 )
