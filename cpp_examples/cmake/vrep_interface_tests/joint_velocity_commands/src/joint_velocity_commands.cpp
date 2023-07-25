@@ -33,7 +33,8 @@ Prerequisites:
 #include <thread>
 #include "../include/jacobianEst.h"
 #include "../include/geomJac.h"
-
+#include "osqp/osqp.h"
+#include "OsqpEigen/OsqpEigen.h"
 
 using namespace Eigen;
 

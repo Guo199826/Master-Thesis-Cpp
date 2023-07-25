@@ -5,41 +5,45 @@
 // #include "../include/tmprod.h"
 // #include "../include/symm2vec.h"
 // #include "../include/spd2vec.h"
-// #include <dqrobotics/DQ.h>
+#include <dqrobotics/DQ.h>
 #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
-#include <dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h>
-#include <dqrobotics/robot_modeling/DQ_SerialManipulator.h>
+// #include <dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h>
+// #include <dqrobotics/robot_modeling/DQ_SerialManipulator.h>
 #include <memory>
 #include <array>
+// #include "osqp/osqp.h"
+#include "OsqpEigen/OsqpEigen.h"
 
 using namespace DQ_robotics;
+// int test();
 
 int main(){
-    // robot definition
-    auto robot_ptr = std::make_shared<DQ_SerialManipulatorMDH>
-            (FrankaEmikaPandaRobot::kinematics());
-    DQ_SerialManipulatorMDH robot = DQ_SerialManipulatorMDH(FrankaEmikaPandaRobot::kinematics());
+    // // robot definition
+    // auto robot_ptr = std::make_shared<DQ_SerialManipulatorMDH>
+    //         (FrankaEmikaPandaRobot::kinematics());
+    // DQ_SerialManipulatorMDH robot = DQ_SerialManipulatorMDH(FrankaEmikaPandaRobot::kinematics());
 
-    // Define function handle for geomJac and pose_jacobian
-    std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
-    const VectorXd&, const int)> fct_geomJac_ = geomJac;
+    // // Define function handle for geomJac and pose_jacobian
+    // std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
+    // const VectorXd&, const int)> fct_geomJac_ = geomJac;
     
-    // Set link number and joint angle
-    int n = 7;
-    VectorXd q_ (7);
-    q_ << 1.1519, 0.14, 0.2618, 0.0, 0.0, 1.39, 0.0 ; //  validate with q_test in Matlab
-    // test geomJ
-    MatrixXd J = robot_ptr->pose_jacobian(q_);
-    std::cout<<"J: "<<std::endl<<J<<std::endl;
-    MatrixXd J_geom = geomJac(robot, J, q_, n);
-    std::cout<<"J_geom: "<<std::endl<<J_geom<<std::endl;
+    // // test J and geomJ
+    // // Set link number and joint angle
+    // int n = 7;
+    // VectorXd q_ (7);
+    // q_ << 1.1519, 0.14, 0.2618, 0.0, 0.0, 1.39, 0.0 ; //  validate with q_test in Matlab
+    // MatrixXd J = robot_ptr->pose_jacobian(q_);
+    // std::cout<<"J: "<<std::endl<<J<<std::endl;
+    // MatrixXd J_geom = geomJac(robot, J, q_, n);
+    // std::cout<<"J_geom: "<<std::endl<<J_geom<<std::endl;
 
     // test jacobianEstVector
     // ev_diff: eigenvalue of Manipulability
     // MatrixXd J_sing = jacobianEstVector(geomJac, q_, n, robot); 
     // std::cout<<"JacobianEst for singular value: "<<std::endl<< J_sing <<std::endl;
+    
     // test jacobianEst
-    Tensor<double, 3> J_jacobian = jacobianEst(geomJac, q_, n, robot);
+    // Tensor<double, 3> J_jacobian = jacobianEst(geomJac, q_, n, robot);
 
     //test symm2vec
     // MatrixXd M_test(3,3);
@@ -114,7 +118,6 @@ int main(){
 //     std::cout << ms_double.count() << "ms\n";
 //     std::cout<<"Result of tensor symm2vec: "<<std::endl<<M_res<<std::endl;
     
-
     // test tmprod/////////////////////////////////////////////////////////////////////
     // Tensor<double, 3> T(3,3,3);
     // T.setConstant(1.0);
@@ -143,6 +146,59 @@ int main(){
     //                 -0.0701,   -0.0114,   -0.0225,   -0.0415,    0.0164,   -0.0309,
     //                 0.7743,   -0.2043,   -0.1081,    0.0601,   -0.0309,    0.3876;
     
+    // test OSQP solver
+    constexpr double tolerance = 1e-4;
+    Eigen::Matrix<c_float, 2, 2> H;
+    Eigen::SparseMatrix<c_float> H_s;
+    H << 4, 1,
+         1, 2;
+    H_s = H.sparseView();
+    H_s.pruned(0.01); // set those who smaller than 0.01 as zero?
+
+    // Eigen::SparseMatrix<c_float> H_s(2,2);
+    // H_s.insert(0,0) = 4;
+    // H_s.insert(0,1) = 1;
+    // H_s.insert(1,0) = 1;
+    // H_s.insert(1,1) = 2;
+
+    Eigen::SparseMatrix<c_float> A_s(3,2);
+    A_s.insert(0,0) = 1;
+    A_s.insert(0,1) = 1;
+    A_s.insert(1,0) = 1;
+    A_s.insert(2,1) = 1;
+    std::cout<<"H_S : "<<std::endl<<H_s<<std::endl;
+    Eigen::Matrix<c_float, 2, 1> gradient;
+    gradient << 1, 1;
+    Eigen::Matrix<c_float, 3, 1> lowerBound;
+    lowerBound << 1, 0, 0;
+    Eigen::Matrix<c_float, 3, 1> upperBound;
+    upperBound << 1, 0.7, 0.7;
+
+    OsqpEigen::Solver solver;
+    //settings:
+    // solver.settings()->setVerbosity(true); // print outptu or not
+    solver.settings()->setAlpha(1.0); // ADMM relaxation parameter/step size/penalty parameter
+    
+    solver.data()->setNumberOfVariables(2);
+    solver.data()->setNumberOfConstraints(3);
+    solver.data()->setHessianMatrix(H_s);
+    solver.data()->setGradient(gradient);
+    solver.data()->setLinearConstraintsMatrix(A_s);
+    solver.data()->setLowerBound(lowerBound);
+    solver.data()->setUpperBound(upperBound);
+
+    solver.initSolver();
+    solver.solveProblem();
+    // bool flag = solver.solveProblem() == OsqpEigen::ErrorExitFlag::NoError;
+    // std::cout<<"No error: "<<flag<<std::endl;
+    Eigen::Matrix<c_float, 2, 1> expectedSolution;
+    expectedSolution << 0.3,  0.7;
+
+    VectorXd solution = solver.getSolution();
+    std::cout<<"Solution : "<<std::endl<<solution<<std::endl;
+
+    bool converge = solver.getSolution().isApprox(expectedSolution, tolerance);
+    std::cout<<"Converged to desired solution: "<<converge<<std::endl;
 
     return 0;
 }
