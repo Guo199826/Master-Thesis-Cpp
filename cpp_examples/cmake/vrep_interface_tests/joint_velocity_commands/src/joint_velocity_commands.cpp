@@ -59,21 +59,24 @@ int main(void)
 
     // Robot definition
     // DQ_SerialManipulatorMDH x = FrankaEmikaPandaRobot::kinematics();
-    // std::cout << "------base frame--------" << x.get_base_frame()<<std::endl;
-    // std::cout << "------q lower limit-----" << x.get_lower_q_limit()<<std::endl;
     // auto robot = std::make_shared<DQ_SerialManipulatorMDH> (x);
+    // std::cout << "------base frame--------" << robot->get_base_frame()<<std::endl;
+    // std::cout << "------q lower limit-----" << robot->get_lower_q_limit()<<std::endl;
 
     // DQ_SerialManipulatorDH x_ax = Ax18ManipulatorRobot::kinematics();
     // std::cout << "----------------" << x_ax.get_base_frame()<<std::endl;
     // auto robot_ax = std::make_shared<DQ_SerialManipulatorDH> (x_ax);
 
     auto robot_test = FrankaRobot::kinematics();
+    std::cout << "------base frame--------" << robot_test.get_base_frame()<<std::endl;
+    std::cout << "------q lower limit-----" << robot_test.get_lower_q_limit()<<std::endl;
+
     // MatrixXd M_mdh = FrankaRobot::_get_mdh_matrix();
     // std::cout<<"mdh: "<<M_mdh<<std::endl;
     // Update the base of the robot from CoppeliaSim
-    // DQ new_base_robot = (robot->get_base_frame())*vi.get_object_pose("Franka")*(1+0.5*E_*(0.107*k_));
-    // DQ base_frame = vi.get_object_pose("Franka_joint1");
-    // robot->set_reference_frame(base_frame);
+    DQ new_base_robot = (robot->get_base_frame())*vi.get_object_pose("Franka")*(1+0.5*E_*(0.107*k_));
+    DQ base_frame = vi.get_object_pose("Franka_joint1");
+    robot->set_reference_frame(base_frame);
 
     // robot no ptr
     // DQ_SerialManipulatorMDH robot_ = DQ_SerialManipulatorMDH(FrankaEmikaPandaRobot::kinematics());
@@ -113,11 +116,9 @@ int main(void)
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     
     // test geomJ
-    // MatrixXd J = robot->pose_jacobian(q_);
     // MatrixXd J_ax = robot_ax->pose_jacobian(q_ax);
     MatrixXd J = robot_test.pose_jacobian(q_);
 
-    // DQ x_test = robot->fkm(q_);
     // DQ x_test_ax = robot_ax->fkm(q_ax);
     DQ x_test = robot_test.fkm(q_);
 

@@ -2,7 +2,7 @@ CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o: \
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/FrankaRobot.cpp \
  /usr/include/stdc-predef.h \
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/FrankaRobot.h \
- /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h \
+ /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h \
  /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h \
  /usr/include/dqrobotics/robot_modeling/DQ_Kinematics.h \
  /usr/include/dqrobotics/DQ.h /usr/include/eigen3/Eigen/Dense \

@@ -111,7 +111,7 @@ CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o: /home/guo/Master-T
   /usr/include/dqrobotics/DQ.h \
   /usr/include/dqrobotics/robot_modeling/DQ_Kinematics.h \
   /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h \
-  /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h \
+  /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h \
   /usr/include/dqrobotics/utils/DQ_Constants.h \
   /usr/include/eigen3/Eigen/Cholesky \
   /usr/include/eigen3/Eigen/Core \
@@ -1694,7 +1694,6 @@ CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.o: /home/guo/Ma
   /usr/lib/gcc/x86_64-linux-gnu/9/include/xmmintrin.h
 
 CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/joint_velocity_commands.cpp \
-  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/FrankaRobot.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -1822,8 +1821,9 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: /home/
   /usr/include/dqrobotics/robot_modeling/DQ_Kinematics.h \
   /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h \
   /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h \
+  /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h \
   /usr/include/dqrobotics/robots/Ax18ManipulatorRobot.h \
-  /usr/include/dqrobotics/utils/DQ_Constants.h \
+  /usr/include/dqrobotics/robots/FrankaEmikaPandaRobot.h \
   /usr/include/eigen3/Eigen/Cholesky \
   /usr/include/eigen3/Eigen/Core \
   /usr/include/eigen3/Eigen/Dense \
@@ -4265,6 +4265,10 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 
 /usr/include/eigen3/unsupported/Eigen/CXX11/src/Tensor/TensorCostModel.h:
 
+/usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h:
+
+/usr/include/eigen3/unsupported/Eigen/CXX11/src/Tensor/TensorConvolution.h:
+
 /usr/include/eigen3/unsupported/Eigen/CXX11/src/Tensor/TensorConversion.h:
 
 /usr/include/eigen3/unsupported/Eigen/CXX11/src/Tensor/TensorContractionMapper.h:
@@ -4300,10 +4304,6 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 /usr/include/eigen3/Eigen/src/SparseCholesky/SimplicialCholesky.h:
 
 /usr/include/dqrobotics/robots/FrankaEmikaPandaRobot.h:
-
-/usr/include/eigen3/unsupported/Eigen/CXX11/src/Tensor/TensorRandom.h:
-
-/usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h:
 
 /usr/include/eigen3/Eigen/src/SparseLU/SparseLU_pivotL.h:
 
@@ -4485,6 +4485,10 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 
 /usr/include/x86_64-linux-gnu/bits/sched.h:
 
+/usr/include/eigen3/unsupported/Eigen/CXX11/src/Tensor/TensorRandom.h:
+
+/usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h:
+
 /usr/include/dqrobotics/DQ.h:
 
 /usr/include/c++/9/bits/atomic_lockfree_defines.h:
@@ -4645,7 +4649,17 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 
 /usr/include/limits.h:
 
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/c++/9/algorithm:
+
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h:
+
+/usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h:
+
+/usr/include/c++/9/bits/postypes.h:
+
+/usr/include/c++/9/bits/locale_classes.tcc:
 
 /usr/include/eigen3/Eigen/src/Householder/HouseholderSequence.h:
 
@@ -4656,16 +4670,6 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 /usr/include/c++/9/cwctype:
 
 /usr/include/c++/9/ext/numeric_traits.h:
-
-/usr/include/c++/9/bits/postypes.h:
-
-/usr/include/c++/9/bits/locale_classes.tcc:
-
-/usr/include/eigen3/Eigen/src/Core/CwiseNullaryOp.h:
-
-/usr/include/c++/9/algorithm:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
 /usr/include/c++/9/bits/basic_ios.h:
 
@@ -4787,12 +4791,6 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 
 /usr/include/eigen3/Eigen/src/Core/products/GeneralMatrixMatrixTriangular.h:
 
-/usr/include/eigen3/unsupported/Eigen/CXX11/src/Tensor/TensorConvolution.h:
-
-/usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h:
-
-/usr/include/c++/9/bits/streambuf.tcc:
-
 /usr/include/eigen3/Eigen/QR:
 
 /usr/include/c++/9/bits/move.h:
@@ -4878,6 +4876,8 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 /usr/include/c++/9/cstdint:
 
 /usr/include/c++/9/debug/debug.h:
+
+/usr/include/c++/9/bits/streambuf.tcc:
 
 /usr/include/c++/9/ext/string_conversions.h:
 

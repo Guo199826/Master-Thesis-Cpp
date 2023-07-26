@@ -29,22 +29,22 @@ Contributors:
 namespace DQ_robotics
 {
 
-    DQ_SerialManipulatorDH FrankaRobot::kinematics()
-    {
-        const double pi2 = pi/2.0;
+    // DQ_SerialManipulatorDH FrankaRobot::kinematics()
+    // {
+    //     const double pi2 = pi/2.0;
 
-        MatrixXd franka_dh(5,7);
-        franka_dh <<    0,      0,          0,          0,      0,      0,          0,
-                    0.333,      0,      0.316,          0,  0.384,      0,      0.107,
-                        0,      0,     0.0825,    -0.0825,      0,  0.088,     0.0003,
-                    -pi2,    pi2,        pi2,       -pi2,    pi2,    pi2,          0,
-                        0,      0,          0,          0,      0,      0,          0;
-        DQ_SerialManipulatorDH franka(franka_dh);
-        std::cout<<"kinematics running..."<<std::endl;
-        return franka;
-    }
+    //     MatrixXd franka_dh(5,7);
+    //     franka_dh <<    0,      0,          0,          0,      0,      0,          0,
+    //                 0.333,      0,      0.316,          0,  0.384,      0,      0.107,
+    //                     0,      0,     0.0825,    -0.0825,      0,  0.088,     0.0003,
+    //                 -pi2,    pi2,        pi2,       -pi2,    pi2,    pi2,          0,
+    //                     0,      0,          0,          0,      0,      0,          0;
+    //     DQ_SerialManipulatorDH franka(franka_dh);
+    //     std::cout<<"kinematics running..."<<std::endl;
+    //     return franka;
+    // }
 
-    MatrixXd _get_mdh_matrix()
+    MatrixXd FrankaRobot::_get_mdh_matrix()
     {
         const double pi2 = pi/2.0;
         Matrix<double,5,7> raw_franka_mdh(5,7);
@@ -55,6 +55,53 @@ namespace DQ_robotics
                         0,     0,       0,         0,         0,      0,      0;
 
         return raw_franka_mdh;
+    }
+
+    DQ FrankaRobot::_get_offset_base()
+    {
+        std::cout<<"get offset base frame..."<<std::endl;
+        return 1 + E_ * 0.5 * DQ(0, 0.0413, 0, 0);
+    }
+
+    DQ FrankaRobot::_get_offset_flange()
+    {
+        std::cout<<"get offset end-effector frame..."<<std::endl;
+        return 1+E_*0.5*k_*1.07e-1;
+    }
+
+    std::tuple<const VectorXd, const VectorXd> FrankaRobot::_get_q_limits()
+    {
+        const VectorXd q_max_ = ((VectorXd(7) <<  2.3093, 1.5133, 2.4937, -0.4461, 2.4800, 4.2094,  2.6895).finished());
+        const VectorXd q_min_ = ((VectorXd(7) << -2.3093,-1.5133,-2.4937, -2.7478,-2.4800, 0.8521, -2.6895).finished());
+        return std::make_tuple(q_min_, q_max_);
+    }
+
+    std::tuple<const VectorXd, const VectorXd> FrankaRobot::_get_q_dot_limits()
+    {
+        const VectorXd q_min_dot_ = ((VectorXd(7) << -2, -1, -1.5, -1.25, -3, -1.5, -3).finished());
+        const VectorXd q_max_dot_ = ((VectorXd(7) <<  2,  1,  1.5,  1.25,  3,  1.5,  3).finished());
+        return std::make_tuple(q_min_dot_, q_max_dot_);
+    }
+
+    DQ_SerialManipulatorMDH FrankaRobot::kinematics()
+    {
+        std::cout<<"frankaemikarobot kinematics running..."<<std::endl;
+        // _get_offset_base();
+        DQ_SerialManipulatorMDH franka(_get_mdh_matrix());
+        // franka.set_base_frame(_get_offset_base());
+        // franka.set_reference_frame(_get_offset_base());
+        // franka.set_effector(_get_offset_flange());
+        VectorXd q_min;
+        VectorXd q_max;
+        VectorXd q_dot_min;
+        VectorXd q_dot_max;
+        std::tie(q_min, q_max) = _get_q_limits();
+        std::tie(q_dot_min, q_dot_max) = _get_q_dot_limits();
+        franka.set_lower_q_limit(q_min);
+        franka.set_upper_q_limit(q_max);
+        franka.set_lower_q_dot_limit(q_dot_min);
+        franka.set_upper_q_dot_limit(q_dot_max);
+        return franka;
     }
 
 }

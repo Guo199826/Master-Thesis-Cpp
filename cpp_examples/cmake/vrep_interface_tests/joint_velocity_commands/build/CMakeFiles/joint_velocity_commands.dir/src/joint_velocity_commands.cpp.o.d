@@ -137,7 +137,7 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: \
  /usr/include/c++/9/bits/ostream.tcc /usr/include/c++/9/istream \
  /usr/include/c++/9/bits/istream.tcc \
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/FrankaRobot.h \
- /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h \
+ /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h \
  /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h \
  /usr/include/dqrobotics/robot_modeling/DQ_Kinematics.h \
  /usr/include/dqrobotics/DQ.h /usr/include/eigen3/Eigen/Dense \
@@ -351,6 +351,7 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: \
  /usr/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
  /usr/include/dqrobotics/utils/DQ_Constants.h \
  /usr/include/dqrobotics/robots/Ax18ManipulatorRobot.h \
+ /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h \
  /usr/include/c++/9/thread /usr/include/c++/9/chrono \
  /usr/include/c++/9/ratio /usr/include/c++/9/ctime \
  /usr/include/c++/9/bits/parse_numbers.h /usr/include/c++/9/memory \

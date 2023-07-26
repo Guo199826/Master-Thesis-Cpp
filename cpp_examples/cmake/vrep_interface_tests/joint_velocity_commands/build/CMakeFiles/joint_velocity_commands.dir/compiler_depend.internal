@@ -112,7 +112,7 @@ CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o
  /usr/include/dqrobotics/DQ.h
  /usr/include/dqrobotics/robot_modeling/DQ_Kinematics.h
  /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h
- /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h
+ /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h
  /usr/include/dqrobotics/utils/DQ_Constants.h
  /usr/include/eigen3/Eigen/Cholesky
  /usr/include/eigen3/Eigen/Core
@@ -1699,7 +1699,6 @@ CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.o
 
 CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/joint_velocity_commands.cpp
- /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/FrankaRobot.h
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
  /usr/include/asm-generic/errno.h
@@ -1827,8 +1826,9 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o
  /usr/include/dqrobotics/robot_modeling/DQ_Kinematics.h
  /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h
  /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h
+ /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h
  /usr/include/dqrobotics/robots/Ax18ManipulatorRobot.h
- /usr/include/dqrobotics/utils/DQ_Constants.h
+ /usr/include/dqrobotics/robots/FrankaEmikaPandaRobot.h
  /usr/include/eigen3/Eigen/Cholesky
  /usr/include/eigen3/Eigen/Core
  /usr/include/eigen3/Eigen/Dense

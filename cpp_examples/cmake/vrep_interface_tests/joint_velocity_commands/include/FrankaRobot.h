@@ -1,7 +1,7 @@
 #ifndef DQ_ROBOTS_FRANKAROBOT_H
 #define DQ_ROBOTS_FRANKAROBOT_H
 
-#include<dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h>
+#include<dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h>
 #include<dqrobotics/utils/DQ_Constants.h>
 
 namespace DQ_robotics
@@ -10,8 +10,12 @@ namespace DQ_robotics
 class FrankaRobot
 {
 public:
-    static DQ_SerialManipulatorDH kinematics();
     static MatrixXd _get_mdh_matrix();
+    static DQ _get_offset_base();
+    static DQ _get_offset_flange();
+    static std::tuple<const VectorXd, const VectorXd> _get_q_limits();
+    static std::tuple<const VectorXd, const VectorXd> _get_q_dot_limits();
+    static DQ_SerialManipulatorMDH kinematics();
     // {
     //     const double pi2 = pi/2.0;
 
