@@ -8,6 +8,14 @@
 #include <cmath>
 #include "Eigen/Dense"
 
+std::array< std::array<double, 7>, 4 > franka_IK_EE ( std::array<double, 16> O_T_EE_array,
+                                                      double q7,
+                                                      std::array<double, 7> q_actual_array );
+
+std::array<double, 7> franka_IK_EE_CC ( std::array<double, 16> O_T_EE_array,
+                                        double q7,
+                                        std::array<double, 7> q_actual_array );
+
 // inverse kinematics w.r.t. End Effector Frame (using Franka Hand data)
 std::array< std::array<double, 7>, 4 > franka_IK_EE ( std::array<double, 16> O_T_EE_array,
                                                       double q7,

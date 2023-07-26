@@ -450,7 +450,8 @@ CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o: \
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/manipulabilityJacobian.h \
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/../include/spdToVec.h \
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/../include/tmprod.h \
- /usr/local/include/OsqpEigen/OsqpEigen.h \
+ /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/franka_analytical_ik-main/franka_ik_He.hpp \
+ /usr/include/eigen3/Eigen/Dense /usr/local/include/OsqpEigen/OsqpEigen.h \
  /usr/local/include/OsqpEigen/Constants.hpp \
  /usr/local/include/osqp/osqp.h /usr/local/include/osqp/types.h \
  /usr/local/include/osqp/glob_opts.h \
@@ -458,7 +459,7 @@ CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o: \
  /usr/local/include/osqp/constants.h /usr/local/include/osqp/version.h \
  /usr/local/include/osqp/util.h /usr/include/x86_64-linux-gnu/sys/time.h \
  /usr/local/include/osqp/cs.h /usr/local/include/osqp/lin_alg.h \
- /usr/local/include/OsqpEigen/Data.hpp /usr/include/eigen3/Eigen/Dense \
+ /usr/local/include/OsqpEigen/Data.hpp \
  /usr/local/include/OsqpEigen/SparseMatrixHelper.hpp \
  /usr/include/eigen3/Eigen/Sparse /usr/include/eigen3/Eigen/SparseCore \
  /usr/include/c++/9/map /usr/include/c++/9/bits/stl_tree.h \

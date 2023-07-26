@@ -10,7 +10,7 @@ project(joint_velocity_commands)
 
 
 add_executable(joint_velocity_commands
-    # src/joint_velocity_commands.cpp
+    src/joint_velocity_commands.cpp
     src/jacobianEst.cpp
     src/jacobianEstVector.cpp
     src/geomJac.cpp

@@ -3,6 +3,7 @@
 #include "../include/jacobianEst.h"
 #include "../include/geomJac.h"
 #include "../include/manipulabilityJacobian.h"
+#include "../include/franka_analytical_ik-main/franka_ik_He.hpp"
 // #include "../include/tmprod.h"
 // #include "../include/symm2vec.h"
 // #include "../include/spd2vec.h"
@@ -16,9 +17,9 @@
 #include "OsqpEigen/OsqpEigen.h"
 
 using namespace DQ_robotics;
-// int test();
+int test();
 
-int main(){
+int test(){
     // // robot definition
     // auto robot_ptr = std::make_shared<DQ_SerialManipulatorMDH>
     //         (FrankaEmikaPandaRobot::kinematics());
@@ -148,8 +149,16 @@ int main(){
     //                 0.7743,   -0.2043,   -0.1081,    0.0601,   -0.0309,    0.3876;
     
     // test redManiJac
-    //tbc
-
+    // MatrixXd geomJ_;
+    // Tensor<double, 3> J_grad_;
+    // MatrixXd Jm_red = redManipulabilityJacobian(geomJ_, J_grad_);
+    
+    // test ik solver
+    // std::array<double, 16> O_T_EE_array;
+    // double q7;
+    // std::array<double, 7> q_actual_array;
+    // std::array< std::array<double, 7>, 4 > q_est = franka_IK_EE (O_T_EE_array,
+    //                                                 q7, q_actual_array );
 
     /* // test OSQP solver
     constexpr double tolerance = 1e-4;
