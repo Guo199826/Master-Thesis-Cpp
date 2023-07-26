@@ -25,39 +25,61 @@ Prerequisites:
    (Updated version: vrep_interface_tests/DQRoboticsApiCommandServer.lua)
 3) Compile, run and enjoy!
 */
-
-#include <dqrobotics/DQ.h>
-#include <dqrobotics/interfaces/vrep/DQ_VrepInterface.h>
-#include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
-#include <dqrobotics/robot_control/DQ_PseudoinverseController.h>
+#include <iostream>
+// #include <dqrobotics/DQ.h>
+// #include <dqrobotics/interfaces/vrep/DQ_VrepInterface.h>
+// #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
+#include "../include/FrankaRobot.h"
+// #include <dqrobotics/robot_modeling/DQ_SerialManipulator.h>
+// #include <dqrobotics/robots/ComauSmartSixRobot.h>
+#include <dqrobotics/robots/Ax18ManipulatorRobot.h>
+// #include <dqrobotics/robot_control/DQ_PseudoinverseController.h>
 #include <thread>
-#include "../include/jacobianEst.h"
-#include "../include/geomJac.h"
-#include "osqp/osqp.h"
-#include "OsqpEigen/OsqpEigen.h"
+// #include "../include/jacobianEst.h"
+// #include "../include/geomJac.h"
+// #include "osqp/osqp.h"
+// #include "OsqpEigen/OsqpEigen.h"
 
 using namespace Eigen;
+using namespace DQ_robotics;
 
 int main(void)
 {
     // Initialize V-REP interface
-    DQ_VrepInterface vi;
-    vi.connect(19997,100,10);
-    vi.set_synchronous(true);
-    std::cout << "Starting V-REP simulation..." << std::endl;
-    vi.start_simulation();
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    std::vector<std::string>jointnames = {"Franka_joint1", "Franka_joint2",
-                                           "Franka_joint3", "Franka_joint4",
-                                           "Franka_joint5", "Franka_joint6",
-                                           "Franka_joint7"};
+    // DQ_VrepInterface vi;
+    // vi.connect(19997,100,10);
+    // vi.set_synchronous(true);
+    // std::cout << "Starting V-REP simulation..." << std::endl;
+    // vi.start_simulation();
+    // std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    // std::vector<std::string>jointnames = {"Franka_joint1", "Franka_joint2",
+    //                                        "Franka_joint3", "Franka_joint4",
+    //                                        "Franka_joint5", "Franka_joint6",
+    //                                        "Franka_joint7"};
 
     // Robot definition
-    auto robot = std::make_shared<DQ_SerialManipulatorMDH>
-            (FrankaEmikaPandaRobot::kinematics());
+    // DQ_SerialManipulatorMDH x = FrankaEmikaPandaRobot::kinematics();
+    // std::cout << "------base frame--------" << x.get_base_frame()<<std::endl;
+    // std::cout << "------q lower limit-----" << x.get_lower_q_limit()<<std::endl;
+    // auto robot = std::make_shared<DQ_SerialManipulatorMDH> (x);
+
+    // DQ_SerialManipulatorDH x_ax = Ax18ManipulatorRobot::kinematics();
+    // std::cout << "----------------" << x_ax.get_base_frame()<<std::endl;
+    // auto robot_ax = std::make_shared<DQ_SerialManipulatorDH> (x_ax);
+
+    auto robot_test = FrankaRobot::kinematics();
+    // MatrixXd M_mdh = FrankaRobot::_get_mdh_matrix();
+    // std::cout<<"mdh: "<<M_mdh<<std::endl;
     // Update the base of the robot from CoppeliaSim
     // DQ new_base_robot = (robot->get_base_frame())*vi.get_object_pose("Franka")*(1+0.5*E_*(0.107*k_));
-    // robot->set_reference_frame(new_base_robot);
+    // DQ base_frame = vi.get_object_pose("Franka_joint1");
+    // robot->set_reference_frame(base_frame);
+
+    // robot no ptr
+    // DQ_SerialManipulatorMDH robot_ = DQ_SerialManipulatorMDH(FrankaEmikaPandaRobot::kinematics());
+    //Update the base of the robot from CoppeliaSim
+    // DQ new_base_robot_ = (robot_.get_base_frame())*vi.get_object_pose("Franka")*(1+0.5*E_*(-0.07*k_));
+    // robot_.set_reference_frame(new_base_robot_);
 
     // Maximum joint ranges (deg): (q1..q7)
     //       -166.0031 -101.0010 -166.0031 -176.0012 -166.0031  -1.0027  -166.0031
@@ -70,6 +92,8 @@ int main(void)
     int n = 7;
     VectorXd q_ (7);
     q_ << 1.1519, 0.3840, 0.2618, -1.5708, 0.0, 1.3963, 0.0 ; // validate with q_test in Matlab
+    VectorXd q_ax (5);
+    q_ax << 1.1519, 0.3840, 0.2618, -1.5708, 0.0 ;
     // int m = 6; // Dimension of workspace
 
     // // Auxiliar variables
@@ -81,39 +105,43 @@ int main(void)
     // Desired cartesian and manipulability trajectory
 
     // Initialization dq q_track M ev_diff
-    MatrixXd(n, t_all) q_track;
-
-    // robot no ptr
-    DQ_SerialManipulatorMDH robot_ = DQ_SerialManipulatorMDH(FrankaEmikaPandaRobot::kinematics());
-    //Update the base of the robot from CoppeliaSim
-    DQ new_base_robot_ = (robot_.get_base_frame())*vi.get_object_pose("Franka")*(1+0.5*E_*(-0.07*k_));
-    robot_.set_reference_frame(new_base_robot_);
+    MatrixXd q_track;
 
     // Define function handle for geomJac and pose_jacobian
-    std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
-    const VectorXd&, const int)> fct_geomJac_ = geomJac;
+    // std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
+    // const VectorXd&, const int)> fct_geomJac_ = geomJac;
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     
     // test geomJ
-    MatrixXd J = robot->pose_jacobian(q_);
-    DQ x_test = robot->fkm(q_);
+    // MatrixXd J = robot->pose_jacobian(q_);
+    // MatrixXd J_ax = robot_ax->pose_jacobian(q_ax);
+    MatrixXd J = robot_test.pose_jacobian(q_);
+
+    // DQ x_test = robot->fkm(q_);
+    // DQ x_test_ax = robot_ax->fkm(q_ax);
+    DQ x_test = robot_test.fkm(q_);
+
     std::cout<<"J: "<<std::endl<<J<<std::endl;
+    // std::cout<<"J_ax: "<<std::endl<<J_ax<<std::endl;
     std::cout<<"forward kinematics x_t: "<<std::endl<< x_test <<std::endl;
-    MatrixXd J_geom = geomJac(robot_, J, q_, n); 
-    std::cout<<"J_geom: "<<std::endl<<J_geom<<std::endl;
+    // std::cout<<"forward kinematics x_t_ax: "<<std::endl<< x_test_ax <<std::endl;
+
+    // MatrixXd J_geom = geomJac(*robot, J, q_, n); 
+    // std::cout<<"J_geom: "<<std::endl<<J_geom<<std::endl;
 
     // test jacobianEstVector and jacobianEst
     // ev_diff: eigenvalue of Manipulability
     // MatrixXd J_sing = jacobianEstVector(geomJac, q_, n, robot); 
     // std::cout<<"JacobianEst for singular value: "<<std::endl<< J_sing <<std::endl;
     // Tensor<double, 3> J_jacobian = jacobianEst(geomJac, q_, n, robot_);
+
     // Main control loop
     // vi.set_object_pose("DesiredFrame", xdesired);
-    for (int i = 0; i<nbIter; i++){
-        VectorXd q = vi.get_joint_positions(jointnames);
+    // for (int i = 0; i<nbIter; i++){
+    //     VectorXd q = vi.get_joint_positions(jointnames);
         // vi.set_object_pose("ReferenceFrame", robot->fkm(q));
-        // vi.
-    }
+    //     vi.
+    // }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // DQ_PseudoinverseController controller(robot);
@@ -140,8 +168,8 @@ int main(void)
     //     i++;
 
     // }
-    std::cout << "Stopping V-REP simulation..." << std::endl;
-    vi.stop_simulation();
-    vi.disconnect();
+    // std::cout << "Stopping V-REP simulation..." << std::endl;
+    // vi.stop_simulation();
+    // vi.disconnect();
     return 0;
 }

@@ -129,6 +129,30 @@ joint_velocity_commands/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/build
 .PHONY : joint_velocity_commands/fast
 
+src/FrankaRobot.o: src/FrankaRobot.cpp.o
+.PHONY : src/FrankaRobot.o
+
+# target to build an object file
+src/FrankaRobot.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o
+.PHONY : src/FrankaRobot.cpp.o
+
+src/FrankaRobot.i: src/FrankaRobot.cpp.i
+.PHONY : src/FrankaRobot.i
+
+# target to preprocess a source file
+src/FrankaRobot.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.i
+.PHONY : src/FrankaRobot.cpp.i
+
+src/FrankaRobot.s: src/FrankaRobot.cpp.s
+.PHONY : src/FrankaRobot.s
+
+# target to generate assembly for a file
+src/FrankaRobot.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.s
+.PHONY : src/FrankaRobot.cpp.s
+
 src/geomJac.o: src/geomJac.cpp.o
 .PHONY : src/geomJac.o
 
@@ -330,6 +354,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... joint_velocity_commands"
+	@echo "... src/FrankaRobot.o"
+	@echo "... src/FrankaRobot.i"
+	@echo "... src/FrankaRobot.s"
 	@echo "... src/geomJac.o"
 	@echo "... src/geomJac.i"
 	@echo "... src/geomJac.s"

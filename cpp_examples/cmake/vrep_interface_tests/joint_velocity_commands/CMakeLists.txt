@@ -16,12 +16,15 @@ add_executable(joint_velocity_commands
     src/geomJac.cpp
     src/test.cpp
     src/spdToVec.cpp
+    src/FrankaRobot.cpp
+    include/FrankaRobot.h
     include/manipulabilityJacobian.h
     src/logmap.cpp
     src/tmprod.cpp
     # src/symm2vec.cpp
     include/franka_analytical_ik-main/franka_ik_He.hpp
     )
+
 
 
 TARGET_LINK_LIBRARIES(joint_velocity_commands

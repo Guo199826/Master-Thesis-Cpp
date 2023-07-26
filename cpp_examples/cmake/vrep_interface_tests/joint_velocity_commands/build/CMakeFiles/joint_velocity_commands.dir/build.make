@@ -153,10 +153,24 @@ CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/spdToVec.cpp -o CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.s
 
+CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o: CMakeFiles/joint_velocity_commands.dir/flags.make
+CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o: /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/FrankaRobot.cpp
+CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o: CMakeFiles/joint_velocity_commands.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o -MF CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o.d -o CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o -c /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/FrankaRobot.cpp
+
+CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/FrankaRobot.cpp > CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.i
+
+CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/FrankaRobot.cpp -o CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.s
+
 CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o: CMakeFiles/joint_velocity_commands.dir/flags.make
 CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o: /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/logmap.cpp
 CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o: CMakeFiles/joint_velocity_commands.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o -MF CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o.d -o CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o -c /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/logmap.cpp
 
 CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.i: cmake_force
@@ -170,7 +184,7 @@ CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.s: cmake_force
 CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: CMakeFiles/joint_velocity_commands.dir/flags.make
 CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/tmprod.cpp
 CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: CMakeFiles/joint_velocity_commands.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o -MF CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o.d -o CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o -c /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/tmprod.cpp
 
 CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.i: cmake_force
@@ -189,6 +203,7 @@ joint_velocity_commands_OBJECTS = \
 "CMakeFiles/joint_velocity_commands.dir/src/geomJac.cpp.o" \
 "CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o" \
 "CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.o" \
+"CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o" \
 "CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o" \
 "CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o"
 
@@ -201,13 +216,14 @@ joint_velocity_commands: CMakeFiles/joint_velocity_commands.dir/src/jacobianEstV
 joint_velocity_commands: CMakeFiles/joint_velocity_commands.dir/src/geomJac.cpp.o
 joint_velocity_commands: CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o
 joint_velocity_commands: CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.o
+joint_velocity_commands: CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.o
 joint_velocity_commands: CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.o
 joint_velocity_commands: CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o
 joint_velocity_commands: CMakeFiles/joint_velocity_commands.dir/build.make
 joint_velocity_commands: /usr/local/lib/libOsqpEigen.so.0.8.0
 joint_velocity_commands: /usr/local/lib/libosqp.so
 joint_velocity_commands: CMakeFiles/joint_velocity_commands.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable joint_velocity_commands"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable joint_velocity_commands"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/joint_velocity_commands.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
