@@ -33,7 +33,9 @@ std::array< std::array<double, 7>, 4 > franka_IK_EE ( std::array<double, 16> O_T
     const double d1 = 0.3330;
     const double d3 = 0.3160;
     const double d5 = 0.3840;
-    const double d7e = 0.2104;
+    // const double d7e = 0.2104;
+    const double d7e = 0.107;
+
     const double a4 = 0.0825;
     const double a7 = 0.0880;
     
@@ -62,7 +64,8 @@ std::array< std::array<double, 7>, 4 > franka_IK_EE ( std::array<double, 16> O_T
     Eigen::Vector3d p_7 = p_EE - d7e*z_EE;
     
     Eigen::Vector3d x_EE_6;
-    x_EE_6 << std::cos(q7 - M_PI_4), -std::sin(q7 - M_PI_4), 0.0;
+    // x_EE_6 << std::cos(q7 - M_PI_4), -std::sin(q7 - M_PI_4), 0.0;
+    x_EE_6 << std::cos(q7), -std::sin(q7), 0.0;
     Eigen::Vector3d x_6 = R_EE*x_EE_6;
     x_6 /= x_6.norm(); // visibly increases accuracy
     Eigen::Vector3d p_6 = p_7 - a7*x_6;
@@ -241,7 +244,9 @@ std::array<double, 7> franka_IK_EE_CC ( std::array<double, 16> O_T_EE_array,
     const double d1 = 0.3330;
     const double d3 = 0.3160;
     const double d5 = 0.3840;
-    const double d7e = 0.2104;
+    // const double d7e = 0.2104;
+    const double d7e = 0.107;
+
     const double a4 = 0.0825;
     const double a7 = 0.0880;
 
@@ -321,7 +326,8 @@ std::array<double, 7> franka_IK_EE_CC ( std::array<double, 16> O_T_EE_array,
     Eigen::Vector3d p_7 = p_EE - d7e*z_EE;
     
     Eigen::Vector3d x_EE_6;
-    x_EE_6 << std::cos(q7 - M_PI_4), -std::sin(q7 - M_PI_4), 0.0;
+    // x_EE_6 << std::cos(q7 - M_PI_4), -std::sin(q7 - M_PI_4), 0.0;
+    x_EE_6 << std::cos(q7), -std::sin(q7), 0.0;
     Eigen::Vector3d x_6 = R_EE*x_EE_6;
     x_6 /= x_6.norm(); // visibly increases accuracy
     Eigen::Vector3d p_6 = p_7 - a7*x_6;

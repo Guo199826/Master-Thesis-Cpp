@@ -73,13 +73,17 @@ int main(void)
 
     DQ base_frame = vi.get_object_pose("Franka_joint1");
     std::cout<<"bease frame in Vrep: "<<base_frame<<std::endl;
-    robot.set_reference_frame(base_frame);
-    robot.set_base_frame(base_frame);
+    // robot.set_reference_frame(base_frame);
+    // robot.set_base_frame(base_frame);
 
     // Set link number and joint angle
     int n = 7;
     VectorXd q_ (7);
-    q_ << 1.1519, 0.3840, 0.2618, -1.5708, 0.0, 1.3963, 0.0 ; // validate with q_test in Matlab
+    VectorXd q_1 (7);
+    q_ << 1.1519, -0.3840, 0.2618, -2, 0.0, 1.3963, 0.0 ; // validate with q_test in Matlab
+    // q_ << 0, 0.384, 0, -1.5708,  0, 1.3963, 0.0 ;
+    // q_ << 0, 0, 0, -1.5708, 0.0, 1.3963, 0.0 ;
+
     int m = 6; // Dimension of workspace
 
     // // Auxiliar variables
@@ -99,9 +103,11 @@ int main(void)
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     std::cout << "Starting control loop..." << std::endl;
+    // VectorXd q = vi.get_joint_positions(jointnames);
+    vi.set_joint_positions(jointnames,q_);
     VectorXd q = vi.get_joint_positions(jointnames);
     std::cout << "Joint positions q (at starting) is: \n"<< std::endl << q << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 
     // test geomJ
     MatrixXd J = robot.pose_jacobian(q_);
@@ -114,41 +120,52 @@ int main(void)
 
     // test redManiJac
     // Tensor<double, 3> Jm = manipulabilityJacobian(J_geom, J_grad);
-    MatrixXd Jm_red = redManipulabilityJacobian(J_geom, J_grad);
-    std::cout<<"Jm_red: "<<std::endl<<Jm_red<<std::endl;
-    // std::cout<<"Jm: "<<std::endl<<Jm<<std::endl;
-    // Tensor<double, 3> T(3,3,3);
-    // T.setConstant(1.0);
-    // MatrixXd matrix(3, 3);
-    // matrix << 1, 2, 3,
-    //           4, 5, 6,
-    //           7, 8, 9;
-    // Tensor<double, 3> result = tmprod(T, matrix, 1);
-    // std::cout << "Result of n-mode product:" << std::endl<<result<< std::endl;
-    // std::cout << "Result of n-mode product test; :" << std::endl<<result(1,0,2)<< std::endl;
-
+    // MatrixXd Jm_red = redManipulabilityJacobian(J_geom, J_grad);
+    // std::cout<<"Jm_red: "<<std::endl<<Jm_red<<std::endl;
 
     // test ik solver
-    // std::array<double, 16> O_T_EE_array;
-    // double q7;
-    // std::array<double, 7> q_actual_array;
-    // DQ x = robot.fkm(q).normalize();
-    // std::array< std::array<double, 7>, 4 > q_est = franka_IK_EE (O_T_EE_array,
-    //                                                 q7, q_actual_array );
+    DQ x = robot.fkm(q).normalize();
+    std::cout<<"Fkm-----------"<<std::endl<<x<<std::endl;
+    Matrix4d M_tf = dq2tfm(x);
+    std::array<double, 16> arr_tf;
+    std::copy(M_tf.data(), M_tf.data() + 16, arr_tf.begin());
+
+    double q7 = 0.0;
+    std::array<double, 7> qt_arr;
+    std::copy(q.data(), q.data() + q.size(), qt_arr.begin());
+    std::cout << "current q" << std::endl;
+    for (double val : qt_arr) {
+        std::cout << val << " ";
+    }
+    std::cout << std::endl;
+    std::array<std::array<double, 7>,4> q_est = franka_IK_EE (arr_tf,
+                                                    q7, qt_arr );
+    // std::array<double, 7> q_est = franka_IK_EE_CC (arr_tf,
+    //                                                 q7, qt_arr );
+    std::cout << "IK est. q: " << std::endl;
+    for(int i=0; i<4; i++){
+        for (double val : q_est[i]) {
+            std::cout << val << " ";  
+        }
+        std::cout << std::endl; 
+    }
+                                                
+    // VectorXd q_est_1(q_est[0].data(), q_est[0].size());
+    // std::cout<<"q_est_1: "<<std::endl<<q_est_1<<std::endl;
 
     // Main control loop
-    // for (int i = 0; i<nbIter; i++){
+    for (int i = 0; i<nbIter; i++){
         // VectorXd q = vi.get_joint_positions(jointnames);
-    //     vi.
-        // Obtain the current analytical Jacobian (Dim: 8 * n)
+        // vi.
+        // // Obtain the current analytical Jacobian (Dim: 8 * n)
         // MatrixXd J = robot.pose_jacobian(q);
         // // Send commands to the robot
         // vi.set_joint_positions(joint_names,q);
         //    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        // Integrate to obtain q_out
+        // // Integrate to obtain q_out
         // q = q + u;
 
-    // }
+    }
     // std::cout << "Control finished..." << std::endl;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     

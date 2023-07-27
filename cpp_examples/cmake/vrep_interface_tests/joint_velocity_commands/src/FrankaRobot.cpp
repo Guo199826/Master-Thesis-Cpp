@@ -88,8 +88,8 @@ namespace DQ_robotics
         std::cout<<"frankaemikarobot kinematics running..."<<std::endl;
         // _get_offset_base();
         DQ_SerialManipulatorMDH franka(_get_mdh_matrix());
-        franka.set_base_frame(_get_offset_base());
-        franka.set_reference_frame(_get_offset_base());
+        // franka.set_base_frame(_get_offset_base());
+        // franka.set_reference_frame(_get_offset_base());
         franka.set_effector(_get_offset_flange());
         VectorXd q_min;
         VectorXd q_max;
