@@ -136,12 +136,23 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: \
  /usr/include/c++/9/bits/basic_ios.tcc \
  /usr/include/c++/9/bits/ostream.tcc /usr/include/c++/9/istream \
  /usr/include/c++/9/bits/istream.tcc \
- /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/FrankaRobot.h \
- /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h \
- /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h \
- /usr/include/dqrobotics/robot_modeling/DQ_Kinematics.h \
- /usr/include/dqrobotics/DQ.h /usr/include/eigen3/Eigen/Dense \
- /usr/include/eigen3/Eigen/Core \
+ /usr/include/dqrobotics/interfaces/vrep/DQ_VrepInterface.h \
+ /usr/include/c++/9/atomic /usr/include/c++/9/bits/atomic_base.h \
+ /usr/include/c++/9/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/9/vector /usr/include/c++/9/bits/stl_construct.h \
+ /usr/include/c++/9/bits/stl_uninitialized.h \
+ /usr/include/c++/9/bits/stl_vector.h \
+ /usr/include/c++/9/bits/stl_bvector.h /usr/include/c++/9/bits/vector.tcc \
+ /usr/include/c++/9/functional /usr/include/c++/9/tuple \
+ /usr/include/c++/9/utility /usr/include/c++/9/bits/stl_relops.h \
+ /usr/include/c++/9/array /usr/include/c++/9/bits/uses_allocator.h \
+ /usr/include/c++/9/bits/invoke.h /usr/include/c++/9/bits/refwrap.h \
+ /usr/include/c++/9/bits/std_function.h /usr/include/c++/9/map \
+ /usr/include/c++/9/bits/stl_tree.h \
+ /usr/include/c++/9/ext/aligned_buffer.h \
+ /usr/include/c++/9/bits/stl_map.h /usr/include/c++/9/bits/stl_multimap.h \
+ /usr/include/c++/9/bits/erase_if.h /usr/include/dqrobotics/DQ.h \
+ /usr/include/eigen3/Eigen/Dense /usr/include/eigen3/Eigen/Core \
  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
  /usr/include/c++/9/complex /usr/include/c++/9/cmath /usr/include/math.h \
@@ -162,13 +173,8 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/mm_malloc.h \
  /usr/include/c++/9/stdlib.h /usr/include/c++/9/cstddef \
  /usr/include/c++/9/cassert /usr/include/assert.h \
- /usr/include/c++/9/functional /usr/include/c++/9/tuple \
- /usr/include/c++/9/utility /usr/include/c++/9/bits/stl_relops.h \
- /usr/include/c++/9/array /usr/include/c++/9/bits/uses_allocator.h \
- /usr/include/c++/9/bits/invoke.h /usr/include/c++/9/bits/refwrap.h \
- /usr/include/c++/9/bits/std_function.h /usr/include/c++/9/cstring \
- /usr/include/string.h /usr/include/strings.h /usr/include/c++/9/limits \
- /usr/include/c++/9/climits \
+ /usr/include/c++/9/cstring /usr/include/string.h /usr/include/strings.h \
+ /usr/include/c++/9/limits /usr/include/c++/9/climits \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
@@ -180,7 +186,6 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: \
  /usr/include/c++/9/algorithm /usr/include/c++/9/bits/stl_algo.h \
  /usr/include/c++/9/bits/algorithmfwd.h \
  /usr/include/c++/9/bits/stl_heap.h /usr/include/c++/9/bits/stl_tempbuf.h \
- /usr/include/c++/9/bits/stl_construct.h \
  /usr/include/c++/9/bits/uniform_int_dist.h \
  /usr/include/eigen3/Eigen/src/Core/util/Constants.h \
  /usr/include/eigen3/Eigen/src/Core/util/Meta.h \
@@ -349,21 +354,21 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: \
  /usr/include/eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h \
  /usr/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h \
  /usr/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
- /usr/include/dqrobotics/utils/DQ_Constants.h \
- /usr/include/dqrobotics/robots/Ax18ManipulatorRobot.h \
- /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h \
- /usr/include/c++/9/thread /usr/include/c++/9/chrono \
- /usr/include/c++/9/ratio /usr/include/c++/9/ctime \
- /usr/include/c++/9/bits/parse_numbers.h /usr/include/c++/9/memory \
- /usr/include/c++/9/bits/stl_uninitialized.h \
- /usr/include/c++/9/bits/stl_raw_storage_iter.h \
+ /usr/include/dqrobotics/interfaces/vrep/DQ_VrepInterfaceMapElement.h \
+ /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/FrankaRobot.h \
+ /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h \
+ /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h \
+ /usr/include/dqrobotics/robot_modeling/DQ_Kinematics.h \
+ /usr/include/dqrobotics/utils/DQ_Constants.h /usr/include/c++/9/thread \
+ /usr/include/c++/9/chrono /usr/include/c++/9/ratio \
+ /usr/include/c++/9/ctime /usr/include/c++/9/bits/parse_numbers.h \
+ /usr/include/c++/9/memory /usr/include/c++/9/bits/stl_raw_storage_iter.h \
  /usr/include/c++/9/ext/concurrence.h \
  /usr/include/c++/9/bits/unique_ptr.h \
  /usr/include/c++/9/bits/shared_ptr.h \
  /usr/include/c++/9/bits/shared_ptr_base.h \
  /usr/include/c++/9/bits/allocated_ptr.h \
- /usr/include/c++/9/ext/aligned_buffer.h \
  /usr/include/c++/9/bits/shared_ptr_atomic.h \
- /usr/include/c++/9/bits/atomic_base.h \
- /usr/include/c++/9/bits/atomic_lockfree_defines.h \
- /usr/include/c++/9/backward/auto_ptr.h
+ /usr/include/c++/9/backward/auto_ptr.h /usr/include/eigen3/Eigen/Core \
+ /usr/include/eigen3/Eigen/Geometry \
+ /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/dq2tfm.h

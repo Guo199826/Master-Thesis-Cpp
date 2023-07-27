@@ -52,5 +52,11 @@
   "command": "/usr/bin/g++  -isystem /usr/include/eigen3 -isystem /usr/local/include/osqp -g -std=gnu++14 -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -o CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o -c /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/tmprod.cpp",
   "file": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/tmprod.cpp",
   "output": "CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o"
+},
+{
+  "directory": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build",
+  "command": "/usr/bin/g++  -isystem /usr/include/eigen3 -isystem /usr/local/include/osqp -g -std=gnu++14 -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -o CMakeFiles/joint_velocity_commands.dir/src/dq2tfm.cpp.o -c /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/dq2tfm.cpp",
+  "file": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/dq2tfm.cpp",
+  "output": "CMakeFiles/joint_velocity_commands.dir/src/dq2tfm.cpp.o"
 }
 ]

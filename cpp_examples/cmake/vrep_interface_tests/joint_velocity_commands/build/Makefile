@@ -153,6 +153,30 @@ src/FrankaRobot.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.s
 .PHONY : src/FrankaRobot.cpp.s
 
+src/dq2tfm.o: src/dq2tfm.cpp.o
+.PHONY : src/dq2tfm.o
+
+# target to build an object file
+src/dq2tfm.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/dq2tfm.cpp.o
+.PHONY : src/dq2tfm.cpp.o
+
+src/dq2tfm.i: src/dq2tfm.cpp.i
+.PHONY : src/dq2tfm.i
+
+# target to preprocess a source file
+src/dq2tfm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/dq2tfm.cpp.i
+.PHONY : src/dq2tfm.cpp.i
+
+src/dq2tfm.s: src/dq2tfm.cpp.s
+.PHONY : src/dq2tfm.s
+
+# target to generate assembly for a file
+src/dq2tfm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/dq2tfm.cpp.s
+.PHONY : src/dq2tfm.cpp.s
+
 src/geomJac.o: src/geomJac.cpp.o
 .PHONY : src/geomJac.o
 
@@ -357,6 +381,9 @@ help:
 	@echo "... src/FrankaRobot.o"
 	@echo "... src/FrankaRobot.i"
 	@echo "... src/FrankaRobot.s"
+	@echo "... src/dq2tfm.o"
+	@echo "... src/dq2tfm.i"
+	@echo "... src/dq2tfm.s"
 	@echo "... src/geomJac.o"
 	@echo "... src/geomJac.i"
 	@echo "... src/geomJac.s"

@@ -1694,12 +1694,14 @@ CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.o: /home/guo/Ma
   /usr/lib/gcc/x86_64-linux-gnu/9/include/xmmintrin.h
 
 CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/joint_velocity_commands.cpp \
+  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/FrankaRobot.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
   /usr/include/assert.h \
   /usr/include/c++/9/algorithm \
   /usr/include/c++/9/array \
+  /usr/include/c++/9/atomic \
   /usr/include/c++/9/backward/auto_ptr.h \
   /usr/include/c++/9/backward/binders.h \
   /usr/include/c++/9/bits/algorithmfwd.h \
@@ -1717,6 +1719,7 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: /home/
   /usr/include/c++/9/bits/cpp_type_traits.h \
   /usr/include/c++/9/bits/cxxabi_forced.h \
   /usr/include/c++/9/bits/cxxabi_init_exception.h \
+  /usr/include/c++/9/bits/erase_if.h \
   /usr/include/c++/9/bits/exception.h \
   /usr/include/c++/9/bits/exception_defines.h \
   /usr/include/c++/9/bits/exception_ptr.h \
@@ -1750,23 +1753,29 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: /home/
   /usr/include/c++/9/bits/std_function.h \
   /usr/include/c++/9/bits/stl_algo.h \
   /usr/include/c++/9/bits/stl_algobase.h \
+  /usr/include/c++/9/bits/stl_bvector.h \
   /usr/include/c++/9/bits/stl_construct.h \
   /usr/include/c++/9/bits/stl_function.h \
   /usr/include/c++/9/bits/stl_heap.h \
   /usr/include/c++/9/bits/stl_iterator.h \
   /usr/include/c++/9/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/9/bits/stl_iterator_base_types.h \
+  /usr/include/c++/9/bits/stl_map.h \
+  /usr/include/c++/9/bits/stl_multimap.h \
   /usr/include/c++/9/bits/stl_pair.h \
   /usr/include/c++/9/bits/stl_raw_storage_iter.h \
   /usr/include/c++/9/bits/stl_relops.h \
   /usr/include/c++/9/bits/stl_tempbuf.h \
+  /usr/include/c++/9/bits/stl_tree.h \
   /usr/include/c++/9/bits/stl_uninitialized.h \
+  /usr/include/c++/9/bits/stl_vector.h \
   /usr/include/c++/9/bits/streambuf.tcc \
   /usr/include/c++/9/bits/streambuf_iterator.h \
   /usr/include/c++/9/bits/stringfwd.h \
   /usr/include/c++/9/bits/uniform_int_dist.h \
   /usr/include/c++/9/bits/unique_ptr.h \
   /usr/include/c++/9/bits/uses_allocator.h \
+  /usr/include/c++/9/bits/vector.tcc \
   /usr/include/c++/9/cassert \
   /usr/include/c++/9/cctype \
   /usr/include/c++/9/cerrno \
@@ -1801,6 +1810,7 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: /home/
   /usr/include/c++/9/iostream \
   /usr/include/c++/9/istream \
   /usr/include/c++/9/limits \
+  /usr/include/c++/9/map \
   /usr/include/c++/9/memory \
   /usr/include/c++/9/new \
   /usr/include/c++/9/ostream \
@@ -1816,14 +1826,15 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: /home/
   /usr/include/c++/9/type_traits \
   /usr/include/c++/9/typeinfo \
   /usr/include/c++/9/utility \
+  /usr/include/c++/9/vector \
   /usr/include/ctype.h \
   /usr/include/dqrobotics/DQ.h \
+  /usr/include/dqrobotics/interfaces/vrep/DQ_VrepInterface.h \
+  /usr/include/dqrobotics/interfaces/vrep/DQ_VrepInterfaceMapElement.h \
   /usr/include/dqrobotics/robot_modeling/DQ_Kinematics.h \
   /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h \
-  /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h \
   /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h \
-  /usr/include/dqrobotics/robots/Ax18ManipulatorRobot.h \
-  /usr/include/dqrobotics/robots/FrankaEmikaPandaRobot.h \
+  /usr/include/dqrobotics/utils/DQ_Constants.h \
   /usr/include/eigen3/Eigen/Cholesky \
   /usr/include/eigen3/Eigen/Core \
   /usr/include/eigen3/Eigen/Dense \
@@ -4161,15 +4172,9 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 
 /usr/include/eigen3/Eigen/IterativeLinearSolvers:
 
-/usr/include/c++/9/map:
-
 /usr/include/c++/9/list:
 
-/usr/include/c++/9/bits/stl_map.h:
-
 /usr/include/c++/9/bits/list.tcc:
-
-/usr/include/c++/9/bits/erase_if.h:
 
 /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/manipulabilityJacobian.h:
 
@@ -4177,13 +4182,21 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 
 /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/logmap.h:
 
-/usr/include/dqrobotics/robots/Ax18ManipulatorRobot.h:
+/usr/include/dqrobotics/interfaces/vrep/DQ_VrepInterfaceMapElement.h:
+
+/usr/include/dqrobotics/interfaces/vrep/DQ_VrepInterface.h:
 
 /usr/include/c++/9/thread:
 
+/usr/include/c++/9/map:
+
 /usr/include/c++/9/chrono:
 
+/usr/include/c++/9/bits/stl_map.h:
+
 /usr/include/c++/9/bits/parse_numbers.h:
+
+/usr/include/c++/9/bits/erase_if.h:
 
 /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/joint_velocity_commands.cpp:
 
@@ -4264,8 +4277,6 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 /usr/include/eigen3/unsupported/Eigen/CXX11/src/Tensor/TensorCustomOp.h:
 
 /usr/include/eigen3/unsupported/Eigen/CXX11/src/Tensor/TensorCostModel.h:
-
-/usr/include/dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h:
 
 /usr/include/eigen3/unsupported/Eigen/CXX11/src/Tensor/TensorConvolution.h:
 
@@ -4462,6 +4473,8 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 /usr/include/eigen3/Eigen/src/Eigenvalues/Tridiagonalization.h:
 
 /usr/local/include/OsqpEigen/OsqpEigen.h:
+
+/usr/include/c++/9/atomic:
 
 /usr/include/eigen3/Eigen/SVD:
 
