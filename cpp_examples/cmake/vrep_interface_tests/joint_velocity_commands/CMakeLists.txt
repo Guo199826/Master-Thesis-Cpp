@@ -18,7 +18,8 @@ add_executable(joint_velocity_commands
     src/spdToVec.cpp
     src/FrankaRobot.cpp
     include/FrankaRobot.h
-    include/manipulabilityJacobian.h
+    src/manipulabilityJacobian.cpp
+    src/redManipulabilityJacobian.cpp
     src/logmap.cpp
     src/tmprod.cpp
     # src/symm2vec.cpp

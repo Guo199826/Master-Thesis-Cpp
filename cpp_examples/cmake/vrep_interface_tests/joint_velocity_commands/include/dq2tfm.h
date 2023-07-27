@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <dqrobotics/DQ.h>
+#include <dqrobotics/utils/DQ_Constants.h>
 #include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Geometry>
 using namespace DQ_robotics;

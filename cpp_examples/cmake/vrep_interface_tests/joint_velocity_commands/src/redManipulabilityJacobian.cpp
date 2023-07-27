@@ -9,11 +9,11 @@ MatrixXd redManipulabilityJacobian(const MatrixXd &geomJ_, const Tensor<double, 
     for(int i=0; i<size; i++){
         array<DenseIndex, 3> offset = {0, 0, i};
         array<DenseIndex, 3> extent = {6, 6, 1};
-        Jm.slice(offset, extent) = J_result_m2t;
+        J_result_m2t = Jm.slice(offset, extent);
         M_temp = Map<Matrix<double,6,6>> (J_result_m2t.data(), 6, 6);
         VectorXd Jm_red_i = spd2vec_vec(M_temp);
         Jm_red.col(i)= Jm_red_i;
     }
-    std::cout<<"redManiJacobian: "<<std::endl<<Jm_red<<std::endl;
+    // std::cout<<"redManiJacobian: "<<std::endl<<Jm_red<<std::endl;
     return Jm_red;
 }

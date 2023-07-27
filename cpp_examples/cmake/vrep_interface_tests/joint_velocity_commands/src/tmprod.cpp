@@ -28,20 +28,26 @@ Tensor<double, 3> tmprod(const Eigen::Tensor<double, 3>& T, const Eigen::MatrixX
     size_tens={size_tens[perm[0]], size_tens[perm[1]], size_tens[perm[2]]};
     T_temp = T;
     if (mode != 1){
-        result =T_temp.shuffle(perm);
-        
+        result = T_temp.shuffle(perm);}
+    else{
+            result = T_temp;
     }
-    std::cout<<"result: "<<result<<std::endl;
+    // std::cout<<"result------------------------- "<<std::endl<<result<<std::endl;
     // nmode product:
     size_tens[0] = M.rows();
     int col = result.size()/result.dimension(0);
     MatrixXd M_temp = Map<MatrixXd> (result.data(), result.dimension(0),col);
     MatrixXd M_temp2 = M* M_temp;
-    std::cout<<"M_temp2: "<<M_temp2<<std::endl;
+    // std::cout<<"M_temp2--------------------------- "<<std::endl<<M_temp2<<std::endl;
     Tensor<double,3> T_temp2 = TensorMap<Tensor<double,3>>(M_temp2.data(), size_tens[0],size_tens[1],size_tens[2]);
     // Tensor<double,3> T_temp2 = TensorMap<Tensor<double,3>>(M_temp2.data(), size_tens[0],size_tens[1],size_tens[2]);
-    // T_temp2.shuffle(perm);
-    return T_temp2;
+    array<int, 3> iperm;
+    iperm[perm[0]]=0;
+    iperm[perm[1]]=1;
+    iperm[perm[2]]=2;
+    Tensor<double,3> T_temp3 = T_temp2.shuffle(iperm);
+
+    return T_temp3;
 }
 
 

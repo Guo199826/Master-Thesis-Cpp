@@ -28,7 +28,6 @@ Prerequisites:
 #include <iostream>
 // #include <dqrobotics/DQ.h>
 #include <dqrobotics/interfaces/vrep/DQ_VrepInterface.h>
-// #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
 #include "../include/FrankaRobot.h"
 // #include <dqrobotics/robot_modeling/DQ_SerialManipulator.h>
 // #include <dqrobotics/robot_control/DQ_PseudoinverseController.h>
@@ -36,8 +35,11 @@ Prerequisites:
 #include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Geometry>
 #include "../include/dq2tfm.h"
-// #include "../include/jacobianEst.h"
-// #include "../include/geomJac.h"
+#include "../include/jacobianEst.h"
+#include "../include/jacobianEstVector.h"
+#include "../include/geomJac.h"
+#include "../include/manipulabilityJacobian.h"
+#include "../include/franka_analytical_ik-main/franka_ik_He.hpp"
 // #include "osqp/osqp.h"
 // #include "OsqpEigen/OsqpEigen.h"
 
@@ -74,13 +76,6 @@ int main(void)
     robot.set_reference_frame(base_frame);
     robot.set_base_frame(base_frame);
 
-    // Maximum joint ranges (deg): (q1..q7)
-    //       -166.0031 -101.0010 -166.0031 -176.0012 -166.0031  -1.0027  -166.0031
-    // VectorXd q_min;
-    // q_min << -2.8973,  -1.7628,  -2.8973,  -3.0718,  -2.8973   -0.0175  -2.8973;
-    // //        166.0031  101.0010  166.0031 -3.9992   166.0031   215.0024  166.0031
-    // VectorXd q_max;
-    // q_max <<  2.8973,   1.7628,   2.8973,  -0.0698,   2.8973,   3.7525,   2.8973;
     // Set link number and joint angle
     int n = 7;
     VectorXd q_ (7);
@@ -99,48 +94,47 @@ int main(void)
     MatrixXd q_track;
 
     // Define function handle for geomJac and pose_jacobian
-    // std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
-    // const VectorXd&, const int)> fct_geomJac_ = geomJac;
+    std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
+    const VectorXd&, const int)> fct_geomJac_ = geomJac;
     ///////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    
-    // MatrixXd J_geom = geomJac(robot, J, q_, n); 
-    // std::cout<<"J_geom: "<<std::endl<<J_geom<<std::endl;
 
-    // test jacobianEstVector and jacobianEst
-    // ev_diff: eigenvalue of Manipulability
-    // MatrixXd J_sing = jacobianEstVector(geomJac, q_, n, robot); 
-    // std::cout<<"JacobianEst for singular value: "<<std::endl<< J_sing <<std::endl;
-    // Tensor<double, 3> J_jacobian = jacobianEst(geomJac, q_, n, robot_);
     std::cout << "Starting control loop..." << std::endl;
-    VectorXd q_0 = vi.get_joint_positions(jointnames);
-    DQ x_0 = robot.fkm(q_0);
-    DQ x_0_t = x_0.translation();
-    DQ x_0_r = x_0.rotation();
-
-    Vector3d dq_t_vec = x_0.translation().vec3();
-    Vector4d dq_r_vec = x_0.rotation().vec4();
-    std::cout<<"dq t: "<<x_0.translation()<<std::endl;
-    std::cout<<"dq r: "<<x_0_r<<std::endl;
-    std::cout<<"dq r vec4: "<<dq_r_vec<<std::endl;
-
-    Matrix4d tfm = dq2tfm(x_0);
-
-    std::cout << "Joint positions q (at starting) is: \n"<< std::endl << vi.get_joint_positions(jointnames) << std::endl;
-    std::cout<<"forward kinematics x_0_t: "<<std::endl<< x_0_t <<std::endl;
-    std::cout<<"forward kinematics x_0_r: "<<std::endl<< x_0_r <<std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-    // Send commands to the robot
-    vi.set_joint_positions(jointnames,q_);
-    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-    std::cout << "Joint positions q (at starting) is set to be: \n"<< std::endl << vi.get_joint_positions(jointnames) << std::endl;
+    VectorXd q = vi.get_joint_positions(jointnames);
+    std::cout << "Joint positions q (at starting) is: \n"<< std::endl << q << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // test geomJ
     MatrixXd J = robot.pose_jacobian(q_);
-    DQ x = robot.fkm(q_);
-    std::cout<<"J: "<<std::endl<<J<<std::endl;
-    std::cout<<"forward kinematics x_t: "<<std::endl<< x <<std::endl;
-    std::cout << "Joint positions q (at starting) is now: \n"<< std::endl << vi.get_joint_positions(jointnames) << std::endl;
+    MatrixXd J_geom = geomJac(robot, J, q_, n); 
+
+    // test jacobianEstVector and jacobianEst
+    // ev_diff: eigenvalue of Manipulability
+    MatrixXd J_sing = jacobianEstVector(geomJac, q, n, robot); 
+    Tensor<double, 3> J_grad = jacobianEst(geomJac, q, n, robot);
+
+    // test redManiJac
+    // Tensor<double, 3> Jm = manipulabilityJacobian(J_geom, J_grad);
+    MatrixXd Jm_red = redManipulabilityJacobian(J_geom, J_grad);
+    std::cout<<"Jm_red: "<<std::endl<<Jm_red<<std::endl;
+    // std::cout<<"Jm: "<<std::endl<<Jm<<std::endl;
+    // Tensor<double, 3> T(3,3,3);
+    // T.setConstant(1.0);
+    // MatrixXd matrix(3, 3);
+    // matrix << 1, 2, 3,
+    //           4, 5, 6,
+    //           7, 8, 9;
+    // Tensor<double, 3> result = tmprod(T, matrix, 1);
+    // std::cout << "Result of n-mode product:" << std::endl<<result<< std::endl;
+    // std::cout << "Result of n-mode product test; :" << std::endl<<result(1,0,2)<< std::endl;
+
+
+    // test ik solver
+    // std::array<double, 16> O_T_EE_array;
+    // double q7;
+    // std::array<double, 7> q_actual_array;
+    // DQ x = robot.fkm(q).normalize();
+    // std::array< std::array<double, 7>, 4 > q_est = franka_IK_EE (O_T_EE_array,
+    //                                                 q7, q_actual_array );
 
     // Main control loop
     // for (int i = 0; i<nbIter; i++){
@@ -157,8 +151,33 @@ int main(void)
     // }
     // std::cout << "Control finished..." << std::endl;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    std::cout << "Stopping V-REP simulation..." << std::endl;
+    vi.stop_simulation();
+    vi.disconnect();
+    return 0;
+}
 
-    // DQ_PseudoinverseController controller(robot);
+
+// test matlab
+    // Quaterniond rotationQuaternion(0.1374, 0.72858, 0.62793, -0.23662);
+    // Matrix3d rotationMatrix = rotationQuaternion.toRotationMatrix();
+    // double roll, pitch, yaw;
+    // roll = atan2(rotationMatrix(2, 1), rotationMatrix(2, 2));
+    // pitch = atan2(-rotationMatrix(2, 0), sqrt(rotationMatrix(2, 1) * rotationMatrix(2, 1) + rotationMatrix(2, 2) * rotationMatrix(2, 2)));
+    // yaw = atan2(rotationMatrix(1, 0), rotationMatrix(0, 0));
+    // double scal = 180/pi;
+    // std::cout<<"Euler angle in matlab: "<<roll*scal<<" "<<pitch*scal<<" "<<yaw*scal<<std::endl;
+
+// Maximum joint ranges (deg): (q1..q7)
+    //       -166.0031 -101.0010 -166.0031 -176.0012 -166.0031  -1.0027  -166.0031
+    // VectorXd q_min;
+    // q_min << -2.8973,  -1.7628,  -2.8973,  -3.0718,  -2.8973   -0.0175  -2.8973;
+    // //        166.0031  101.0010  166.0031 -3.9992   166.0031   215.0024  166.0031
+    // VectorXd q_max;
+    // q_max <<  2.8973,   1.7628,   2.8973,  -0.0698,   2.8973,   3.7525,   2.8973;
+
+// DQ_PseudoinverseController controller(robot);
     // controller.set_gain(0.5);
     // controller.set_damping(0.05);
     // controller.set_control_objective(DQ_robotics::Translation);
@@ -177,9 +196,7 @@ int main(void)
     //     vi.trigger_next_simulation_step();
     //     i++;
     // }
-    
-    std::cout << "Stopping V-REP simulation..." << std::endl;
-    vi.stop_simulation();
-    vi.disconnect();
-    return 0;
-}
+
+
+
+

@@ -297,6 +297,54 @@ src/logmap.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/logmap.cpp.s
 .PHONY : src/logmap.cpp.s
 
+src/manipulabilityJacobian.o: src/manipulabilityJacobian.cpp.o
+.PHONY : src/manipulabilityJacobian.o
+
+# target to build an object file
+src/manipulabilityJacobian.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/manipulabilityJacobian.cpp.o
+.PHONY : src/manipulabilityJacobian.cpp.o
+
+src/manipulabilityJacobian.i: src/manipulabilityJacobian.cpp.i
+.PHONY : src/manipulabilityJacobian.i
+
+# target to preprocess a source file
+src/manipulabilityJacobian.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/manipulabilityJacobian.cpp.i
+.PHONY : src/manipulabilityJacobian.cpp.i
+
+src/manipulabilityJacobian.s: src/manipulabilityJacobian.cpp.s
+.PHONY : src/manipulabilityJacobian.s
+
+# target to generate assembly for a file
+src/manipulabilityJacobian.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/manipulabilityJacobian.cpp.s
+.PHONY : src/manipulabilityJacobian.cpp.s
+
+src/redManipulabilityJacobian.o: src/redManipulabilityJacobian.cpp.o
+.PHONY : src/redManipulabilityJacobian.o
+
+# target to build an object file
+src/redManipulabilityJacobian.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/redManipulabilityJacobian.cpp.o
+.PHONY : src/redManipulabilityJacobian.cpp.o
+
+src/redManipulabilityJacobian.i: src/redManipulabilityJacobian.cpp.i
+.PHONY : src/redManipulabilityJacobian.i
+
+# target to preprocess a source file
+src/redManipulabilityJacobian.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/redManipulabilityJacobian.cpp.i
+.PHONY : src/redManipulabilityJacobian.cpp.i
+
+src/redManipulabilityJacobian.s: src/redManipulabilityJacobian.cpp.s
+.PHONY : src/redManipulabilityJacobian.s
+
+# target to generate assembly for a file
+src/redManipulabilityJacobian.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/redManipulabilityJacobian.cpp.s
+.PHONY : src/redManipulabilityJacobian.cpp.s
+
 src/spdToVec.o: src/spdToVec.cpp.o
 .PHONY : src/spdToVec.o
 
@@ -399,6 +447,12 @@ help:
 	@echo "... src/logmap.o"
 	@echo "... src/logmap.i"
 	@echo "... src/logmap.s"
+	@echo "... src/manipulabilityJacobian.o"
+	@echo "... src/manipulabilityJacobian.i"
+	@echo "... src/manipulabilityJacobian.s"
+	@echo "... src/redManipulabilityJacobian.o"
+	@echo "... src/redManipulabilityJacobian.i"
+	@echo "... src/redManipulabilityJacobian.s"
 	@echo "... src/spdToVec.o"
 	@echo "... src/spdToVec.i"
 	@echo "... src/spdToVec.s"

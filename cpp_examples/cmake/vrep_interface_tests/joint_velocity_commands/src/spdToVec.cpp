@@ -10,10 +10,8 @@ VectorXd spd2vec_vec (const MatrixXd &M){
     for (Index i =1; i<n_1; i++){
         vec_add = sqrt(2)*M.diagonal(i);
         int to_append = vec_add.size();
-        std::cout<<"vec_add size: "<<to_append<<std::endl;
         vec.conservativeResize(vec.size() + vec_add.size());
         vec.bottomRows(to_append)= vec_add;
-        std::cout<<"vec_size: "<<vec.size()<<std::endl;
         // vec.bottomRows(to_append) = vec_add;
         // vec << vec, vec_add;
     }
@@ -25,8 +23,8 @@ MatrixXd spd2vec_mat (const Tensor<double,3> &T){
     Tensor<double,3> T_temp;
     int d = T.dimension(0);
     int n = T.dimension(2);
-    std::cout<<"T_dimension 0: "<<d<<std::endl;
-    std::cout<<"T_dimension 2: "<<n<<std::endl;
+    // std::cout<<"T_dimension 0: "<<d<<std::endl;
+    // std::cout<<"T_dimension 2: "<<n<<std::endl;
     VectorXd vec;
     VectorXd vec_add;
     MatrixXd M;
@@ -45,18 +43,13 @@ MatrixXd spd2vec_mat (const Tensor<double,3> &T){
         for (int j = 1; j<d; j++){
             vec_add = sqrt(2) * M.diagonal(j);
             int to_append = vec_add.size();
-            std::cout<<"vec_add size: "<<to_append<<std::endl;
-            std::cout<<"vec_add: "<<std::endl<<vec_add<<std::endl;
             vec.conservativeResize(vec.size() + vec_add.size(),1);
             vec.bottomRows(to_append)= vec_add;
-            
-            std::cout<<"vec_size: "<<vec.size()<<std::endl;
-            std::cout<<"vec: "<<std::endl<<vec<<std::endl;
         }
         M_res.conservativeResize(vec.rows(), i+1);
         // !vec.rows could be calculated forher
         M_res.col(i) = vec;
     }
-    std::cout<<"Result of tensor symm2vec: "<<std::endl<<M_res<<std::endl;
+    // std::cout<<"Result of tensor symm2vec: "<<std::endl<<M_res<<std::endl;
     return M_res;
 }

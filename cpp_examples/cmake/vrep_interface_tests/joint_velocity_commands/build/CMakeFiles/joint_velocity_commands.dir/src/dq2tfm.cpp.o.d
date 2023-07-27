@@ -346,4 +346,5 @@ CMakeFiles/joint_velocity_commands.dir/src/dq2tfm.cpp.o: \
  /usr/include/eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h \
  /usr/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h \
  /usr/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
+ /usr/include/dqrobotics/utils/DQ_Constants.h \
  /usr/include/eigen3/Eigen/Core /usr/include/eigen3/Eigen/Geometry

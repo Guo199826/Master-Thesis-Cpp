@@ -39,12 +39,12 @@ MatrixXd jacobianEstVector(std::function<MatrixXd(const DQ_SerialManipulator&, c
         
         J_ii = robot.pose_jacobian(q_ii);
         J_i = robot.pose_jacobian(q_i);
-        std::cout<<"J_ii of "<<i<<std::endl<<J_ii<<std::endl;
-        std::cout<<"J_i: "<<i<<std::endl<<J_i<<std::endl;
+        // std::cout<<"J_ii of "<<i<<std::endl<<J_ii<<std::endl;
+        // std::cout<<"J_i: "<<i<<std::endl<<J_i<<std::endl;
         J_geom_ii = fct_geomJac(robot,J_ii,q_ii,n);
         J_geom_i = fct_geomJac(robot,J_i,q_i,n);
-        std::cout<<"J_geom_ii: "<<i<<std::endl<<J_geom_ii<<std::endl;
-        std::cout<<"J_geom_i: "<<i<<std::endl<<J_geom_i<<std::endl;
+        // std::cout<<"J_geom_ii: "<<i<<std::endl<<J_geom_ii<<std::endl;
+        // std::cout<<"J_geom_i: "<<i<<std::endl<<J_geom_i<<std::endl;
         eigenvalue_ii = singularsolver.compute(J_geom_ii).singularValues();
         eigenvalue_i = singularsolver.compute(J_geom_i).singularValues();
 

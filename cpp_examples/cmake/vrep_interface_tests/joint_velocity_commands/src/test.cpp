@@ -2,8 +2,6 @@
 #include "../include/jacobianEstVector.h"
 #include "../include/jacobianEst.h"
 #include "../include/geomJac.h"
-#include "../include/manipulabilityJacobian.h"
-#include "../include/franka_analytical_ik-main/franka_ik_He.hpp"
 // #include "../include/tmprod.h"
 // #include "../include/symm2vec.h"
 // #include "../include/spd2vec.h"
@@ -147,18 +145,6 @@ int test(){
     //                 0.1195,    0.1339,   -0.2919,    0.2293,   -0.0415,    0.0601,
     //                 -0.0701,   -0.0114,   -0.0225,   -0.0415,    0.0164,   -0.0309,
     //                 0.7743,   -0.2043,   -0.1081,    0.0601,   -0.0309,    0.3876;
-    
-    // test redManiJac
-    // MatrixXd geomJ_;
-    // Tensor<double, 3> J_grad_;
-    // MatrixXd Jm_red = redManipulabilityJacobian(geomJ_, J_grad_);
-    
-    // test ik solver
-    // std::array<double, 16> O_T_EE_array;
-    // double q7;
-    // std::array<double, 7> q_actual_array;
-    // std::array< std::array<double, 7>, 4 > q_est = franka_IK_EE (O_T_EE_array,
-    //                                                 q7, q_actual_array );
 
     /* // test OSQP solver
     constexpr double tolerance = 1e-4;
