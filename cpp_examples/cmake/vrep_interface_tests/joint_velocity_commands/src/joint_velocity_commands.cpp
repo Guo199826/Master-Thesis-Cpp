@@ -35,13 +35,14 @@ Prerequisites:
 #include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Geometry>
 #include "../include/dq2tfm.h"
+#include "../include/logmap.h"
 #include "../include/jacobianEst.h"
 #include "../include/jacobianEstVector.h"
 #include "../include/geomJac.h"
 #include "../include/manipulabilityJacobian.h"
 #include "../include/franka_analytical_ik-main/franka_ik_He.hpp"
 // #include "osqp/osqp.h"
-// #include "OsqpEigen/OsqpEigen.h"
+#include "OsqpEigen/OsqpEigen.h"
 
 using namespace Eigen;
 using namespace DQ_robotics;
@@ -63,111 +64,205 @@ int main(void)
     // Robot definition
     DQ_SerialManipulatorMDH robot = FrankaRobot::kinematics();
     std::shared_ptr<DQ_SerialManipulatorMDH> robot_ptr = std::make_shared<DQ_SerialManipulatorMDH> (robot);
-    std::cout << "------base frame--------" << robot.get_base_frame()<<std::endl;
-    std::cout << "------q lower limit-----" << robot.get_lower_q_limit()<<std::endl;
-
-    // Update the base of the robot from CoppeliaSim
-    // DQ new_base_robot = (robot.get_base_frame())*vi.get_object_pose("Franka")*(1+0.5*E_*(0.107*k_));
-    // robot.set_reference_frame(new_base_robot);
-    // robot.set_base_frame(new_base_robot);
+    DQ_SerialManipulatorMDH robot_ik = FrankaRobot::kinematics();
+    DQ offset_base = 1 + E_ * 0.5 * DQ(0, 0, 0, 0);
+    robot_ik.set_base_frame(offset_base);
+    robot_ik.set_reference_frame(offset_base);
+    
+    std::cout<<"IK: Originally base frame in Vrep: ..."<< robot_ik.get_base_frame()<<std::endl;
+    std::cout<<"IK: Now base frame in Vrep:.... "<< robot_ik.get_effector()<<std::endl;
 
     DQ base_frame = vi.get_object_pose("Franka_joint1");
-    std::cout<<"bease frame in Vrep: "<<base_frame<<std::endl;
-    // robot.set_reference_frame(base_frame);
-    // robot.set_base_frame(base_frame);
+    DQ eef_frame = vi.get_object_pose("Franka_connection");
+    std::cout<<"Originally base frame in Vrep:.... "<<robot.get_base_frame()<<std::endl;
+    std::cout<<"base frame in Vrep: "<<base_frame<<std::endl;
+    std::cout<<"eef frame in Vrep: "<<eef_frame<<std::endl;
+    robot.set_base_frame(base_frame);
+    robot.set_reference_frame(base_frame);
+    std::cout<<"Now base frame in Vrep:.... "<<robot.get_base_frame()<<std::endl;
+    std::cout<<"Now eef frame in Vrep:.... "<<robot.get_effector()<<std::endl;
 
     // Set link number and joint angle
     int n = 7;
-    VectorXd q_ (7);
-    VectorXd q_1 (7);
-    q_ << 1.1519, -0.3840, 0.2618, -2, 0.0, 1.3963, 0.0 ; // validate with q_test in Matlab
-    // q_ << 0, 0.384, 0, -1.5708,  0, 1.3963, 0.0 ;
+    VectorXd q_ (n);
+    VectorXd q_1 (n);
+    q_1 << 1.15192, 0.383972, 0.261799, -1.5708, 0.0, 1.39626, 0.0 ; // validate with q_test in Matlab
+    q_ << -1.98968, -0.383972, -2.87979, -1.5708, 4.20539e-17, 1.39626, 0;
+    // q_ << -2.20775, -0.443532, -2.67585, -1.51926, -0.102954, 1.36896, 0;
+    // q_ << 1.42395, 0.349786, 0.0102086, -1.60643, 0.101047, 1.41151, 0 ;
+    // one pair:
+    // q_1 << 0, 0.384, 0, -1.5708,  0, 1.3963, 0.0 ;
+    // q_<< -3.37246e-16, 0.534369, 4.37472e-16, -1.33784, -5.36556e-16, 1.31371, 0;
     // q_ << 0, 0, 0, -1.5708, 0.0, 1.3963, 0.0 ;
-
+    // DQ x_val = robot.fkm(q_);
+    // std::cout<<"----------Fkm original-----------"<<std::endl<<x_val<<std::endl;
+    // DQ x_0 = robot.fkm(q_1);
+    // std::cout<<"----------Fkm of the q from IK----"<<std::endl<<x_0<<std::endl;
     int m = 6; // Dimension of workspace
 
     // // Auxiliar variables
-    // double dt = 1E-2;	// Time step
+    double dt = 1E-2;	// Time step
     int nbIter = 3; // Number of iterations (orig: 65)
     int nbData = 1; // no trajectory
     int t_all = nbIter*nbData;
 
-    // Desired cartesian and manipulability trajectory
-
-    // Initialization dq q_track M ev_diff
-    MatrixXd q_track;
+    // Desired cartesian and manipulability pos/trajectory
+    VectorXd q_goal(n);
+    q_goal << -pi/2.0, 0.004, 0.0, -1.57156, 0.0, 1.57075, 0.0;
+    MatrixXd J_goal;
+    MatrixXd J_geom_goal;
+    MatrixXd Me_d;
+    J_goal = robot.pose_jacobian(q_goal);
+    J_geom_goal = geomJac(robot, J_goal, q_goal, n);
+    Me_d = J_geom_goal*J_geom_goal.transpose();
 
     // Define function handle for geomJac and pose_jacobian
     std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
     const VectorXd&, const int)> fct_geomJac_ = geomJac;
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-    std::cout << "Starting control loop..." << std::endl;
+    
+    // change joint angle commands_
     // VectorXd q = vi.get_joint_positions(jointnames);
+    VectorXd q_0 = vi.get_joint_positions(jointnames);
+    std::cout << "Joint positions q (at starting) is: \n"<< std::endl << q_0 << std::endl;
     vi.set_joint_positions(jointnames,q_);
-    VectorXd q = vi.get_joint_positions(jointnames);
-    std::cout << "Joint positions q (at starting) is: \n"<< std::endl << q << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    // vi.set_joint_positions(jointnames,q_1);
+    // std::cout<<"change joint angle to orig..."<<std::endl;
+    // std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    VectorXd q = vi.get_joint_positions(jointnames);
+    std::cout << "Now Joint positions q is: \n"<< std::endl << q << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-    // test geomJ
-    MatrixXd J = robot.pose_jacobian(q_);
-    MatrixXd J_geom = geomJac(robot, J, q_, n); 
-
-    // test jacobianEstVector and jacobianEst
-    // ev_diff: eigenvalue of Manipulability
-    MatrixXd J_sing = jacobianEstVector(geomJac, q, n, robot); 
-    Tensor<double, 3> J_grad = jacobianEst(geomJac, q, n, robot);
-
-    // test redManiJac
-    // Tensor<double, 3> Jm = manipulabilityJacobian(J_geom, J_grad);
-    // MatrixXd Jm_red = redManipulabilityJacobian(J_geom, J_grad);
-    // std::cout<<"Jm_red: "<<std::endl<<Jm_red<<std::endl;
-
-    // test ik solver
-    DQ x = robot.fkm(q).normalize();
-    std::cout<<"Fkm-----------"<<std::endl<<x<<std::endl;
-    Matrix4d M_tf = dq2tfm(x);
-    std::array<double, 16> arr_tf;
-    std::copy(M_tf.data(), M_tf.data() + 16, arr_tf.begin());
-
-    double q7 = 0.0;
-    std::array<double, 7> qt_arr;
-    std::copy(q.data(), q.data() + q.size(), qt_arr.begin());
-    std::cout << "current q" << std::endl;
-    for (double val : qt_arr) {
-        std::cout << val << " ";
-    }
-    std::cout << std::endl;
-    std::array<std::array<double, 7>,4> q_est = franka_IK_EE (arr_tf,
-                                                    q7, qt_arr );
+    // test ik solver (without offset to synchronize with Vrep)
+    // DQ x = robot_ik.fkm(q).normalize();
+    // Matrix4d M_tf = dq2tfm(x);
+    // std::array<double, 16> arr_tf;
+    // std::copy(M_tf.data(), M_tf.data() + 16, arr_tf.begin());
+    // double q7 = 0.0;
+    // std::array<double, 7> qt_arr;
+    // std::copy(q.data(), q.data() + q.size(), qt_arr.begin());
+    // std::cout << "current q" << std::endl;
+    // for (double val : qt_arr) {
+    //     std::cout << val << " ";
+    // }
+    // std::cout << std::endl;
+    // std::array<std::array<double, 7>,4> q_est = franka_IK_EE (arr_tf,
+    //                                                 q7, qt_arr );
     // std::array<double, 7> q_est = franka_IK_EE_CC (arr_tf,
     //                                                 q7, qt_arr );
-    std::cout << "IK est. q: " << std::endl;
-    for(int i=0; i<4; i++){
-        for (double val : q_est[i]) {
-            std::cout << val << " ";  
-        }
-        std::cout << std::endl; 
-    }
-                                                
-    // VectorXd q_est_1(q_est[0].data(), q_est[0].size());
-    // std::cout<<"q_est_1: "<<std::endl<<q_est_1<<std::endl;
+    // std::cout << "IK est. q: " << std::endl;
+    // for(int i=0; i<4; i++){
+    //     for (double val : q_est[i]) {
+    //         std::cout << val << " ";  
+    //     }
+    //     std::cout << std::endl; 
+    // }                                            
 
-    // Main control loop
+    // Initialization dq q_track M ev_diff
+    MatrixXd qt_track(7,nbIter);
+    MatrixXd dq_track(7,nbIter);
+    MatrixXd J;
+    MatrixXd J_geom;
+    MatrixXd Me_ct(m,m);
+    Tensor<double, 3> Me_track(m,m,nbIter);
+    Tensor<double, 3> J_grad(m,n,n);
+    MatrixXd Jm_t;
+    MatrixXd M_diff(m,m);
+    VectorXd vec_M_diff(21);
+    VectorXd ev_t;
+    MatrixXd ev_diff;
+
+    std::cout << "Starting control loop-------------------------------------------------" << std::endl;
+    // Main control loop //////////////////////////////////////////////////////////////////////////////
     for (int i = 0; i<nbIter; i++){
-        // VectorXd q = vi.get_joint_positions(jointnames);
-        // vi.
-        // // Obtain the current analytical Jacobian (Dim: 8 * n)
-        // MatrixXd J = robot.pose_jacobian(q);
-        // // Send commands to the robot
-        // vi.set_joint_positions(joint_names,q);
-        //    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        // // Integrate to obtain q_out
-        // q = q + u;
+        VectorXd qt = vi.get_joint_positions(jointnames);
+        qt_track.col(i) = qt;
+        // Obtain the current analytical Jacobian, geom J and M 
+        J = robot.pose_jacobian(qt);
+        J_geom = geomJac(robot, J, qt, n); 
+        Me_ct = J_geom*J_geom.transpose();
 
+        // Record Me_ct into Me_track
+        array<DenseIndex, 3> offset = {0, 0, i};
+        array<DenseIndex, 3> extent = {m, m, 1};
+        Tensor<double, 3> Me_ct_tensor = TensorMap<Tensor<double, 3>>(Me_ct.data(), 6, 6, 1);
+        Me_track.slice(offset, extent) = Me_ct_tensor;
+        J_grad = jacobianEst(geomJac, qt, n, robot);
+        // Compute manipulability Jacobian (red to matrix)
+        Jm_t = redManipulabilityJacobian(J_geom, J_grad);
+        // std::cout<<"Jm_red: "<<std::endl<<Jm_red<<std::endl;
+
+        // Compute distance to desired manipulybility 
+        M_diff = logmap(Me_d, Me_ct); // 6x6
+        vec_M_diff = spd2vec_vec(M_diff); // 21x1
+        std::cout<<"M_diff: "<<std::endl<<M_diff<<std::endl;
+        std::cout<<"vec_M_diff: "<<std::endl<<vec_M_diff<<std::endl;
+
+        // Calculate eigenvalue of the current M (singular value of J_geom)
+        BDCSVD<MatrixXd> singularsolver;
+        Matrix<double, 6, 1> eigenvalue;
+        eigenvalue = singularsolver.compute(J_geom).singularValues();
+        ev_diff = jacobianEstVector(geomJac, qt, n, robot);
+
+        // forward kinematic model
+        DQ xt = robot.fkm(qt);
+        
+        // ++++++++++++++++++++QP Controller using osqp-eigen+++++++++++++++++++++++++
+        constexpr double tolerance = 1e-4;
+        c_float INFTY
+        double K_qp = 2; 
+        Matrix<c_float, 7, 7> H = Jm_t.transpose()*Jm_t;
+        SparseMatrix<c_float> H_s;
+        H_s = H.sparseView();
+        std::cout<<"H: "<<std::endl<<H<<std::endl;
+        std::cout<<"H_S : "<<std::endl<<H_s<<std::endl;
+        // H_s.pruned(0.01); // set those who smaller than 0.01 as zero?
+        Matrix<c_float, 1, 7> f = -K_qp* vec_M_diff.transpose()*Jm_t;
+        // Inequality constraints:
+        // 1. set min. allowed eigenvalue (min. ellipsoid axis length)
+        double ev_min_r = 0.05;
+        double ev_min_t = 0.01;
+        Matrix<c_float, 6,1> v_max;
+        v_max << ev_min_r, ev_min_r, ev_min_r, ev_min_t, ev_min_t, ev_min_t;
+        Matrix<c_float, 6, 1> lb = v_max;
+        
+        Matrix<c_float, 6, 1> ub;
+
+        OsqpEigen::Solver solver;
+        //settings:
+        // solver.settings()->setVerbosity(true); // print outptu or not
+        solver.settings()->setAlpha(1.0); // ADMM relaxation parameter/step size/penalty parameter
+        
+        solver.data()->setNumberOfVariables(7);
+        solver.data()->setNumberOfConstraints(6);
+        solver.data()->setHessianMatrix(H_s);
+        solver.data()->setGradient(f.transpose());
+        // solver.data()->setLinearConstraintsMatrix(A_s);
+        solver.data()->setLowerBound(lb);
+        solver.data()->setUpperBound(ub);
+
+        solver.initSolver();
+        solver.solveProblem();
+        // bool flag = solver.solveProblem() == OsqpEigen::ErrorExitFlag::NoError;
+        // std::cout<<"No error: "<<flag<<std::endl;
+        // Eigen::Matrix<c_float, 7, 1> expectedSolution;
+        // expectedSolution << 0.3,  0.7;
+
+        dq_track.col(i) = solver.getSolution();
+        std::cout<<"Solution : "<<std::endl<<dq_track.col(i)<<std::endl;
+
+        // bool converge = solver.getSolution().isApprox(expectedSolution, tolerance);
+        // std::cout<<"Converged to desired solution: "<<converge<<std::endl;
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        // Integrate to obtain q_out
+        qt = qt + dq_track.col(i)*dt;
+        // Send commands to the robot
+        vi.set_joint_positions(jointnames,qt);
+        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     }
-    // std::cout << "Control finished..." << std::endl;
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "Control finished..." << std::endl;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
     
     std::cout << "Stopping V-REP simulation..." << std::endl;
     vi.stop_simulation();
@@ -214,6 +309,9 @@ int main(void)
     //     i++;
     // }
 
-
+  // Update the base of the robot from CoppeliaSim
+    // DQ new_base_robot = (robot.get_base_frame())*vi.getS_object_pose("Franka")*(1+0.5*E_*(0.107*k_));
+    // robot.set_reference_frame(new_base_robot);
+    // robot.set_base_frame(new_base_robot);
 
 

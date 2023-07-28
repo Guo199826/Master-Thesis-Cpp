@@ -59,14 +59,12 @@ namespace DQ_robotics
 
     DQ FrankaRobot::_get_offset_base()
     {
-        std::cout<<"get offset base frame..."<<std::endl;
         return 1 + E_ * 0.5 * DQ(0, 0.0413, 0, 0);
     }
 
     DQ FrankaRobot::_get_offset_flange()
     {
-        std::cout<<"get offset end-effector frame..."<<std::endl;
-        return 1+E_*0.5*k_*1.07e-1;
+        return 1+E_*0.5*k_*1.07e-1;  // 0.5??????
     }
 
     std::tuple<const VectorXd, const VectorXd> FrankaRobot::_get_q_limits()
@@ -88,8 +86,8 @@ namespace DQ_robotics
         std::cout<<"frankaemikarobot kinematics running..."<<std::endl;
         // _get_offset_base();
         DQ_SerialManipulatorMDH franka(_get_mdh_matrix());
-        // franka.set_base_frame(_get_offset_base());
-        // franka.set_reference_frame(_get_offset_base());
+        franka.set_base_frame(_get_offset_base());
+        franka.set_reference_frame(_get_offset_base());
         franka.set_effector(_get_offset_flange());
         VectorXd q_min;
         VectorXd q_max;

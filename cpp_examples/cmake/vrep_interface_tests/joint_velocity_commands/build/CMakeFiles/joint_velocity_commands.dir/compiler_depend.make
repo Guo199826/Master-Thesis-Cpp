@@ -2099,6 +2099,7 @@ CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o: /home/
   /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/geomJac.h \
   /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/jacobianEst.h \
   /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/jacobianEstVector.h \
+  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/logmap.h \
   /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/manipulabilityJacobian.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -5626,8 +5627,6 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 
 /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/redManipulabilityJacobian.cpp:
 
-/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/logmap.h:
-
 /usr/include/dqrobotics/interfaces/vrep/DQ_VrepInterfaceMapElement.h:
 
 /usr/include/dqrobotics/interfaces/vrep/DQ_VrepInterface.h:
@@ -5645,6 +5644,8 @@ CMakeFiles/joint_velocity_commands.dir/src/tmprod.cpp.o: /home/guo/Master-Thesis
 /usr/include/c++/9/bits/erase_if.h:
 
 /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/manipulabilityJacobian.h:
+
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/logmap.h:
 
 /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/joint_velocity_commands.cpp:
 
