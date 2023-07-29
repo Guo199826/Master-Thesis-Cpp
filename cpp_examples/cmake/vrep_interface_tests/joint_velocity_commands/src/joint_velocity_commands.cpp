@@ -84,36 +84,35 @@ int main(void)
 
     // Set link number and joint angle
     int n = 7;
+    int m = 6; // Dimension of workspace
     VectorXd q_ (n);
     VectorXd q_1 (n);
     q_1 << 1.15192, 0.383972, 0.261799, -1.5708, 0.0, 1.39626, 0.0 ; // validate with q_test in Matlab
-    q_ << -1.98968, -0.383972, -2.87979, -1.5708, 4.20539e-17, 1.39626, 0;
-    // q_ << -2.20775, -0.443532, -2.67585, -1.51926, -0.102954, 1.36896, 0;
-    // q_ << 1.42395, 0.349786, 0.0102086, -1.60643, 0.101047, 1.41151, 0 ;
+    // q_ << -1.98968, -0.383972, -2.87979, -1.5708, 4.20539e-17, 1.39626, 0;
+    VectorXd q_goal(n);
+    // q_goal << -pi/2.0, 0.004, 0.0, -1.57156, 0.0, 1.57075, 0.0;
+    q_goal << 0.519784, 0.991963, 1.50832, -1.54527, -1.2189, 0.878087, 0.0;
     // one pair:
     // q_1 << 0, 0.384, 0, -1.5708,  0, 1.3963, 0.0 ;
     // q_<< -3.37246e-16, 0.534369, 4.37472e-16, -1.33784, -5.36556e-16, 1.31371, 0;
     // q_ << 0, 0, 0, -1.5708, 0.0, 1.3963, 0.0 ;
-    // DQ x_val = robot.fkm(q_);
-    // std::cout<<"----------Fkm original-----------"<<std::endl<<x_val<<std::endl;
-    // DQ x_0 = robot.fkm(q_1);
-    // std::cout<<"----------Fkm of the q from IK----"<<std::endl<<x_0<<std::endl;
-    int m = 6; // Dimension of workspace
-
+    
     // // Auxiliar variables
     double dt = 1E-2;	// Time step
-    int nbIter = 3; // Number of iterations (orig: 65)
+    int nbIter = 5; // Number of iterations (orig: 65)
     int nbData = 1; // no trajectory
     int t_all = nbIter*nbData;
 
     // Desired cartesian and manipulability pos/trajectory
-    VectorXd q_goal(n);
-    q_goal << -pi/2.0, 0.004, 0.0, -1.57156, 0.0, 1.57075, 0.0;
     MatrixXd J_goal;
     MatrixXd J_geom_goal;
     MatrixXd Me_d;
+    double Me_d_axis;
+    Matrix<double, 1, 7> J_geom_goal_axis;
     J_goal = robot.pose_jacobian(q_goal);
     J_geom_goal = geomJac(robot, J_goal, q_goal, n);
+    J_geom_goal_axis = J_geom_goal.row(3); // translation in x as primary tracking object
+    Me_d_axis = J_geom_goal_axis*J_geom_goal_axis.transpose();
     Me_d = J_geom_goal*J_geom_goal.transpose();
 
     // Define function handle for geomJac and pose_jacobian
@@ -159,10 +158,14 @@ int main(void)
     // }                                            
 
     // Initialization dq q_track M ev_diff
+    Vector3d inf_min;
+    inf_min.setConstant(1e-10);
     MatrixXd qt_track(7,nbIter);
     MatrixXd dq_track(7,nbIter);
+    MatrixXd x_t_track(3,nbIter);
     MatrixXd J;
     MatrixXd J_geom;
+    MatrixXd J_geom_t;
     MatrixXd Me_ct(m,m);
     Tensor<double, 3> Me_track(m,m,nbIter);
     Tensor<double, 3> J_grad(m,n,n);
@@ -172,20 +175,31 @@ int main(void)
     Matrix<double, 6, 1> ev_t;
     MatrixXd ev_diff;
     BDCSVD<MatrixXd> singularsolver;
-
+    SparseMatrix<c_float> H_s;
+    SparseMatrix<c_float> A_s;
+    
     std::cout << "Starting control loop-------------------------------------------------" << std::endl;
     // Main control loop //////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     for (int i = 0; i<nbIter; i++){
         VectorXd qt = vi.get_joint_positions(jointnames);
-        
         qt_track.col(i) = qt;
+        // forward kinematic model
+        DQ xt = robot.fkm(qt);
+        Vector3d xt_t = xt.translation().vec3();
+        x_t_track.col(i) = xt_t;
+        // Compute cartesian velocity dx:
+        Vector3d dxr = (x_t_track.col(0) - xt_t)*(1/dt);
+        std::cout<<"--------dxr: "<<dxr.transpose()<<std::endl;
+
         // Obtain the current analytical Jacobian, geom J and M 
         J = robot.pose_jacobian(qt);
         J_geom = geomJac(robot, J, qt, n); 
-        Me_ct = J_geom*J_geom.transpose();
+        J_geom_t = J_geom.block(3, 0, 3, n); 
+        std::cout<<"----------J_geom_t: "<<std::endl<<J_geom_t<<std::endl;
 
-        // Record Me_ct into Me_track
+        // Current Mani and Record Me_ct into Me_track
+        Me_ct = J_geom*J_geom.transpose();
         array<DenseIndex, 3> offset = {0, 0, i};
         array<DenseIndex, 3> extent = {m, m, 1};
         Tensor<double, 3> Me_ct_tensor = TensorMap<Tensor<double, 3>>(Me_ct.data(), 6, 6, 1);
@@ -206,18 +220,14 @@ int main(void)
         std::cout<<"ev_t: -------------------"<<std::endl<<ev_t<<std::endl;
         ev_diff = jacobianEstVector(geomJac, qt, n, robot);
 
-        // forward kinematic model
-        // DQ xt = robot.fkm(qt);
-        
         // ++++++++++++++++++++QP Controller using osqp-eigen+++++++++++++++++++++++++++++++++
         // constexpr double tolerance = 1e-4;
-        c_float K_qp = 2; 
+        c_float K_qp = 10; 
         Matrix<c_float, 7, 7> H = Jm_t.transpose()*Jm_t;
-        SparseMatrix<c_float> H_s;
         H_s = H.sparseView();
         std::cout<<"H: "<<std::endl<<H<<std::endl;
+        H_s.pruned(1e-9); // set those who smaller than 0.01 as zero
         std::cout<<"H_S : "<<std::endl<<H_s<<std::endl;
-        // H_s.pruned(0.01); // set those who smaller than 0.01 as zero?
         Matrix<c_float, 1, 7> f = -K_qp* vec_M_diff.transpose()*Jm_t;
         std::cout<<"f: "<<std::endl<<f<<std::endl;
 
@@ -229,28 +239,29 @@ int main(void)
         Matrix<c_float, 6,1> v_max;
         ev_min << ev_min_r, ev_min_r, ev_min_r, ev_min_t, ev_min_t, ev_min_t;
         v_max = (ev_min - ev_t)/dt;
-        Matrix<c_float, 6, 1> lb = v_max;
+        Matrix<c_float, 9, 1> lb;
+        lb.block(0,0,6,1) = v_max;
+        lb.block(6,0,3,1) = dxr;
         std::cout<<"lb: "<<lb.transpose()<<std::endl;
-        Matrix<c_float, 6, 7> A = ev_diff;
-        SparseMatrix<c_float> A_s;
+        Matrix<c_float, 9, 7> A;
+        A.block(0,0,6,7) = ev_diff;
+        A.block(6,0,3,7) = J_geom_t;
         A_s = A.sparseView();
-
-        Matrix<c_float, 6, 1> ub;
-        ub.setConstant(OsqpEigen::INFTY);
-
-        OsqpEigen::Solver solver;
-        //settings:
+        Matrix<c_float, 9, 1> ub;
+        ub.block(0,0,6,1).setConstant(OsqpEigen::INFTY);
+        ub.block(6,0,3,1) = dxr;
+        std::cout<<"ub: "<<ub.transpose()<<std::endl;
         // solver.settings()->setVerbosity(true); // print outptu or not
-        solver.settings()->setAlpha(1.0); // ADMM relaxation parameter/step size/penalty parameter
-        
+        OsqpEigen::Solver solver;
+        solver.settings()->setAlpha(1); // ADMM relaxation parameter/step size/penalty parameter
         solver.data()->setNumberOfVariables(7);
-        solver.data()->setNumberOfConstraints(6);
+        solver.data()->setNumberOfConstraints(9); //eigenvalue (6) + x_t_tracking(3) + limits(7)
+
         solver.data()->setHessianMatrix(H_s);
         solver.data()->setGradient(f.transpose());
         solver.data()->setLinearConstraintsMatrix(A_s);
         solver.data()->setLowerBound(lb);
         solver.data()->setUpperBound(ub);
-
         solver.initSolver();
         solver.solveProblem();
         // bool flag = solver.solveProblem() == OsqpEigen::ErrorExitFlag::NoError;
@@ -260,7 +271,6 @@ int main(void)
 
         dq_track.col(i) = solver.getSolution();
         std::cout<<"Solution dq_t: "<<std::endl<<dq_track.col(i).transpose()<<std::endl;
-
         // bool converge = solver.getSolution().isApprox(expectedSolution, tolerance);
         // std::cout<<"Converged to desired solution: "<<converge<<std::endl;
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
