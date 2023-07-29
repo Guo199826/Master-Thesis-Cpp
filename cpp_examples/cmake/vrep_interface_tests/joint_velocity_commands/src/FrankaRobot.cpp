@@ -83,7 +83,7 @@ namespace DQ_robotics
 
     DQ_SerialManipulatorMDH FrankaRobot::kinematics()
     {
-        std::cout<<"frankaemikarobot kinematics running..."<<std::endl;
+        // std::cout<<"frankaemikarobot kinematics running..."<<std::endl;
         // _get_offset_base();
         DQ_SerialManipulatorMDH franka(_get_mdh_matrix());
         franka.set_base_frame(_get_offset_base());

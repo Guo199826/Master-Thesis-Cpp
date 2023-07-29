@@ -120,18 +120,18 @@ int main(void)
     std::function<MatrixXd(const DQ_SerialManipulator&, const MatrixXd &, 
     const VectorXd&, const int)> fct_geomJac_ = geomJac;
     
-    // change joint angle commands_
+    //// Change joint angle commands_
     // VectorXd q = vi.get_joint_positions(jointnames);
-    VectorXd q_0 = vi.get_joint_positions(jointnames);
-    std::cout << "Joint positions q (at starting) is: \n"<< std::endl << q_0 << std::endl;
-    vi.set_joint_positions(jointnames,q_);
-    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    // VectorXd q_0 = vi.get_joint_positions(jointnames);
+    // std::cout << "Joint positions q (at starting) is: \n"<< std::endl << q_0 << std::endl;
+    // vi.set_joint_positions(jointnames,q_);
+    // std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     // vi.set_joint_positions(jointnames,q_1);
     // std::cout<<"change joint angle to orig..."<<std::endl;
     // std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-    VectorXd q = vi.get_joint_positions(jointnames);
-    std::cout << "Now Joint positions q is: \n"<< std::endl << q << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    // VectorXd q = vi.get_joint_positions(jointnames);
+    // std::cout << "Now Joint positions q is: \n"<< std::endl << q << std::endl;
+    // std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // test ik solver (without offset to synchronize with Vrep)
     // DQ x = robot_ik.fkm(q).normalize();
@@ -169,13 +169,16 @@ int main(void)
     MatrixXd Jm_t;
     MatrixXd M_diff(m,m);
     VectorXd vec_M_diff(21);
-    VectorXd ev_t;
+    Matrix<double, 6, 1> ev_t;
     MatrixXd ev_diff;
+    BDCSVD<MatrixXd> singularsolver;
 
     std::cout << "Starting control loop-------------------------------------------------" << std::endl;
     // Main control loop //////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
     for (int i = 0; i<nbIter; i++){
         VectorXd qt = vi.get_joint_positions(jointnames);
+        
         qt_track.col(i) = qt;
         // Obtain the current analytical Jacobian, geom J and M 
         J = robot.pose_jacobian(qt);
@@ -199,18 +202,16 @@ int main(void)
         std::cout<<"vec_M_diff: "<<std::endl<<vec_M_diff<<std::endl;
 
         // Calculate eigenvalue of the current M (singular value of J_geom)
-        BDCSVD<MatrixXd> singularsolver;
-        Matrix<double, 6, 1> eigenvalue;
-        eigenvalue = singularsolver.compute(J_geom).singularValues();
+        ev_t = singularsolver.compute(J_geom).singularValues();
+        std::cout<<"ev_t: -------------------"<<std::endl<<ev_t<<std::endl;
         ev_diff = jacobianEstVector(geomJac, qt, n, robot);
 
         // forward kinematic model
-        DQ xt = robot.fkm(qt);
+        // DQ xt = robot.fkm(qt);
         
-        // ++++++++++++++++++++QP Controller using osqp-eigen+++++++++++++++++++++++++
-        constexpr double tolerance = 1e-4;
-        c_float INFTY
-        double K_qp = 2; 
+        // ++++++++++++++++++++QP Controller using osqp-eigen+++++++++++++++++++++++++++++++++
+        // constexpr double tolerance = 1e-4;
+        c_float K_qp = 2; 
         Matrix<c_float, 7, 7> H = Jm_t.transpose()*Jm_t;
         SparseMatrix<c_float> H_s;
         H_s = H.sparseView();
@@ -218,15 +219,24 @@ int main(void)
         std::cout<<"H_S : "<<std::endl<<H_s<<std::endl;
         // H_s.pruned(0.01); // set those who smaller than 0.01 as zero?
         Matrix<c_float, 1, 7> f = -K_qp* vec_M_diff.transpose()*Jm_t;
+        std::cout<<"f: "<<std::endl<<f<<std::endl;
+
         // Inequality constraints:
         // 1. set min. allowed eigenvalue (min. ellipsoid axis length)
-        double ev_min_r = 0.05;
-        double ev_min_t = 0.01;
+        c_float ev_min_r = 0.05;
+        c_float ev_min_t = 0.01;
+        Matrix<c_float, 6,1> ev_min;
         Matrix<c_float, 6,1> v_max;
-        v_max << ev_min_r, ev_min_r, ev_min_r, ev_min_t, ev_min_t, ev_min_t;
+        ev_min << ev_min_r, ev_min_r, ev_min_r, ev_min_t, ev_min_t, ev_min_t;
+        v_max = (ev_min - ev_t)/dt;
         Matrix<c_float, 6, 1> lb = v_max;
-        
+        std::cout<<"lb: "<<lb.transpose()<<std::endl;
+        Matrix<c_float, 6, 7> A = ev_diff;
+        SparseMatrix<c_float> A_s;
+        A_s = A.sparseView();
+
         Matrix<c_float, 6, 1> ub;
+        ub.setConstant(OsqpEigen::INFTY);
 
         OsqpEigen::Solver solver;
         //settings:
@@ -237,7 +247,7 @@ int main(void)
         solver.data()->setNumberOfConstraints(6);
         solver.data()->setHessianMatrix(H_s);
         solver.data()->setGradient(f.transpose());
-        // solver.data()->setLinearConstraintsMatrix(A_s);
+        solver.data()->setLinearConstraintsMatrix(A_s);
         solver.data()->setLowerBound(lb);
         solver.data()->setUpperBound(ub);
 
@@ -249,21 +259,22 @@ int main(void)
         // expectedSolution << 0.3,  0.7;
 
         dq_track.col(i) = solver.getSolution();
-        std::cout<<"Solution : "<<std::endl<<dq_track.col(i)<<std::endl;
+        std::cout<<"Solution dq_t: "<<std::endl<<dq_track.col(i).transpose()<<std::endl;
 
         // bool converge = solver.getSolution().isApprox(expectedSolution, tolerance);
         // std::cout<<"Converged to desired solution: "<<converge<<std::endl;
-        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         // Integrate to obtain q_out
         qt = qt + dq_track.col(i)*dt;
+        std::cout << "Joint positions q after "<<i<<"-th step: "<< std::endl << qt.transpose() << std::endl;
         // Send commands to the robot
         vi.set_joint_positions(jointnames,qt);
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     }
     std::cout << "Control finished..." << std::endl;
     ///////////////////////////////////////////////////////////////////////////////////////////////////
-    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     std::cout << "Stopping V-REP simulation..." << std::endl;
     vi.stop_simulation();
     vi.disconnect();
