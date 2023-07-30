@@ -249,30 +249,6 @@ src/jacobianEstVector.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/jacobianEstVector.cpp.s
 .PHONY : src/jacobianEstVector.cpp.s
 
-src/joint_velocity_commands.o: src/joint_velocity_commands.cpp.o
-.PHONY : src/joint_velocity_commands.o
-
-# target to build an object file
-src/joint_velocity_commands.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o
-.PHONY : src/joint_velocity_commands.cpp.o
-
-src/joint_velocity_commands.i: src/joint_velocity_commands.cpp.i
-.PHONY : src/joint_velocity_commands.i
-
-# target to preprocess a source file
-src/joint_velocity_commands.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.i
-.PHONY : src/joint_velocity_commands.cpp.i
-
-src/joint_velocity_commands.s: src/joint_velocity_commands.cpp.s
-.PHONY : src/joint_velocity_commands.s
-
-# target to generate assembly for a file
-src/joint_velocity_commands.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.s
-.PHONY : src/joint_velocity_commands.cpp.s
-
 src/logmap.o: src/logmap.cpp.o
 .PHONY : src/logmap.o
 
@@ -320,6 +296,30 @@ src/manipulabilityJacobian.s: src/manipulabilityJacobian.cpp.s
 src/manipulabilityJacobian.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/manipulabilityJacobian.cpp.s
 .PHONY : src/manipulabilityJacobian.cpp.s
+
+src/manipulability_qp_controller.o: src/manipulability_qp_controller.cpp.o
+.PHONY : src/manipulability_qp_controller.o
+
+# target to build an object file
+src/manipulability_qp_controller.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/manipulability_qp_controller.cpp.o
+.PHONY : src/manipulability_qp_controller.cpp.o
+
+src/manipulability_qp_controller.i: src/manipulability_qp_controller.cpp.i
+.PHONY : src/manipulability_qp_controller.i
+
+# target to preprocess a source file
+src/manipulability_qp_controller.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/manipulability_qp_controller.cpp.i
+.PHONY : src/manipulability_qp_controller.cpp.i
+
+src/manipulability_qp_controller.s: src/manipulability_qp_controller.cpp.s
+.PHONY : src/manipulability_qp_controller.s
+
+# target to generate assembly for a file
+src/manipulability_qp_controller.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/manipulability_qp_controller.cpp.s
+.PHONY : src/manipulability_qp_controller.cpp.s
 
 src/redManipulabilityJacobian.o: src/redManipulabilityJacobian.cpp.o
 .PHONY : src/redManipulabilityJacobian.o
@@ -369,30 +369,6 @@ src/spdToVec.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.s
 .PHONY : src/spdToVec.cpp.s
 
-src/test.o: src/test.cpp.o
-.PHONY : src/test.o
-
-# target to build an object file
-src/test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o
-.PHONY : src/test.cpp.o
-
-src/test.i: src/test.cpp.i
-.PHONY : src/test.i
-
-# target to preprocess a source file
-src/test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/test.cpp.i
-.PHONY : src/test.cpp.i
-
-src/test.s: src/test.cpp.s
-.PHONY : src/test.s
-
-# target to generate assembly for a file
-src/test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/test.cpp.s
-.PHONY : src/test.cpp.s
-
 src/tmprod.o: src/tmprod.cpp.o
 .PHONY : src/tmprod.o
 
@@ -441,24 +417,21 @@ help:
 	@echo "... src/jacobianEstVector.o"
 	@echo "... src/jacobianEstVector.i"
 	@echo "... src/jacobianEstVector.s"
-	@echo "... src/joint_velocity_commands.o"
-	@echo "... src/joint_velocity_commands.i"
-	@echo "... src/joint_velocity_commands.s"
 	@echo "... src/logmap.o"
 	@echo "... src/logmap.i"
 	@echo "... src/logmap.s"
 	@echo "... src/manipulabilityJacobian.o"
 	@echo "... src/manipulabilityJacobian.i"
 	@echo "... src/manipulabilityJacobian.s"
+	@echo "... src/manipulability_qp_controller.o"
+	@echo "... src/manipulability_qp_controller.i"
+	@echo "... src/manipulability_qp_controller.s"
 	@echo "... src/redManipulabilityJacobian.o"
 	@echo "... src/redManipulabilityJacobian.i"
 	@echo "... src/redManipulabilityJacobian.s"
 	@echo "... src/spdToVec.o"
 	@echo "... src/spdToVec.i"
 	@echo "... src/spdToVec.s"
-	@echo "... src/test.o"
-	@echo "... src/test.i"
-	@echo "... src/test.s"
 	@echo "... src/tmprod.o"
 	@echo "... src/tmprod.i"
 	@echo "... src/tmprod.s"

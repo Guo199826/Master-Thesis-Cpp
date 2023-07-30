@@ -1,9 +1,9 @@
 [
 {
   "directory": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build",
-  "command": "/usr/bin/g++  -isystem /usr/include/eigen3 -isystem /usr/local/include/osqp -g -std=gnu++14 -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -o CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o -c /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/joint_velocity_commands.cpp",
-  "file": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/joint_velocity_commands.cpp",
-  "output": "CMakeFiles/joint_velocity_commands.dir/src/joint_velocity_commands.cpp.o"
+  "command": "/usr/bin/g++  -isystem /usr/include/eigen3 -isystem /usr/local/include/osqp -g -std=gnu++14 -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -o CMakeFiles/joint_velocity_commands.dir/src/manipulability_qp_controller.cpp.o -c /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/manipulability_qp_controller.cpp",
+  "file": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/manipulability_qp_controller.cpp",
+  "output": "CMakeFiles/joint_velocity_commands.dir/src/manipulability_qp_controller.cpp.o"
 },
 {
   "directory": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build",
@@ -22,12 +22,6 @@
   "command": "/usr/bin/g++  -isystem /usr/include/eigen3 -isystem /usr/local/include/osqp -g -std=gnu++14 -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -o CMakeFiles/joint_velocity_commands.dir/src/geomJac.cpp.o -c /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/geomJac.cpp",
   "file": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/geomJac.cpp",
   "output": "CMakeFiles/joint_velocity_commands.dir/src/geomJac.cpp.o"
-},
-{
-  "directory": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build",
-  "command": "/usr/bin/g++  -isystem /usr/include/eigen3 -isystem /usr/local/include/osqp -g -std=gnu++14 -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -o CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o -c /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/test.cpp",
-  "file": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/test.cpp",
-  "output": "CMakeFiles/joint_velocity_commands.dir/src/test.cpp.o"
 },
 {
   "directory": "/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build",
