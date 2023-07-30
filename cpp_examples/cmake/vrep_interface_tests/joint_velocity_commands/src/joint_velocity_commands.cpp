@@ -107,7 +107,9 @@ int main(void)
     MatrixXd J_goal;
     MatrixXd J_geom_goal;
     MatrixXd Me_d;
-    double Me_d_axis;
+    MatrixXd Me_d_axis;
+    MatrixXd Me_ct_axis;
+    MatrixXd M_diff_axis;
     Matrix<double, 1, 7> J_geom_goal_axis;
     J_goal = robot.pose_jacobian(q_goal);
     J_geom_goal = geomJac(robot, J_goal, q_goal, n);
@@ -158,18 +160,22 @@ int main(void)
     // }                                            
 
     // Initialization dq q_track M ev_diff
-    Vector3d inf_min;
-    inf_min.setConstant(1e-10);
+    // Vector3d inf_min;
+    // inf_min.setConstant(1e-10);
     MatrixXd qt_track(7,nbIter);
     MatrixXd dq_track(7,nbIter);
     MatrixXd x_t_track(3,nbIter);
     MatrixXd J;
     MatrixXd J_geom;
     MatrixXd J_geom_t;
+    MatrixXd J_geom_t_axis;
     MatrixXd Me_ct(m,m);
     Tensor<double, 3> Me_track(m,m,nbIter);
     Tensor<double, 3> J_grad(m,n,n);
+    Tensor<double, 3> J_grad_axis(1,n,n);
+    Tensor<double, 3> Jm_t_axis_;
     MatrixXd Jm_t;
+    MatrixXd Jm_t_axis;
     MatrixXd M_diff(m,m);
     VectorXd vec_M_diff(21);
     Matrix<double, 6, 1> ev_t;
@@ -196,24 +202,34 @@ int main(void)
         J = robot.pose_jacobian(qt);
         J_geom = geomJac(robot, J, qt, n); 
         J_geom_t = J_geom.block(3, 0, 3, n); 
+        J_geom_t_axis = J_geom_t.row(0); // translation in x as primary tracking object
         std::cout<<"----------J_geom_t: "<<std::endl<<J_geom_t<<std::endl;
-
+        std::cout<<"----------J_geom_t_axis: "<<std::endl<<J_geom_t_axis<<std::endl;
         // Current Mani and Record Me_ct into Me_track
         Me_ct = J_geom*J_geom.transpose();
+        Me_ct_axis = J_geom_t_axis*J_geom_t_axis.transpose();
         array<DenseIndex, 3> offset = {0, 0, i};
         array<DenseIndex, 3> extent = {m, m, 1};
         Tensor<double, 3> Me_ct_tensor = TensorMap<Tensor<double, 3>>(Me_ct.data(), 6, 6, 1);
         Me_track.slice(offset, extent) = Me_ct_tensor;
         J_grad = jacobianEst(geomJac, qt, n, robot);
+        array<DenseIndex, 3> offset_axis = {3, 0, 0}; // translation in x
+        array<DenseIndex, 3> extent_axis = {1, 7, 7};
+        J_grad_axis = J_grad.slice(offset_axis, extent_axis);
         // Compute manipulability Jacobian (red to matrix)
         Jm_t = redManipulabilityJacobian(J_geom, J_grad);
-        // std::cout<<"Jm_red: "<<std::endl<<Jm_red<<std::endl;
+        Jm_t_axis_ = manipulabilityJacobian(J_geom_t_axis, J_grad_axis);
+        Jm_t_axis = Map<MatrixXd> (Jm_t_axis_.data(), 1, 7);
+        std::cout<<"Jm_t_axis_: "<<std::endl<<Jm_t_axis_ <<std::endl;
 
         // Compute distance to desired manipulybility 
         M_diff = logmap(Me_d, Me_ct); // 6x6
+        M_diff_axis = logmap(Me_d_axis, Me_ct_axis); // 1
+
         vec_M_diff = spd2vec_vec(M_diff); // 21x1
         std::cout<<"M_diff: "<<std::endl<<M_diff<<std::endl;
-        std::cout<<"vec_M_diff: "<<std::endl<<vec_M_diff<<std::endl;
+        std::cout<<"M_diff_axis: "<<std::endl<<M_diff_axis<<std::endl;
+        // std::cout<<"vec_M_diff: "<<std::endl<<vec_M_diff<<std::endl;
 
         // Calculate eigenvalue of the current M (singular value of J_geom)
         ev_t = singularsolver.compute(J_geom).singularValues();
@@ -239,24 +255,34 @@ int main(void)
         Matrix<c_float, 6,1> v_max;
         ev_min << ev_min_r, ev_min_r, ev_min_r, ev_min_t, ev_min_t, ev_min_t;
         v_max = (ev_min - ev_t)/dt;
-        Matrix<c_float, 9, 1> lb;
+        Matrix<c_float, 10, 1> lb;
         lb.block(0,0,6,1) = v_max;
         lb.block(6,0,3,1) = dxr;
+        lb.block(9,0,1,1) = M_diff_axis;
+        // lb.block(9,0,1,1).setZero();
+
         std::cout<<"lb: "<<lb.transpose()<<std::endl;
-        Matrix<c_float, 9, 7> A;
+        Matrix<c_float, 10, 7> A;
         A.block(0,0,6,7) = ev_diff;
         A.block(6,0,3,7) = J_geom_t;
+        A.block(9,0,1,7) = Jm_t_axis;
+        // A.block(9,0,1,7).setZero();
+        std::cout<<"A: "<<std::endl<<A<<std::endl;
+
         A_s = A.sparseView();
-        Matrix<c_float, 9, 1> ub;
+        Matrix<c_float, 10, 1> ub;
         ub.block(0,0,6,1).setConstant(OsqpEigen::INFTY);
         ub.block(6,0,3,1) = dxr;
+        ub.block(9,0,1,1) = M_diff_axis;
+        // ub.block(9,0,1,1).setZero();
+
         std::cout<<"ub: "<<ub.transpose()<<std::endl;
         // solver.settings()->setVerbosity(true); // print outptu or not
         OsqpEigen::Solver solver;
         solver.settings()->setAlpha(1); // ADMM relaxation parameter/step size/penalty parameter
         solver.data()->setNumberOfVariables(7);
-        solver.data()->setNumberOfConstraints(9); //eigenvalue (6) + x_t_tracking(3) + limits(7)
-
+        //eigenvalue (6) + x_t_tracking(3) + aixs tracking(1) + limits(7)
+        solver.data()->setNumberOfConstraints(10); 
         solver.data()->setHessianMatrix(H_s);
         solver.data()->setGradient(f.transpose());
         solver.data()->setLinearConstraintsMatrix(A_s);
