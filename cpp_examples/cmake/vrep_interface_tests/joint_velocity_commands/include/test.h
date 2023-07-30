@@ -1,3 +1,6 @@
+#ifndef TEST_H
+#define TEST_H
+
 #include <iostream>
 #include "../include/jacobianEstVector.h"
 #include "../include/jacobianEst.h"
@@ -17,3 +20,5 @@
 using namespace DQ_robotics;
 
 int test();
+
+#endif

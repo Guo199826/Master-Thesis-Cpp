@@ -25,7 +25,8 @@ Prerequisites:
    (Updated version: vrep_interface_tests/DQRoboticsApiCommandServer.lua)
 3) Compile, run and enjoy!
 */
-
+#ifndef MANIPULABILITY_QP_CONTROLLER_H
+#define MANIPULABILITY_QP_CONTROLLER_H
 #include <iostream>
 // #include <dqrobotics/DQ.h>
 #include <dqrobotics/interfaces/vrep/DQ_VrepInterface.h>
@@ -47,3 +48,7 @@ Prerequisites:
 
 using namespace Eigen;
 using namespace DQ_robotics;
+
+int main(void);
+
+#endif
