@@ -137,7 +137,11 @@ CMakeFiles/joint_velocity_commands.dir/src/manipulabilityJacobian.cpp.o: \
  /usr/include/c++/9/bits/locale_facets.tcc \
  /usr/include/c++/9/bits/basic_ios.tcc \
  /usr/include/c++/9/bits/ostream.tcc /usr/include/c++/9/istream \
- /usr/include/c++/9/bits/istream.tcc /usr/include/eigen3/Eigen/Dense \
+ /usr/include/c++/9/bits/istream.tcc /usr/include/c++/9/fstream \
+ /usr/include/c++/9/bits/codecvt.h \
+ /usr/include/x86_64-linux-gnu/c++/9/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/9/bits/c++io.h \
+ /usr/include/c++/9/bits/fstream.tcc /usr/include/eigen3/Eigen/Dense \
  /usr/include/eigen3/Eigen/Core \
  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
@@ -434,4 +438,5 @@ CMakeFiles/joint_velocity_commands.dir/src/manipulabilityJacobian.cpp.o: \
  /usr/include/dqrobotics/robot_modeling/DQ_SerialManipulator.h \
  /usr/include/dqrobotics/robot_modeling/DQ_Kinematics.h \
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/../include/spdToVec.h \
- /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/../include/tmprod.h
+ /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/../include/tmprod.h \
+ /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/../include/readData.h

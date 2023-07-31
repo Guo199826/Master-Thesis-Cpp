@@ -24,6 +24,8 @@ add_executable(joint_velocity_commands
     src/tmprod.cpp
     include/franka_analytical_ik-main/franka_ik_He.hpp
     src/dq2tfm.cpp
+    src/readData.cpp
+    # src/matcreat.cpp
     )
 
 

@@ -461,8 +461,13 @@ CMakeFiles/joint_velocity_commands.dir/src/manipulability_qp_controller.cpp.o: \
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/../include/geomJac.h \
  /usr/include/dqrobotics/robots/FrankaEmikaPandaRobot.h \
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/../include/manipulabilityJacobian.h \
+ /usr/include/c++/9/fstream /usr/include/c++/9/bits/codecvt.h \
+ /usr/include/x86_64-linux-gnu/c++/9/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/9/bits/c++io.h \
+ /usr/include/c++/9/bits/fstream.tcc \
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/../include/../include/spdToVec.h \
  /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/../include/../include/tmprod.h \
+ /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/../include/../include/../include/readData.h \
  /usr/local/include/OsqpEigen/OsqpEigen.h \
  /usr/local/include/OsqpEigen/Constants.hpp \
  /usr/local/include/osqp/osqp.h /usr/local/include/osqp/types.h \

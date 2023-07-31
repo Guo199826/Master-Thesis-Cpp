@@ -321,6 +321,30 @@ src/manipulability_qp_controller.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/manipulability_qp_controller.cpp.s
 .PHONY : src/manipulability_qp_controller.cpp.s
 
+src/readData.o: src/readData.cpp.o
+.PHONY : src/readData.o
+
+# target to build an object file
+src/readData.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/readData.cpp.o
+.PHONY : src/readData.cpp.o
+
+src/readData.i: src/readData.cpp.i
+.PHONY : src/readData.i
+
+# target to preprocess a source file
+src/readData.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/readData.cpp.i
+.PHONY : src/readData.cpp.i
+
+src/readData.s: src/readData.cpp.s
+.PHONY : src/readData.s
+
+# target to generate assembly for a file
+src/readData.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/readData.cpp.s
+.PHONY : src/readData.cpp.s
+
 src/redManipulabilityJacobian.o: src/redManipulabilityJacobian.cpp.o
 .PHONY : src/redManipulabilityJacobian.o
 
@@ -426,6 +450,9 @@ help:
 	@echo "... src/manipulability_qp_controller.o"
 	@echo "... src/manipulability_qp_controller.i"
 	@echo "... src/manipulability_qp_controller.s"
+	@echo "... src/readData.o"
+	@echo "... src/readData.i"
+	@echo "... src/readData.s"
 	@echo "... src/redManipulabilityJacobian.o"
 	@echo "... src/redManipulabilityJacobian.i"
 	@echo "... src/redManipulabilityJacobian.s"

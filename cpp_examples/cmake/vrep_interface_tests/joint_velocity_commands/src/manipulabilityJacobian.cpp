@@ -9,6 +9,5 @@ Tensor<double, 3> manipulabilityJacobian(const MatrixXd &geomJ, const Tensor<dou
     // std::cout<<d<<std::endl;
     // std::cout<<d_2<<std::endl;
 
-
     return Jm;
 }

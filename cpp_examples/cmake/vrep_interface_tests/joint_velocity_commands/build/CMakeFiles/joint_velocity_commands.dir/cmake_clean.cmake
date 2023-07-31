@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/joint_velocity_commands.dir/src/manipulabilityJacobian.cpp.o.d"
   "CMakeFiles/joint_velocity_commands.dir/src/manipulability_qp_controller.cpp.o"
   "CMakeFiles/joint_velocity_commands.dir/src/manipulability_qp_controller.cpp.o.d"
+  "CMakeFiles/joint_velocity_commands.dir/src/readData.cpp.o"
+  "CMakeFiles/joint_velocity_commands.dir/src/readData.cpp.o.d"
   "CMakeFiles/joint_velocity_commands.dir/src/redManipulabilityJacobian.cpp.o"
   "CMakeFiles/joint_velocity_commands.dir/src/redManipulabilityJacobian.cpp.o.d"
   "CMakeFiles/joint_velocity_commands.dir/src/spdToVec.cpp.o"
