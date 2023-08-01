@@ -11,6 +11,7 @@ project(joint_velocity_commands)
 
 add_executable(joint_velocity_commands
     src/manipulability_qp_controller.cpp
+    src/admittance_controller.cpp
     src/jacobianEst.cpp
     src/jacobianEstVector.cpp
     src/geomJac.cpp

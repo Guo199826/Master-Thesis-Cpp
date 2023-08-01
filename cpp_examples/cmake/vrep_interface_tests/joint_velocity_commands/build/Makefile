@@ -57,18 +57,18 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands
+CMAKE_SOURCE_DIR = /home/yre/Desktop/Guo_masterthesis/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build
+CMAKE_BINARY_DIR = /home/yre/Desktop/Guo_masterthesis/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
-	/usr/local/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
+	/usr/local/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yre/Desktop/Guo_masterthesis/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles /home/yre/Desktop/Guo_masterthesis/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yre/Desktop/Guo_masterthesis/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -152,6 +152,30 @@ src/FrankaRobot.s: src/FrankaRobot.cpp.s
 src/FrankaRobot.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/FrankaRobot.cpp.s
 .PHONY : src/FrankaRobot.cpp.s
+
+src/admittance_controller.o: src/admittance_controller.cpp.o
+.PHONY : src/admittance_controller.o
+
+# target to build an object file
+src/admittance_controller.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/admittance_controller.cpp.o
+.PHONY : src/admittance_controller.cpp.o
+
+src/admittance_controller.i: src/admittance_controller.cpp.i
+.PHONY : src/admittance_controller.i
+
+# target to preprocess a source file
+src/admittance_controller.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/admittance_controller.cpp.i
+.PHONY : src/admittance_controller.cpp.i
+
+src/admittance_controller.s: src/admittance_controller.cpp.s
+.PHONY : src/admittance_controller.s
+
+# target to generate assembly for a file
+src/admittance_controller.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joint_velocity_commands.dir/build.make CMakeFiles/joint_velocity_commands.dir/src/admittance_controller.cpp.s
+.PHONY : src/admittance_controller.cpp.s
 
 src/dq2tfm.o: src/dq2tfm.cpp.o
 .PHONY : src/dq2tfm.o
@@ -429,6 +453,9 @@ help:
 	@echo "... src/FrankaRobot.o"
 	@echo "... src/FrankaRobot.i"
 	@echo "... src/FrankaRobot.s"
+	@echo "... src/admittance_controller.o"
+	@echo "... src/admittance_controller.i"
+	@echo "... src/admittance_controller.s"
 	@echo "... src/dq2tfm.o"
 	@echo "... src/dq2tfm.i"
 	@echo "... src/dq2tfm.s"

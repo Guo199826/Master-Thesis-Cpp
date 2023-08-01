@@ -46,6 +46,9 @@ Prerequisites:
 // #include "osqp/osqp.h"
 #include "OsqpEigen/OsqpEigen.h"
 
+/////////////////////////// ADD ADMITTANCE CONTROLLER
+#include "../include/admittance_controller.h"
+
 using namespace Eigen;
 using namespace DQ_robotics;
 

@@ -251,6 +251,26 @@ int main(void)
         M_ub.block(0,2,7,1) = dq_max_ddq;
         std::cout<<"M_lb: "<<std::endl<<M_lb<<std::endl;
         std::cout<<"M_ub: "<<std::endl<<M_ub<<std::endl;
+
+
+
+        
+        ////////////////////////////// ADD THE ADMITTANCE CONTROLLER, WHAT IS desired position, the current position and velocity?
+        VectorXd x_d;
+        x_d.setOnes(6);
+        VectorXd x_c;
+        x_c.setOnes(6);
+        VectorXd x_dot_c;
+        x_dot_c.setOnes(6);
+
+        VectorXd x_modified_d;
+        x_modified_d = Admittance_Controller(x_d, x_c, x_dot_c);
+        std::cout << "desired position: "<<std::endl << x_d << std::endl;
+        std::cout << "modified desired position: "<<std::endl << x_modified_d << std::endl;
+
+
+
+
         
         VectorXd lb_limits;
         lb_limits = M_lb.rowwise().maxCoeff();
