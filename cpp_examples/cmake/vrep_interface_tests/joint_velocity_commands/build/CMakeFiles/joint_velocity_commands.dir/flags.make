@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -isystem /usr/local/include/eigen3 -isystem /usr/local/include/osqp
 
-CXX_FLAGS = -g -std=gnu++14 -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual
+CXX_FLAGS = -std=gnu++14 -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual
 
