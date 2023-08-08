@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/geomJac.h
+iostream
+-
+eigen3/Eigen/Dense
+-
+dqrobotics/DQ.h
+-
+dqrobotics/robots/FrankaEmikaPandaRobot.h
+-
+memory
+-
+
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/jacobianEst.h
+iostream
+-
+eigen3/Eigen/Dense
+-
+eigen3/unsupported/Eigen/CXX11/Tensor
+-
+dqrobotics/DQ.h
+-
+dqrobotics/robot_modeling/DQ_SerialManipulator.h
+-
+../include/geomJac.h
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/geomJac.h
+
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/src/jacobianEst.cpp
+../include/jacobianEst.h
+/home/guo/Master-Thesis-Cpp/cpp_examples/cmake/vrep_interface_tests/joint_velocity_commands/include/jacobianEst.h
+
