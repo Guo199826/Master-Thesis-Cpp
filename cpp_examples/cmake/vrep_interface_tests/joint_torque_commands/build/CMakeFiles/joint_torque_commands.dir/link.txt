@@ -1,1 +1,0 @@
-/usr/bin/g++  -g  -rdynamic CMakeFiles/joint_torque_commands.dir/joint_torque_commands.cpp.o  -o joint_torque_commands  -lpthread -ldqrobotics -ldqrobotics-interface-vrep 

@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/performance_evaluation/build",
-  "command": "/usr/bin/g++   -I/usr/include/eigen3  -g   -Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -std=gnu++11 -o CMakeFiles/performance_evaluation.dir/performance_evaluation.cpp.o -c /home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/performance_evaluation/performance_evaluation.cpp",
-  "file": "/home/guo/master_thesis/Master-Thesis-Cpp/cpp-examples/cmake/performance_evaluation/performance_evaluation.cpp"
-}
-]
