@@ -48,7 +48,7 @@ int main(void)
     Eigen::MatrixXd x_t_traj_;
     size_t col;
     // get joint angle trajectory from csv
-    joint_states_csv_ = load_csv("/home/guo/Master-Thesis-Cpp/joint_velocity_commands/data/csv/joint_position_exam_force.csv");
+    joint_states_csv_ = load_csv("/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/data/csv/joint_position_exam_force.csv");
     col = joint_states_csv_.cols();
     std::cout<<"col of matrixXd: "<<col<<std::endl;
 
@@ -69,7 +69,7 @@ int main(void)
     }
     // x_t_traj = q2x(joint_states_csv_,col);
     // x_t_traj = x_t_traj_;
-    std::cout<<"test x_t_traj: \n"<<x_t_traj_.col(col-1).transpose()<<std::endl;
+    // std::cout<<"test x_t_traj: \n"<<x_t_traj_.col(col-1).transpose()<<std::endl;
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     VectorXd q_ (n);
@@ -180,6 +180,8 @@ int main(void)
     SparseMatrix<c_float> A_s;
     Matrix<double, 7, 7> I;
     I.setIdentity();
+    Matrix<double, 3, 1> I_3;
+    I_3.setIdentity();
 
     std::cout << "Starting control loop-------------------------------------------------" << std::endl;
     // Main control loop //////////////////////////////////////////////////////////////////////////////
@@ -187,6 +189,7 @@ int main(void)
     for (int j = 0; j<nbData; j++){
         q_goal = joint_states_csv_.col(j);
         x_t_goal = x_t_traj_.col(j);
+        // std::cout<<"xt_goal: "<<x_t_goal.transpose()<<std::endl;
 
         J_goal = robot.pose_jacobian(q_goal);
         J_geom_goal = geomJac(robot, J_goal, q_goal, n);
@@ -202,6 +205,7 @@ int main(void)
             DQ xt = robot.fkm(qt);
             // auto tfm = dq2tfm(xt);
             Vector3d xt_t = xt.translation().vec3();
+            // std::cout<<"xt_t curr: "<<xt_t.transpose()<<std::endl;
             x_t_track.col(curr) = xt_t;
             // Compute cartesian velocity dx:
             // Vector3d dxr = (x_t_track.col(0) - xt_t)*(1/dt);
@@ -249,7 +253,7 @@ int main(void)
             // ++++++++++++++++++++QP Controller using osqp-eigen+++++++++++++++++++++++++++++++++
             // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             // constexpr double tolerance = 1e-4;
-            c_float K_qp = 5; 
+            c_float K_qp = 10; 
             Matrix<c_float, 7, 7> H = Jm_t.transpose()*Jm_t;
             H_s = H.sparseView();
             // std::cout<<"H: "<<std::endl<<H<<std::endl;
@@ -265,7 +269,7 @@ int main(void)
             // 1. Inequality Constraint:---------------------------------------
             // set min. allowed eigenvalue (min. ellipsoid axis length)
             c_float ev_min_r = 0.5;
-            c_float ev_min_t = 0.15;
+            c_float ev_min_t = 0.03;
             Matrix<c_float, 6,1> ev_min;
             Matrix<c_float, 6,1> v_max;
             ev_min << ev_min_r, ev_min_r, ev_min_r, ev_min_t, ev_min_t, ev_min_t;
@@ -273,19 +277,22 @@ int main(void)
             lb.block(0,0,6,1) = v_max;
             A.block(0,0,6,7) = ev_diff;
             ub.block(0,0,6,1).setConstant(OsqpEigen::INFTY);
+            // lb.block(0,0,6,1).setZero();
+            // A.block(0,0,6,7).setZero();
+            // ub.block(0,0,6,1).setZero();
             // 2. Equality Constraint for cartesian tracking-------------------
-            lb.block(6,0,3,1).setZero();
-            A.block(6,0,3,7).setZero();
-            ub.block(6,0,3,1).setZero();
+            // lb.block(6,0,3,1).setZero();
+            // A.block(6,0,3,7).setZero();
+            // ub.block(6,0,3,1).setZero();
             // tune the gain! To give cartesian tracking some space
-            Vector3d dxr = (x_t_goal - xt_t);
-            // lb.block(6,0,3,1) = dxr; 
-            // A.block(6,0,3,7) = J_geom_t;
-            // ub.block(6,0,3,1) = dxr;
+            Vector3d dxr = (x_t_goal - xt_t)*5;
+            lb.block(6,0,3,1) = dxr - 0.0*I_3; 
+            A.block(6,0,3,7) = J_geom_t;
+            ub.block(6,0,3,1) = dxr + 0.0*I_3;
             // 3. Equality Constraint for single axis ME tracking--------------
-            lb.block(9,0,1,1).setZero();
-            A.block(9,0,1,7).setZero();
-            ub.block(9,0,1,1).setZero();
+            // lb.block(9,0,1,1).setZero();
+            // A.block(9,0,1,7).setZero();
+            // ub.block(9,0,1,1).setZero();
             // lb.block(9,0,1,1) = M_diff_axis;
             // A.block(9,0,1,7) = Jm_t_axis;
             // ub.block(9,0,1,1) = M_diff_axis;
@@ -296,13 +303,19 @@ int main(void)
             lb.block(10,0,7,1) = dq_min;
             A.block(10,0,7,7) = I;
             ub.block(10,0,7,1) = dq_max;
+            // lb.block(10,0,7,1).setZero();
+            // A.block(10,0,7,7).setZero();
+            // ub.block(10,0,7,1).setZero();
             // b. Regarding joint position: 
             // tune the gain!!!
-            dq_min_q = (q_min-qt);
-            dq_max_q = (q_max-qt);
+            dq_min_q = (q_min-qt)*100;
+            dq_max_q = (q_max-qt)*100;
             lb.block(17,0,7,1) = dq_min_q;
             A.block(17,0,7,7) = I;
             ub.block(17,0,7,1) = dq_max_q;
+            // lb.block(17,0,7,1).setZero();
+            // A.block(17,0,7,7).setZero();
+            // ub.block(17,0,7,1).setZero();
             // c. Regarding joint acceleration:
             if (curr == 0){
                 dq_min_ddq = -ddq_max*2;
@@ -310,8 +323,8 @@ int main(void)
             }
             else {
                 // tune the gain!!!
-                dq_min_ddq = dq_track.col(curr-1) - ddq_max * dt ;
-                dq_max_ddq = dq_track.col(curr-1) + ddq_max * dt ;
+                dq_min_ddq = dq_track.col(curr-1) - ddq_max*dt  ;
+                dq_max_ddq = dq_track.col(curr-1) + ddq_max*dt  ;
             }
             lb.block(24,0,7,1) = dq_min_ddq;
             A.block(24,0,7,7) = I;
@@ -373,8 +386,8 @@ int main(void)
             
             // std::cout<<"ub: "<<ub.transpose()<<std::endl;
 
-            // solver.settings()->setVerbosity(true); // print outptu or not
             OsqpEigen::Solver solver;
+            solver.settings()->setVerbosity(false); // print outptu or not
             solver.settings()->setAlpha(1.5); // ADMM relaxation parameter/step size/penalty parameter
             solver.data()->setNumberOfVariables(7);
             //eigenvalue (6) + x_t_tracking(3) + aixs tracking(1) + limits(7)
@@ -388,14 +401,14 @@ int main(void)
             solver.solveProblem();
 
             dq_track.col(curr) = solver.getSolution();
-            std::cout<<"Solution dq_t: "<<std::endl<<dq_track.col(i).transpose()<<std::endl;
+            // std::cout<<"Solution dq_t: "<<std::endl<<dq_track.col(i).transpose()<<std::endl;
             // bool converge = solver.getSolution().isApprox(expectedSolution, tolerance);
             // std::cout<<"Converged to desired solution: "<<converge<<std::endl;
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             // Integrate to obtain q_out
             qt = qt + dq_track.col(curr)*dt;
-            std::cout << "Joint positions q after "<<i<<"-th step: "<< std::endl << qt.transpose() << std::endl;
+            // std::cout << "Joint positions q after "<<i<<"-th step: "<< std::endl << qt.transpose() << std::endl;
             // Send commands to the robot
             vi.set_joint_positions(jointnames,qt);
             // std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -405,9 +418,11 @@ int main(void)
     std::cout << "Control finished..." << std::endl;
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    write2csv("/home/guo/Master-Thesis-Cpp/joint_velocity_commands/data/csv/q_traj.csv",qt_track);
-    write2csv("/home/guo/Master-Thesis-Cpp/joint_velocity_commands/data/csv/dq_traj.csv",dq_track);
-    write2csv("/home/guo/Master-Thesis-Cpp/joint_velocity_commands/data/csv/x_t_traj.csv",x_t_track);
+    write2csv("/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/data/csv/q_traj.csv",qt_track);
+    write2csv("/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/data/csv/dq_traj.csv",dq_track);
+    write2csv("/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/data/csv/x_t_tack.csv",x_t_track);
+    write2csv("/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/data/csv/x_t_traj.csv",x_t_traj_);
+
 
     // std::cout<<"Me_track: "<<Me_track<<std::endl;
 

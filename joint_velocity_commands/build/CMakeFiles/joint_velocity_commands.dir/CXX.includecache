@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/FrankaRobot.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/FrankaRobot.h
 dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h
 -
 dqrobotics/utils/DQ_Constants.h
 -
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/convert_csv2matrix.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/convert_csv2matrix.h
 eigen3/Eigen/Dense
 -
 vector
@@ -28,7 +28,7 @@ string
 utility
 -
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/convert_matrix2csv.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/convert_matrix2csv.h
 iostream
 -
 fstream
@@ -36,7 +36,7 @@ fstream
 eigen3/Eigen/Dense
 -
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/dq2tfm.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/dq2tfm.h
 iostream
 -
 dqrobotics/DQ.h
@@ -48,7 +48,7 @@ eigen3/Eigen/Core
 eigen3/Eigen/Geometry
 -
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/geomJac.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/geomJac.h
 iostream
 -
 eigen3/Eigen/Dense
@@ -60,7 +60,7 @@ dqrobotics/robots/FrankaEmikaPandaRobot.h
 memory
 -
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/jacobianEst.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/jacobianEst.h
 iostream
 -
 eigen3/Eigen/Dense
@@ -72,9 +72,9 @@ dqrobotics/DQ.h
 dqrobotics/robot_modeling/DQ_SerialManipulator.h
 -
 ../include/geomJac.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/geomJac.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/geomJac.h
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/jacobianEstVector.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/jacobianEstVector.h
 iostream
 -
 eigen3/Eigen/Dense
@@ -84,9 +84,9 @@ dqrobotics/DQ.h
 dqrobotics/robot_modeling/DQ_SerialManipulator.h
 -
 ../include/geomJac.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/geomJac.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/geomJac.h
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/logmap.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/logmap.h
 iostream
 -
 eigen3/Eigen/Dense
@@ -98,7 +98,7 @@ dqrobotics/robot_modeling/DQ_SerialManipulator.h
 functional
 -
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/manipulabilityJacobian.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/manipulabilityJacobian.h
 iostream
 -
 fstream
@@ -112,19 +112,19 @@ dqrobotics/DQ.h
 dqrobotics/robot_modeling/DQ_SerialManipulator.h
 -
 ../include/spdToVec.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/spdToVec.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/spdToVec.h
 ../include/tmprod.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/tmprod.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/tmprod.h
 ../include/readData.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/readData.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/readData.h
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/manipulability_qp_controller.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/manipulability_qp_controller.h
 iostream
 -
 dqrobotics/interfaces/vrep/DQ_VrepInterface.h
 -
 ../include/FrankaRobot.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/FrankaRobot.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/FrankaRobot.h
 thread
 -
 eigen3/Eigen/Core
@@ -132,27 +132,27 @@ eigen3/Eigen/Core
 eigen3/Eigen/Geometry
 -
 dq2tfm.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/dq2tfm.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/dq2tfm.h
 logmap.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/logmap.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/logmap.h
 jacobianEst.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/jacobianEst.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/jacobianEst.h
 jacobianEstVector.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/jacobianEstVector.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/jacobianEstVector.h
 geomJac.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/geomJac.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/geomJac.h
 manipulabilityJacobian.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/manipulabilityJacobian.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/manipulabilityJacobian.h
 convert_csv2matrix.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/convert_csv2matrix.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/convert_csv2matrix.h
 convert_matrix2csv.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/convert_matrix2csv.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/convert_matrix2csv.h
 OsqpEigen/OsqpEigen.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/OsqpEigen/OsqpEigen.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/OsqpEigen/OsqpEigen.h
 chrono
 -
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/readData.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/readData.h
 iostream
 -
 eigen3/Eigen/Dense
@@ -162,7 +162,7 @@ eigen3/unsupported/Eigen/CXX11/Tensor
 fstream
 -
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/spdToVec.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/spdToVec.h
 iostream
 -
 eigen3/Eigen/Dense
@@ -170,7 +170,7 @@ eigen3/Eigen/Dense
 eigen3/unsupported/Eigen/CXX11/Tensor
 -
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/tmprod.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/tmprod.h
 iostream
 -
 eigen3/Eigen/Dense
@@ -178,7 +178,7 @@ eigen3/Eigen/Dense
 eigen3/unsupported/Eigen/CXX11/Tensor
 -
 
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/src/manipulability_qp_controller.cpp
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/src/manipulability_qp_controller.cpp
 ../include/manipulability_qp_controller.h
-/home/guo/Master-Thesis-Cpp/joint_velocity_commands/include/manipulability_qp_controller.h
+/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/include/manipulability_qp_controller.h
 

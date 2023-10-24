@@ -1,4 +1,4 @@
-# Install script for directory: /home/guo/Master-Thesis-Cpp/joint_velocity_commands
+# Install script for directory: /home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/guo/Master-Thesis-Cpp/joint_velocity_commands/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/guo/mani_qp_controller_vrep/mani_qp_controller_vrep/joint_velocity_commands/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
